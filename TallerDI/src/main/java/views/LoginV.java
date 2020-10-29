@@ -10,27 +10,35 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import dao.UsuarioDAO;
+import models.Usuario;
+
 import java.awt.FlowLayout;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 
-public class LoginV extends JPanel implements ActionListener{
+public class LoginV extends JFrame implements ActionListener{
 
-	private JFrame frame;
+	
 	private JTextField tFUsuario;
 	private JPasswordField pFPassword;
-	protected JLabel lblUsuario,lblPassword;
+	protected JLabel lblUsuario,lblPassword,lblLogin;
 	protected JButton btnNewButton;
 	protected JPanel panelPrincipal, panelSuperior,panelInferior,panelVacioIzquierda,
 					 panelContenido,panelUsuario,panelPassword,panelVacioDerecha,panelButton;
+	protected UsuarioDAO miUsuarioDao;
+	protected Usuario miUsuario;
 	
 	/**
 	 * Create the application.
 	 */
 	public LoginV() {
 		initialize();
+		miUsuarioDao = new UsuarioDAO();
+		
 	}
 
 	/**
@@ -43,11 +51,12 @@ public class LoginV extends JPanel implements ActionListener{
 		FlowLayout flowLayoutP;
 		
 		//Iniciamos y damos las propiedades al frame
-		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
-		frame.setResizable(false);
-		frame.setTitle("APP TALLER");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+	
+		this.setBounds(100, 100, 800, 600);
+		this.setResizable(false);
+		this.setTitle("APP TALLER");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		//Iniciamos todos los componentes 
 		panelPrincipal = new JPanel();
@@ -64,11 +73,13 @@ public class LoginV extends JPanel implements ActionListener{
 		tFUsuario = new JTextField();
 		lblPassword = new JLabel("Password");
 		pFPassword = new JPasswordField();
+		lblLogin = new JLabel("Usuario o contraseña incorrecta");
+		lblLogin.setVisible(false);
 		btnNewButton = new JButton("Iniciar sesión");
 		btnNewButton.addActionListener(this);
 		
 		//Ponemos sus layout
-		frame.getContentPane().add(panelPrincipal, BorderLayout.CENTER);
+		this.getContentPane().add(panelPrincipal, BorderLayout.CENTER);
 		panelPrincipal.setLayout(new GridLayout(2, 0, 0, 0));
 		panelInferior.setLayout(new GridLayout(0, 3, 0, 0));
 		panelContenido.setLayout(new GridLayout(3, 0, 0, 0));
@@ -92,6 +103,7 @@ public class LoginV extends JPanel implements ActionListener{
 		lblPassword.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		pFPassword.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		pFPassword.setColumns(15);
+		lblLogin.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
 		btnNewButton.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 
 		//Añadidmos a los paneles todos los paneles con los tF,JLabel,coloreados...
@@ -112,13 +124,48 @@ public class LoginV extends JPanel implements ActionListener{
 		panelUsuario.add(tFUsuario);		
 		panelPassword.add(lblPassword);
 		panelPassword.add(pFPassword);		
+		
+		
+		panelPassword.add(lblLogin);
 		panelButton.add(btnNewButton);
 	
-		this.frame.setVisible(true);
+		this.setVisible(true);
 	}
-	
+	/**
+	 * Método para cuando se pulse el botón de iniciar sesión
+	 */
 	public void actionPerformed(ActionEvent e) {
+		//Pillamos la contraseña del textfield
+		String pass = new String(pFPassword.getPassword());		
+		VentasGenerico ventanaV;
+		JefeGenerico ventanaJ;
+		MecanicoGenerico ventanaM;
+		miUsuario = miUsuarioDao.testLogin(tFUsuario.getText(),pass);	
 
-		
+		if(miUsuario!=null) {
+			String rol = miUsuario.getRol();
+			//si el usuario no es null, ponemos el label invisible
+			lblLogin.setVisible(false);
+			
+			switch (rol) {
+			case "ventas":
+				this.setVisible(false);
+				dispose();
+				ventanaV = new VentasGenerico();
+				break;
+			case "jefe":
+				this.setVisible(false);
+				ventanaJ = new JefeGenerico();
+				break;
+			case "mecanico":
+				this.setVisible(false);
+				dispose();
+				ventanaM = new MecanicoGenerico();
+				break;		
+			}			
+		}else {
+			//si es null ponemos el label de aviso verdadero
+			lblLogin.setVisible(true);
+		}
 	}
 }
