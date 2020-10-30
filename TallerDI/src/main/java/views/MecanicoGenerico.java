@@ -6,16 +6,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import models.Usuario;
+
 public class MecanicoGenerico extends JFrame implements ActionListener{
 
 	private JFrame frame;
-
+	protected Usuario miUser;
 	
 
 	/**
 	 * Create the application.
 	 */
-	public MecanicoGenerico() {
+	public MecanicoGenerico(Usuario miUsuario) {
+		miUser = miUsuario;
 		initialize();
 	}
 

@@ -6,15 +6,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import models.Usuario;
+
 public class JefeGenerico extends JFrame implements ActionListener{
 
-
+	Usuario miUser;
 
 
 	/**
 	 * Create the application.
 	 */
-	public JefeGenerico() {
+	public JefeGenerico(Usuario miUsuario) {
+		miUser = miUsuario;
 		initialize();
 	}
 

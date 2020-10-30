@@ -151,16 +151,16 @@ public class LoginV extends JFrame implements ActionListener{
 			case "ventas":
 				this.setVisible(false);
 				dispose();
-				ventanaV = new VentasGenerico();
+				ventanaV = new VentasGenerico(miUsuario);
 				break;
 			case "jefe":
 				this.setVisible(false);
-				ventanaJ = new JefeGenerico();
+				ventanaJ = new JefeGenerico(miUsuario);
 				break;
 			case "mecanico":
 				this.setVisible(false);
 				dispose();
-				ventanaM = new MecanicoGenerico();
+				ventanaM = new MecanicoGenerico(miUsuario);
 				break;		
 			}			
 		}else {
