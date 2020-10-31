@@ -55,17 +55,18 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		lblFotoUsu = new JLabel("fotico");
 		btnAltaCl = new JButton("Alta de clientes");
-		btnAltaCl.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		btnBuscarVehiculos = new JButton("Buscar vehiculos");
-		btnBuscarVehiculos.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		btnBuscarClientes = new JButton("Buscar clientes");
-		btnBuscarClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		btnPropuestaDeVenta = new JButton("Propuesta de venta");
-		btnPropuestaDeVenta.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		btnBuscarPropuesta = new JButton("Buscar propuesta de venta");
-		btnBuscarPropuesta.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		lblFotoSur = new JLabel("fotico");
 		lblCerrarSesion.addMouseListener(this);
+		btnAltaCl.addActionListener(this);
+		btnBuscarVehiculos.addActionListener(this);
+		btnBuscarClientes.addActionListener(this);
+		btnPropuestaDeVenta.addActionListener(this);
+		btnBuscarPropuesta.addActionListener(this);
+		
 
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
@@ -77,12 +78,17 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblFotoSur.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		//Damos color a los paneles y lineas 
+		//Damos color a los paneles, botones y lineas 
 		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
 		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panelUsuario.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
 		panelBotones.setBackground(new java.awt.Color( 244, 162, 97));
+		btnAltaCl.setBackground(new java.awt.Color(38, 70, 83));
+		btnBuscarVehiculos.setBackground(new java.awt.Color(38, 70, 83));
+		btnBuscarClientes.setBackground(new java.awt.Color(38, 70, 83));
+		btnPropuestaDeVenta.setBackground(new java.awt.Color(38, 70, 83));
+		btnBuscarPropuesta.setBackground(new java.awt.Color(38, 70, 83));
 		
 		//Damos el tamaño a los componentes que están en absoluto
 		panelUsuario.setBounds(393, 0, 393, 76);
@@ -99,12 +105,23 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		lblFotoSur.setBounds(350, 326, 61, 73);
 		
 		//Damos el tamaño, fuente y color a las letras 
-		//lblDepartamento.setForeground(Color.BLUE);
+		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		//lblUsuario.setForeground(Color.BLUE);
+		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		//lblCerrarSesion.setForeground(Color.BLUE);
+		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		btnAltaCl.setForeground(Color.WHITE);
+		btnAltaCl.setForeground(Color.WHITE);
+		btnBuscarVehiculos.setForeground(Color.WHITE);
+		btnBuscarClientes.setForeground(Color.WHITE);
+		btnPropuestaDeVenta.setForeground(Color.WHITE);
+		btnBuscarPropuesta.setForeground(Color.WHITE);
+		btnAltaCl.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		btnBuscarVehiculos.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		btnBuscarClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		btnPropuestaDeVenta.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		btnBuscarPropuesta.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		
 		//Añadimos los componentes al panel principal los paneles	
 		getContentPane().add(panelDepartamento);
@@ -128,12 +145,15 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		VentasAddCliente ventanaAddCliente;
+		
 		String txtBtn = e.getActionCommand();
 		
 		switch (txtBtn) {
 		case "Alta de clientes":
-			
+			this.setVisible(false);
+			this.dispose();
+			ventanaAddCliente = new VentasAddCliente(miUser);
 			break;
 		case "Buscar vehiculos":
 			
