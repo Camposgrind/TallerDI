@@ -64,9 +64,6 @@ public class ClienteDAO extends AbstractDAO{
 		
 		ArrayList<Cliente> miListaClientes=null;
 		Cliente miCliente;
-		int contador =0;
-		String condicion="";
-		String consulta = "SELECT * FROM CLIENTE";
 		PreparedStatement preparedStmt;
 		try {
 			 String query = "SELECT *  FROM Cliente where "
