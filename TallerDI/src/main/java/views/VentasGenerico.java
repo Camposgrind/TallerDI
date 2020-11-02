@@ -146,6 +146,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		VentasAddCliente ventanaAddCliente;
+		VentasBuscarCliente ventanaBuscarCliente;
 		
 		String txtBtn = e.getActionCommand();
 		
@@ -159,7 +160,9 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 			
 			break;
 		case "Buscar clientes":
-			
+			this.setVisible(false);
+			this.dispose();
+			ventanaBuscarCliente = new VentasBuscarCliente(miUser);
 			break;
 		case "Propuesta de venta":
 			

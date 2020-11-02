@@ -2,24 +2,27 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import dao.ClienteDAO;
+import models.Cliente;
 import models.Usuario;
-import javax.swing.JTextField;
 
-public class VentasAddCliente extends JFrame implements MouseListener,ActionListener{
+public class VentasBuscarCliente extends JFrame implements MouseListener,ActionListener{
 
 
 	protected Usuario miUser;
@@ -38,7 +41,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	/**
 	 * Create the application.
 	 */
-	public VentasAddCliente(Usuario miUsuario) {
+	public VentasBuscarCliente(Usuario miUsuario) {
 		miClienteDao = new ClienteDAO();
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
@@ -65,7 +68,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		lblFotoUsu = new JLabel("fotico");
-		lblAltaClientes = new JLabel("Alta clientes");
+		lblAltaClientes = new JLabel("Buscar clientes");
 		lblNombre = new JLabel("Nombre: ");
 		lblApellidos = new JLabel("Apellidos:");
 		lblTelefono = new JLabel("Tel\u00E9fono:");
@@ -75,8 +78,8 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		tFTelefono = new JTextField();
 		tFDni = new JTextField();		
 		btnVolver = new JButton("Volver");
-		btnAdd = new JButton("Registrar");
-		lblAddOk = new JLabel("CLIENTE REGISTRADO CON \u00C9XITO");
+		btnAdd = new JButton("Buscar");
+		lblAddOk = new JLabel("CLIENTE NO ENCONTRADO");
 		lblAddOk.setVisible(false);
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
@@ -142,11 +145,15 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
+		tFNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFNombre.setColumns(10);
+		tFApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFApellidos.setColumns(10);
+		tFApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFTelefono.setColumns(10);
+		tFTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFDni.setColumns(10);
+		tFDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
 		btnAdd.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
@@ -187,8 +194,10 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		VentasGenerico ventanaVentasG;
-		
+		ArrayList<Cliente> miListaClientes;
 		String txtBtn = e.getActionCommand();
+		VentasFichaCliente ventanaFicha;
+		//VentasListadoClientes ventanaListaClientes;
 		
 		switch (txtBtn) {
 		case "Volver":
@@ -197,15 +206,26 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 			ventanaVentasG = new VentasGenerico(miUser);
 			break;
 			
-		case "Registrar":			
+		case "Buscar":			
 			lblAddOk.setVisible(false);
-			miClienteDao.addCliente(
+			miListaClientes = miClienteDao.buscarCliente(
 					tFNombre.getText(), tFApellidos.getText(), tFTelefono.getText(), tFDni.getText());
-			lblAddOk.setVisible(true);
-			tFNombre.setText("");
-			tFApellidos.setText("");
-			tFTelefono.setText("");
-			tFDni.setText("");
+			
+			if(miListaClientes.size()==1) {
+				this.setVisible(false);
+				this.dispose();
+				ventanaFicha = new VentasFichaCliente(miUser,miListaClientes.get(0));
+			}else if(miListaClientes.size()>1) {
+				this.setVisible(false);
+				this.dispose();
+				//ventanaListaClientes = new VentasListadoClientes(miUser,miListaClientes);
+			}else{
+				lblAddOk.setVisible(true);
+				tFNombre.setText("");
+				tFApellidos.setText("");
+				tFTelefono.setText("");
+				tFDni.setText("");			
+			}
 			break;
 
 		}
@@ -244,4 +264,5 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		// TODO Auto-generated method stub
 		
 	}
+
 }

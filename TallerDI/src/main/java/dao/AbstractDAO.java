@@ -7,8 +7,13 @@ import java.sql.SQLException;
 import common.Constant;
 
 abstract class AbstractDAO {
+	
+	//ESTADO
 	protected Connection con;
 	
+	/**
+	 * Constructor
+	 */
 	public AbstractDAO() {
 		ConectarBD();
 	}
@@ -18,13 +23,10 @@ abstract class AbstractDAO {
 	private void ConectarBD() {
 		try {
 			Class.forName(Constant.CONTROLADOR);
-			try {
-				this.con = DriverManager.getConnection(Constant.URL, Constant.USUARIO, Constant.CLAVE);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		} catch (ClassNotFoundException e) {
+			this.con = DriverManager.getConnection(Constant.URL, Constant.USUARIO, Constant.CLAVE);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
