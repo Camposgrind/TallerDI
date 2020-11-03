@@ -22,32 +22,30 @@ import dao.ClienteDAO;
 import models.Cliente;
 import models.Usuario;
 
-public class VentasFichaCliente extends JFrame implements MouseListener,ActionListener{
+public class VentasModificarCliente extends JFrame implements MouseListener,ActionListener{
 
-	protected Cliente miCliente;
+
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFichaClientes;
-	protected JButton btnVolver,btnModificar,btnPropuestaVenta;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur,lblAltaClientes;
+	protected JButton btnVolver,btnModificar;
 	protected JLabel lblNombre;
 	protected JLabel lblApellidos;
 	protected JLabel lblTelefono;
-	protected JLabel lblDni;
-	protected JLabel infoNombre;
-	protected JLabel infoApellidos;
-	protected JLabel infoTelefono;
-	protected JLabel infoDni;
+	protected JLabel lblDni,lblModificacionOK;
+	protected JTextField tFNombre;
+	protected JTextField tFApellidos;
+	protected JTextField tFTelefono;
+	protected JTextField tFDni;
 	protected ClienteDAO miClienteDao;
-	VentasListadoClientes ventasListadoClientes;
+	protected Cliente miCliente;
 	/**
 	 * Create the application.
-	 * @param ventasListadoClientes 
 	 */
-	public  VentasFichaCliente(Usuario miUsuario,Cliente miCliente, VentasListadoClientes ventasListadoClientes) {
-		this.ventasListadoClientes = ventasListadoClientes;
-		this.miCliente = miCliente;
+	public VentasModificarCliente(Usuario miUsuario,Cliente miCliente) {
 		miClienteDao = new ClienteDAO();
 		miUser = miUsuario;
+		this.miCliente = miCliente;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
 	}
@@ -72,18 +70,19 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		lblFotoUsu = new JLabel("fotico");
-		lblFichaClientes = new JLabel("Buscar clientes");
+		lblAltaClientes = new JLabel("Modificar Cliente");
 		lblNombre = new JLabel("Nombre: ");
 		lblApellidos = new JLabel("Apellidos:");
 		lblTelefono = new JLabel("Tel\u00E9fono:");
 		lblDni = new JLabel("DNI:");
-		infoNombre = new JLabel(miCliente.getNombre());
-		infoApellidos = new JLabel(miCliente.getApellidos());
-		infoTelefono = new JLabel(miCliente.getTelefono());
-		infoDni = new JLabel(miCliente.getDni());		
+		tFNombre = new JTextField(miCliente.getNombre());
+		tFApellidos = new JTextField(miCliente.getApellidos());
+		tFTelefono = new JTextField(miCliente.getTelefono());
+		tFDni = new JTextField(miCliente.getDni());		
 		btnVolver = new JButton("Volver");
 		btnModificar = new JButton("Modificar");
-		btnPropuestaVenta = new JButton("Propuesta de venta");
+		lblModificacionOK = new JLabel("CLIENTE MODIFICADO");
+		lblModificacionOK.setVisible(false);
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnModificar.addActionListener(this);
@@ -100,6 +99,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTelefono.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDni.setHorizontalAlignment(SwingConstants.LEFT);
+		lblModificacionOK.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		//Damos color a los paneles, botones y lineas 
 		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
@@ -111,7 +111,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
 		btnModificar.setBackground(new java.awt.Color(0,92,48));
-		btnPropuestaVenta.setBackground(new Color(82, 21, 255));
+		lblModificacionOK.setBackground(new java.awt.Color(0,92,48));
 		
 		//Damos el tamaño a los componentes que están en absoluto
 		panelUsuario.setBounds(393, 0, 393, 76);
@@ -126,13 +126,13 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		lblApellidos.setBounds(236, 160, 99, 30);
 		lblTelefono.setBounds(236, 229, 99, 30);
 		lblDni.setBounds(236, 295, 106, 30);
-		infoNombre.setBounds(376, 100, 222, 27);
-		infoApellidos.setBounds(376, 165, 222, 27);
-		infoTelefono.setBounds(376, 234, 222, 27);
-		infoDni.setBounds(376, 295, 222, 27);
-		btnVolver.setBounds(93, 391, 117, 35);
-		btnModificar.setBounds(295, 391, 117, 35);
-		btnPropuestaVenta.setBounds(492, 391, 202, 35);
+		tFNombre.setBounds(376, 100, 222, 27);
+		tFApellidos.setBounds(376, 165, 222, 27);
+		tFTelefono.setBounds(376, 234, 222, 27);
+		tFDni.setBounds(376, 295, 222, 27);
+		btnVolver.setBounds(153, 391, 117, 35);
+		btnModificar.setBounds(516, 391, 117, 35);
+		lblModificacionOK.setBounds(258, 40, 276, 41);
 		
 		//Damos el tamaño, fuente y color a las letras 
 		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
@@ -141,22 +141,27 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
 		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		lblFichaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblFichaClientes.setForeground(new java.awt.Color(38, 70, 83));
+		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
+		lblAltaClientes.setForeground(new java.awt.Color(38, 70, 83));
 		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		infoNombre.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
-		infoApellidos.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
-		infoTelefono.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
-		infoDni.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
+		tFNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFNombre.setColumns(10);
+		tFApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFApellidos.setColumns(10);
+		tFApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFTelefono.setColumns(10);
+		tFTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFDni.setColumns(10);
+		tFDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
 		btnModificar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnModificar.setForeground(Color.WHITE);
-		btnPropuestaVenta.setForeground(Color.WHITE);
-		btnPropuestaVenta.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		lblModificacionOK.setForeground(Color.BLACK);
+		lblModificacionOK.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		
 		//Añadimos los componentes al panel principal los paneles	
 		getContentPane().add(panelDepartamento);
@@ -169,20 +174,20 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		panelUsuario.add(lblCerrarSesion);				
 		//Añadimos el panel informativo, labels, textfield y botones 
 		panelContenido.add(panelInfo);
-		panelInfo.add(lblFichaClientes);		
+		panelInfo.add(lblAltaClientes);		
 		panelContenido.add(lblNombre);		
 		panelContenido.add(lblApellidos);		
 		panelContenido.add(lblTelefono);		
 		panelContenido.add(lblDni);		
-		panelContenido.add(infoNombre);		
-		panelContenido.add(infoApellidos);		
-		panelContenido.add(infoTelefono);		
-		panelContenido.add(infoDni);
+		panelContenido.add(tFNombre);		
+		panelContenido.add(tFApellidos);		
+		panelContenido.add(tFTelefono);		
+		panelContenido.add(tFDni);
 		
 		panelContenido.add(btnVolver);
-		panelContenido.add(btnModificar);		
-		panelContenido.add(btnPropuestaVenta);
-							
+		panelContenido.add(btnModificar);
+		panelContenido.add(lblModificacionOK);
+					
 		this.setVisible(true);
 	}
 	/**
@@ -190,34 +195,28 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		VentasBuscarCliente ventanaBuscarCliente;
-		ArrayList<Cliente> miListaClientes;
+		boolean todoOk = false;
 		String txtBtn = e.getActionCommand();
-		VentasFichaCliente ventanaFicha;
-		VentasModificarCliente ventanaModificar;
+		VentasFichaCliente ventanaFicha;		
 		
 		switch (txtBtn) {
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
-			if(ventasListadoClientes==null) {
-				
-				ventanaBuscarCliente = new VentasBuscarCliente(miUser);
-			}else {
-				ventasListadoClientes.setVisible(true);
-			}
-
+			ventanaFicha = new VentasFichaCliente(miUser, miCliente, null);
 			break;
 			
 		case "Modificar":			
-			this.setVisible(false);
-			this.dispose();
-			ventanaModificar = new VentasModificarCliente(miUser, miCliente);
-			//Aquí habría que meter una ventana de buscar cliente pero con los texfield ya puestos con la info 
-			break;
+			lblModificacionOK.setVisible(false);
+			miCliente = miClienteDao.modificarCliente(tFNombre.getText(), tFApellidos.getText(),
+					tFTelefono.getText(),tFDni.getText(),miCliente);			
 			
-		case "Propuesta de venta":
+			lblModificacionOK.setVisible(true);
+			this.setVisible(false);
+			ventanaFicha = new VentasFichaCliente(miUser, miCliente, null);
+			
 			break;
+
 		}
 		
 	}
@@ -254,4 +253,5 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		// TODO Auto-generated method stub
 		
 	}
+
 }

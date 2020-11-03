@@ -142,11 +142,15 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
+		tFNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFNombre.setColumns(10);
+		tFApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFApellidos.setColumns(10);
+		tFApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFTelefono.setColumns(10);
+		tFTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFDni.setColumns(10);
+		tFDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
 		btnAdd.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
@@ -207,9 +211,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 			tFTelefono.setText("");
 			tFDni.setText("");
 			break;
-
-		}
-		
+		}		
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
