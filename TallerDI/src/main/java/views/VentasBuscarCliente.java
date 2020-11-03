@@ -197,7 +197,7 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 		ArrayList<Cliente> miListaClientes;
 		String txtBtn = e.getActionCommand();
 		VentasFichaCliente ventanaFicha;
-		//VentasListadoClientes ventanaListaClientes;
+		VentasListadoClientes ventanaListaClientes;
 		
 		switch (txtBtn) {
 		case "Volver":
@@ -214,11 +214,11 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 			if(miListaClientes.size()==1) {
 				this.setVisible(false);
 				this.dispose();
-				ventanaFicha = new VentasFichaCliente(miUser,miListaClientes.get(0));
+				ventanaFicha = new VentasFichaCliente(miUser,miListaClientes.get(0),null);
 			}else if(miListaClientes.size()>1) {
 				this.setVisible(false);
 				this.dispose();
-				//ventanaListaClientes = new VentasListadoClientes(miUser,miListaClientes);
+				ventanaListaClientes = new VentasListadoClientes(miUser,miListaClientes);
 			}else{
 				lblAddOk.setVisible(true);
 				tFNombre.setText("");

@@ -38,11 +38,13 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	protected JLabel infoTelefono;
 	protected JLabel infoDni;
 	protected ClienteDAO miClienteDao;
+	VentasListadoClientes ventasListadoClientes;
 	/**
 	 * Create the application.
+	 * @param ventasListadoClientes 
 	 */
-	public  VentasFichaCliente(Usuario miUsuario,Cliente miCliente) {
-
+	public  VentasFichaCliente(Usuario miUsuario,Cliente miCliente, VentasListadoClientes ventasListadoClientes) {
+		this.ventasListadoClientes = ventasListadoClientes;
 		this.miCliente = miCliente;
 		miClienteDao = new ClienteDAO();
 		miUser = miUsuario;
@@ -198,7 +200,13 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
-			ventanaBuscarCliente = new VentasBuscarCliente(miUser);
+			if(ventasListadoClientes==null) {
+				
+				ventanaBuscarCliente = new VentasBuscarCliente(miUser);
+			}else {
+				ventasListadoClientes.setVisible(true);
+			}
+
 			break;
 			
 		case "Modificar":			

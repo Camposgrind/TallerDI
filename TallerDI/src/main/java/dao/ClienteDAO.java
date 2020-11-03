@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import models.Cliente;
-import models.Usuario;
 
 
 public class ClienteDAO extends AbstractDAO{
@@ -80,6 +78,7 @@ public class ClienteDAO extends AbstractDAO{
 			//mientras el resultset tenga filas creará clientes, les setea el estado y lo añade a la lista 
 			while(rs.next()) {
 				miCliente = new Cliente();
+				miCliente.setIdCliente(rs.getInt(1));
 				miCliente.setNombre(rs.getString(2));
 				miCliente.setApellidos(rs.getString(3));
 				miCliente.setTelefono(rs.getString(4));
