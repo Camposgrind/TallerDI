@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -53,11 +54,14 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() {		
+		ImageIcon imgUsu;
+
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		this.setBackground(new java.awt.Color( 244, 162, 97));
 		getContentPane().setLayout(null);
 		
@@ -69,7 +73,8 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
-		lblFotoUsu = new JLabel("fotico");
+		imgUsu = new ImageIcon("user-icon.png");
+		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Modificar Cliente");
 		lblNombre = new JLabel("Nombre: ");
 		lblApellidos = new JLabel("Apellidos:");

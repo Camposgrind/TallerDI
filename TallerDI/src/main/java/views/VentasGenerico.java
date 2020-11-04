@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -25,7 +26,6 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	protected JPanel panelDepartamento,panelUsuario,panelBotones;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur;
 	protected JButton btnAltaCl,btnBuscarVehiculos,btnBuscarClientes,btnPropuestaDeVenta,btnBuscarPropuesta;
-	
 	/**
 	 * Create the application.
 	 */
@@ -39,10 +39,12 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		ImageIcon imgLogoVentas,imgUsu;
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		this.setBackground(new java.awt.Color( 244, 162, 97));
 		getContentPane().setLayout(null);
 		
@@ -52,14 +54,16 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		panelUsuario = new JPanel();
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
+		imgUsu = new ImageIcon("user-icon.png");
 		lblCerrarSesion = new JLabel("Cerrar sesion");
-		lblFotoUsu = new JLabel("fotico");
+		lblFotoUsu = new JLabel(imgUsu);
 		btnAltaCl = new JButton("Alta de clientes");
 		btnBuscarVehiculos = new JButton("Buscar vehiculos");
 		btnBuscarClientes = new JButton("Buscar clientes");
 		btnPropuestaDeVenta = new JButton("Propuesta de venta");
 		btnBuscarPropuesta = new JButton("Buscar propuesta de venta");
-		lblFotoSur = new JLabel("fotico");
+		imgLogoVentas = new ImageIcon("iconoVentas.png");
+		lblFotoSur = new JLabel(imgLogoVentas);
 		lblCerrarSesion.addMouseListener(this);
 		btnAltaCl.addActionListener(this);
 		btnBuscarVehiculos.addActionListener(this);
@@ -101,8 +105,8 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnBuscarVehiculos.setBounds(490, 61, 187, 41);
 		btnBuscarClientes.setBounds(115, 151, 187, 41);
 		btnPropuestaDeVenta.setBounds(490, 151, 187, 41);
-		btnBuscarPropuesta.setBounds(302, 242, 187, 41);
-		lblFotoSur.setBounds(350, 326, 61, 73);
+		btnBuscarPropuesta.setBounds(293, 242, 208, 41);
+		lblFotoSur.setBounds(256, 294, 276, 162);
 		
 		//Damos el tamaño, fuente y color a las letras 
 		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
@@ -147,6 +151,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	public void actionPerformed(ActionEvent e) {
 		VentasAddCliente ventanaAddCliente;
 		VentasBuscarCliente ventanaBuscarCliente;
+		VentasBuscarVehiculo ventanaBuscarVehiculo;
 		
 		String txtBtn = e.getActionCommand();
 		
@@ -157,7 +162,9 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 			ventanaAddCliente = new VentasAddCliente(miUser);
 			break;
 		case "Buscar vehiculos":
-			
+			this.setVisible(false);
+			this.dispose();
+			ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser);
 			break;
 		case "Buscar clientes":
 			this.setVisible(false);

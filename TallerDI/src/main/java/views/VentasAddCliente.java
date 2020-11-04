@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +36,8 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	protected JTextField tFTelefono;
 	protected JTextField tFDni;
 	protected ClienteDAO miClienteDao;
+	ImageIcon imgUsu;
+
 	/**
 	 * Create the application.
 	 */
@@ -53,6 +56,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		this.setBounds(100, 100, 800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		this.setBackground(new java.awt.Color( 244, 162, 97));
 		getContentPane().setLayout(null);
 		
@@ -64,7 +68,8 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
-		lblFotoUsu = new JLabel("fotico");
+		imgUsu = new ImageIcon("user-icon.png");
+		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Alta clientes");
 		lblNombre = new JLabel("Nombre: ");
 		lblApellidos = new JLabel("Apellidos:");

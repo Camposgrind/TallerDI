@@ -61,14 +61,16 @@ public class LoginV extends JFrame implements ActionListener{
 		//Iniciamos todos los componentes 
 		panelPrincipal = new JPanel();
 		panelSuperior = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panelSuperior.getLayout();
+		flowLayout.setVgap(30);
 		panelInferior = new JPanel();
 		panelVacioIzquierda = new JPanel();
 		panelContenido = new JPanel();
 		panelVacioDerecha = new JPanel();
 		panelUsuario = new JPanel();
 		panelPassword = new JPanel();
-		panelButton = new JPanel();
-		img = new ImageIcon("imagenModificada.png");
+		panelButton = new JPanel();		
+		img = new ImageIcon("imagenPro.png");
 		lblUsuario = new JLabel("Usuario");
 		tFUsuario = new JTextField();
 		lblPassword = new JLabel("Password");
