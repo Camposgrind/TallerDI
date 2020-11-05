@@ -25,7 +25,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelBotones;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur;
-	protected JButton btnAltaCl,btnBuscarVehiculos,btnBuscarClientes,btnPropuestaDeVenta,btnBuscarPropuesta;
+	protected JButton btnAltaCl,btnBuscarVehiculos,btnBuscarClientes,btnPropuestaDeVenta,btnBuscarPropuesta,btnAltaCoche;
 	/**
 	 * Create the application.
 	 */
@@ -62,6 +62,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnBuscarClientes = new JButton("Buscar clientes");
 		btnPropuestaDeVenta = new JButton("Propuesta de venta");
 		btnBuscarPropuesta = new JButton("Buscar propuesta de venta");
+		btnAltaCoche = new JButton("Alta coche");
 		imgLogoVentas = new ImageIcon("iconoVentas.png");
 		lblFotoSur = new JLabel(imgLogoVentas);
 		lblCerrarSesion.addMouseListener(this);
@@ -70,6 +71,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnBuscarClientes.addActionListener(this);
 		btnPropuestaDeVenta.addActionListener(this);
 		btnBuscarPropuesta.addActionListener(this);
+		btnAltaCoche.addActionListener(this);
 		
 
 		//Ponemos sus layouts
@@ -93,7 +95,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnBuscarClientes.setBackground(new java.awt.Color(38, 70, 83));
 		btnPropuestaDeVenta.setBackground(new java.awt.Color(38, 70, 83));
 		btnBuscarPropuesta.setBackground(new java.awt.Color(38, 70, 83));
-		
+		btnAltaCoche.setBackground(new java.awt.Color(38, 70, 83));
 		//Damos el tamaño a los componentes que están en absoluto
 		panelUsuario.setBounds(393, 0, 393, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
@@ -101,11 +103,12 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		btnAltaCl.setBounds(115, 61, 187, 41);
-		btnBuscarVehiculos.setBounds(490, 61, 187, 41);
-		btnBuscarClientes.setBounds(115, 151, 187, 41);
-		btnPropuestaDeVenta.setBounds(490, 151, 187, 41);
-		btnBuscarPropuesta.setBounds(293, 242, 208, 41);
+		btnAltaCl.setBounds(94, 61, 208, 41);
+		btnBuscarVehiculos.setBounds(490, 151, 208, 41);
+		btnBuscarClientes.setBounds(490, 61, 208, 41);
+		btnPropuestaDeVenta.setBounds(94, 242, 208, 41);
+		btnAltaCoche.setBounds(94, 151, 208, 41);
+		btnBuscarPropuesta.setBounds(490, 242, 208, 41);
 		lblFotoSur.setBounds(256, 294, 276, 162);
 		
 		//Damos el tamaño, fuente y color a las letras 
@@ -126,7 +129,8 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnBuscarClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		btnPropuestaDeVenta.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		btnBuscarPropuesta.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		
+		btnAltaCoche.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		btnAltaCoche.setForeground(Color.WHITE);
 		//Añadimos los componentes al panel principal los paneles	
 		getContentPane().add(panelDepartamento);
 		getContentPane().add(panelUsuario);
@@ -142,6 +146,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		panelBotones.add(btnBuscarClientes);
 		panelBotones.add(btnPropuestaDeVenta);
 		panelBotones.add(btnBuscarPropuesta);
+		panelBotones.add(btnAltaCoche);
 		panelBotones.add(lblFotoSur);
 					
 		this.setVisible(true);
@@ -152,6 +157,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		VentasAddCliente ventanaAddCliente;
 		VentasBuscarCliente ventanaBuscarCliente;
 		VentasBuscarVehiculo ventanaBuscarVehiculo;
+		VentasAltaVehiculo ventanaAltaVehiculo;
 		
 		String txtBtn = e.getActionCommand();
 		
@@ -176,6 +182,12 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 			break;
 		case "Buscar propuesta de venta":
 			
+			break;
+			
+		case "Alta coche":
+			this.setVisible(false);
+			this.dispose();	
+			ventanaAltaVehiculo = new VentasAltaVehiculo(miUser);
 			break;
 
 		}
