@@ -2,13 +2,11 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,10 +23,9 @@ import models.Usuario;
 
 public class VentasModificarCliente extends JFrame implements MouseListener,ActionListener{
 
-
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur,lblAltaClientes;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
 	protected JButton btnVolver,btnModificar;
 	protected JLabel lblNombre;
 	protected JLabel lblApellidos;
@@ -40,6 +37,7 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 	protected JTextField tFDni;
 	protected ClienteDAO miClienteDao;
 	protected Cliente miCliente;
+	
 	/**
 	 * Create the application.
 	 */
@@ -224,7 +222,11 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 
 		}
 		
-	}
+	}	
+	/**
+	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
+	 * en este caso el de cerrar sesión, se cierre la sesión
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;

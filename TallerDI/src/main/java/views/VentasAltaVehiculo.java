@@ -2,8 +2,6 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +24,9 @@ import models.Vehiculo;
 
 public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionListener{
 
-
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblBuscarCoches;
 	protected JButton btnVolver,btnAdd;
 	protected JLabel lblMatricula;
 	protected JLabel lblMarca;
@@ -42,6 +39,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 	protected JTextField tFModelo;
 	protected JTextField tFTipo,tfFechaEntrada,tFPrecio,tFColor,tFConcesionario;
 	protected VehiculoDAO miVehiculoDao;
+	
 	/**
 	 * Create the application.
 	 */
@@ -76,7 +74,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
-		lblAltaClientes = new JLabel("Buscar coches");
+		lblBuscarCoches = new JLabel("Buscar coches");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");
 		lblMarca = new JLabel("Marca:");
 		lblModelo = new JLabel("Modelo:");
@@ -101,22 +99,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnAdd.addActionListener(this);
-		tfFechaEntrada.addMouseListener(this);
-		
-		/*tfFechaEntrada.addFocusListener(new FocusListener(){
-	           @Override
-	           public void focusGained(FocusEvent e){
-	        	   tfFechaEntrada.setText("");
-	           }
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-				if(tfFechaEntrada.getText().equals("")) {
-					tfFechaEntrada.setText("yyyy-mm-dd");
-				}
-			}
-	       });*/
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
 		panelUsuario.setLayout(null);
@@ -181,8 +164,8 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
 		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblAltaClientes.setForeground(new java.awt.Color(38, 70, 83));
+		lblBuscarCoches.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
+		lblBuscarCoches.setForeground(new java.awt.Color(38, 70, 83));
 		lblMatricula.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblMarca.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblModelo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
@@ -224,23 +207,23 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		panelUsuario.add(lblCerrarSesion);				
 		//Añadimos el panel informativo, labels, textfield y botones 
 		panelContenido.add(panelInfo);
-		panelInfo.add(lblAltaClientes);		
+		panelInfo.add(lblBuscarCoches);		
 		panelContenido.add(lblMatricula);		
 		panelContenido.add(lblMarca);		
 		panelContenido.add(lblModelo);		
 		panelContenido.add(lblTipo);
-		//panelContenido.add(lblFechaEntrada);
 		panelContenido.add(lblPrecio);
 		panelContenido.add(lblColor);
+		//panelContenido.add(lblFechaEntrada);
 		//panelContenido.add(lblConcesionario);
 		
 		panelContenido.add(tFMatricula);		
 		panelContenido.add(tFMarca);		
 		panelContenido.add(tFModelo);		
 		panelContenido.add(tFTipo);
-		//panelContenido.add(tfFechaEntrada);		
 		panelContenido.add(tFPrecio);		
 		panelContenido.add(tFColor);		
+		//panelContenido.add(tfFechaEntrada);		
 		//panelContenido.add(tFConcesionario);
 		
 		panelContenido.add(btnVolver);
@@ -290,42 +273,42 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		}
 		
 	}
-
+	/**
+	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
+	 * en este caso el de cerrar sesión, se cierre la sesión
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
-
-		//Component txtBtn = e.getComponent();
 		
-			this.setVisible(false);
-			this.dispose();
-			miUser = null;
-			loginCerrarSesion = new LoginV();
+		this.setVisible(false);
+		this.dispose();
+		miUser = null;
+		loginCerrarSesion = new LoginV();
 
     }
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
-
 }

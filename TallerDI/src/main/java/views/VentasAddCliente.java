@@ -25,7 +25,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur,lblAltaClientes;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
 	protected JButton btnVolver,btnAdd;
 	protected JLabel lblNombre;
 	protected JLabel lblApellidos;
@@ -201,12 +201,14 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		
 		switch (txtBtn) {
 		case "Volver":
+			
 			this.setVisible(false);
 			this.dispose();
-			ventanaVentasG = new VentasGenerico(miUser);
+			ventanaVentasG = new VentasGenerico(miUser);			
 			break;
 			
-		case "Registrar":			
+		case "Registrar":
+			
 			lblAddOk.setVisible(false);
 			miClienteDao.addCliente(
 					tFNombre.getText(), tFApellidos.getText(), tFTelefono.getText(), tFDni.getText());
@@ -218,6 +220,10 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 			break;
 		}		
 	}
+	/**
+	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
+	 * en este caso el de cerrar sesión, se cierre la sesión
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
@@ -230,25 +236,21 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 }

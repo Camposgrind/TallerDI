@@ -17,10 +17,28 @@ public class Usuario {
 	protected boolean mecaCicloMotor;
 	protected int comisionVentas;
 	
+	/**
+	 * Constructor vacío
+	 */
 	public Usuario() {
 		
 	}
-
+	/**
+	 * Constructor con parámetros
+	 * @param miID el ID del usuario
+	 * @param miNomUsuario nombre en el programa que va a tener el usuario
+	 * @param miPassword contraseña que tendrá el usuario
+	 * @param miNombre nombre que va a tener el usuario
+	 * @param miApellido apellido que tendrá el usuario
+	 * @param miTelefono telefono del usuario 
+	 * @param miSueldo
+	 * @param miRol
+	 * @param miMecanicoJefe booleano para saber si es mecánico Jefe
+	 * @param miMecaCoches booleano para saber si es mecánico de coches 
+	 * @param miMecaMotos booleano para saber si es mecánico de motos 
+	 * @param miMecaCicloMotor booleano para ver si es mecánico de ciclomotores
+	 * @param miComisionVentas comisión de ventas que tiene el usuario 
+	 */
 	public Usuario(int miID, String miNomUsuario, String miPassword, String miNombre, String miApellido, String miTelefono,
 			int miSueldo, String miRol, boolean miMecanicoJefe, boolean miMecaCoches, boolean miMecaMotos, boolean miMecaCicloMotor,
 			int miComisionVentas) {
@@ -39,9 +57,7 @@ public class Usuario {
 		mecaCicloMotor = miMecaCicloMotor;
 		comisionVentas = miComisionVentas;
 	}
-	
-	
-	
+
 	//Getter y setter del usuario
 	public int getIdUsuario() {
 		return idUsuario;
@@ -146,7 +162,4 @@ public class Usuario {
 	public void setComisionVentas(int comisionVentas) {
 		this.comisionVentas = comisionVentas;
 	}
-	
-	
-	
 }

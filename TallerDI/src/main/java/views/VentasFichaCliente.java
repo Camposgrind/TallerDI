@@ -2,7 +2,6 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import dao.ClienteDAO;
@@ -39,10 +37,13 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	protected JLabel infoTelefono;
 	protected JLabel infoDni;
 	protected ClienteDAO miClienteDao;
-	VentasListadoClientes ventasListadoClientes;
+	protected VentasListadoClientes ventasListadoClientes;
+	
 	/**
-	 * Create the application.
-	 * @param ventasListadoClientes 
+	 * Constructor de la vista 
+	 * @param miUsuario
+	 * @param miCliente
+	 * @param ventasListadoClientes
 	 */
 	public  VentasFichaCliente(Usuario miUsuario,Cliente miCliente, VentasListadoClientes ventasListadoClientes) {
 		this.ventasListadoClientes = ventasListadoClientes;
@@ -226,6 +227,10 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		}
 		
 	}
+	/**
+	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
+	 * en este caso el de cerrar sesión, se cierre la sesión
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
@@ -238,25 +243,21 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+				
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 }

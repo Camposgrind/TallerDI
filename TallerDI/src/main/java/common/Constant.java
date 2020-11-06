@@ -8,6 +8,4 @@ public class Constant {
 		public static  String USUARIO = "root";
 		public static  String CLAVE = "123456";
 		
-
-		
 }

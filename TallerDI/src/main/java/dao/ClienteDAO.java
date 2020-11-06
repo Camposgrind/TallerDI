@@ -46,7 +46,6 @@ public class ClienteDAO extends AbstractDAO{
 			preparedStmt.setString(4, miDni);
 			preparedStmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -103,6 +102,7 @@ public class ClienteDAO extends AbstractDAO{
 	 */
 	public Cliente modificarCliente(String miNombre, String miApellido, String miTlfn, String miDni,Cliente miCliente) {
 		PreparedStatement preparedStmt;
+		
 		try {
 			preparedStmt = super.con.prepareStatement("update cliente "
 					+ "set Nombre = ?,Apellidos = ?, Telefono = ? ,DNI = ? where idCliente = ?");
@@ -110,8 +110,7 @@ public class ClienteDAO extends AbstractDAO{
 			preparedStmt.setString(1,miNombre);
 			preparedStmt.setString(2, miApellido);
 			preparedStmt.setString(3, miTlfn);
-			preparedStmt.setString(4, miDni);
-			
+			preparedStmt.setString(4, miDni);			
 			//Aquí le decimos que nos de el id cliente que tiene para ponerlo en el where
 			preparedStmt.setInt(5, miCliente.getIdCliente());
 			preparedStmt.executeUpdate();

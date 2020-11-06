@@ -7,8 +7,6 @@ import java.sql.Statement;
 
 import models.Usuario;
 
-
-
 public class UsuarioDAO extends AbstractDAO{
 	
 	//ESTADO
@@ -44,7 +42,6 @@ public class UsuarioDAO extends AbstractDAO{
 				this.setText();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -54,6 +51,7 @@ public class UsuarioDAO extends AbstractDAO{
 	 * Método para setear todo el estado de usuario con la consulta a la BBDD
 	 */
 	private void setText() {
+		
 		try {
 			miUsuario.setIdUsuario(rs.getInt(1));
 			miUsuario.setNomUsuario(rs.getString(2));
@@ -69,12 +67,7 @@ public class UsuarioDAO extends AbstractDAO{
 			miUsuario.setMecaCicloMotor(rs.getBoolean(12));
 			miUsuario.setComisionVentas(rs.getInt(13));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 	}
-	
-	
-	
 }

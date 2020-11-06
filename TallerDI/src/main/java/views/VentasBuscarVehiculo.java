@@ -2,7 +2,6 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Date;
 import java.util.ArrayList;
 
 
@@ -24,12 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import dao.VehiculoDAO;
-import models.Cliente;
 import models.Usuario;
 import models.Vehiculo;
 
 public class VentasBuscarVehiculo extends JFrame implements MouseListener,ActionListener{
-
 
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
@@ -46,6 +42,7 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 	protected JTextField tFModelo;
 	protected JTextField tFTipo,tfFechaEntrada,tFPrecio,tFColor,tFConcesionario;
 	protected VehiculoDAO miVehiculoDao;
+	
 	/**
 	 * Create the application.
 	 */
@@ -105,22 +102,7 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnBuscar.addActionListener(this);
-		tfFechaEntrada.addMouseListener(this);
 		
-		/*tfFechaEntrada.addFocusListener(new FocusListener(){
-	           @Override
-	           public void focusGained(FocusEvent e){
-	        	   tfFechaEntrada.setText("");
-	           }
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-				if(tfFechaEntrada.getText().equals("")) {
-					tfFechaEntrada.setText("yyyy-mm-dd");
-				}
-			}
-	       });*/
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
 		panelUsuario.setLayout(null);
@@ -275,16 +257,10 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 			break;
 			
 		case "Buscar":
-			/////////////////////////////////////////
-			//                                     //
-			//  FALTA APLICAR LOGICA AQUÍ		   //
-			//									  //
-			///////////////////////////////////////	
 			
 			lblAddOk.setVisible(false);
 			miListaVehiculos = miVehiculoDao.buscarVehiculo(tFMatricula.getText(), tFMarca.getText(), tFModelo.getText(),
-					tFTipo.getText(),tFPrecio.getText(),tFColor.getText(),tfFechaEntrada.getText());
-			
+					tFTipo.getText(),tFPrecio.getText(),tFColor.getText(),tfFechaEntrada.getText());			
 		
 			if(miListaVehiculos.size()==1) {
 				this.setVisible(false);
@@ -305,47 +281,39 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 			}
 			break;
 
-		}
-		
+		}		
 	}
-
+	/**
+	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
+	 * en este caso el de cerrar sesión, se cierre la sesión
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
 
-		Component txtBtn = e.getComponent();
-		
-		if(txtBtn==lblCerrarSesion) {
-			this.setVisible(false);
-			this.dispose();
-			miUser = null;
-			loginCerrarSesion = new LoginV();
-		}else {
-			tfFechaEntrada.setText("");
-		}
+		this.setVisible(false);
+		this.dispose();
+		miUser = null;
+		loginCerrarSesion = new LoginV();
     }
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 

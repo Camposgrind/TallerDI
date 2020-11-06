@@ -104,7 +104,7 @@ public class VentasListadoClientes extends JFrame implements MouseListener, Acti
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		btnVolver.setBounds(335, 410, 117, 35);
+		btnVolver.setBounds(332, 403, 117, 35);
 
 		// Damos el tamaño, fuente y color a las letras
 		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
@@ -158,7 +158,7 @@ public class VentasListadoClientes extends JFrame implements MouseListener, Acti
 		//Iniciamos un scrollpane para que meta la tabla dentro 
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setBackground(new java.awt.Color(244, 162, 97));
-		scrollPane.setBounds(119, 112, 510, 150);
+		scrollPane.setBounds(65, 112, 657, 213);
 		//le añadimos un mouse listener para que cuando pinchemos nos salga la ficha
 		//del cliente que tocamos 
 		table.addMouseListener(this);
@@ -209,25 +209,21 @@ public class VentasListadoClientes extends JFrame implements MouseListener, Acti
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 }

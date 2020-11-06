@@ -1,6 +1,7 @@
 package models;
 
 public class Cliente {
+	
 	//ESTADO
 	int idCliente;
 	String nombre;
@@ -8,10 +9,20 @@ public class Cliente {
 	String telefono;
 	String dni;
 	
-	
+	/**
+	 * Constructor vacío
+	 */
 	public Cliente() {
 		
 	}
+	/**
+	 * Constructor con parámetros
+	 * @param miIdCliente el idCliente que guardará nuestro cliente
+	 * @param miNombre el nombre del cliente
+	 * @param misApellidos los apellidos del cliente
+	 * @param miTlfn el teléfono del cliente 
+	 * @param miDni el dni del cliente 
+	 */
 	public Cliente(int miIdCliente, String miNombre, String misApellidos,String miTlfn,String miDni) {
 		idCliente = miIdCliente;
 		nombre = miNombre;
@@ -19,6 +30,8 @@ public class Cliente {
 		telefono = miTlfn;
 		dni = miDni;
 	}
+	
+	//Getters y setters
 	public int getIdCliente() {
 		return idCliente;
 	}

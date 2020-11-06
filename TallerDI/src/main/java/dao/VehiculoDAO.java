@@ -58,8 +58,7 @@ public class VehiculoDAO extends AbstractDAO{
 		}
 		//si el precio no viene vacio le añadimos el string a la consulta 
 		if(!miPrecio.equals("")) {
-			precio = " and precio like ? ";
-			
+			precio = " and precio like ? ";			
 		}
 
 		try {
@@ -67,6 +66,7 @@ public class VehiculoDAO extends AbstractDAO{
 			 		+ " FROM vehiculo,concesionario where vehiculo.idConcesionario=concesionario.idConcesionario"
 			 		+ " and matricula like ? and marca like ? and modelo like ? and tipo like ?"
 			 		+ " and color like ? and fechaEntrada like " + fecha + precio;
+			 
 			 preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					 ResultSet.CONCUR_UPDATABLE);
 			 preparedStmt.setString(1, "%"+ miMatricula + "%" );
@@ -80,8 +80,9 @@ public class VehiculoDAO extends AbstractDAO{
 	            rs = preparedStmt.executeQuery();
 										
 			miListaVehiculos= new ArrayList<Vehiculo>();
+			
 			//mientras el resultset tenga filas creará clientes, les setea el estado y lo añade a la lista 
-			while(rs.next()) {
+			while(rs.next()){
 				miVehiculo = new Vehiculo(rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),
 						rs.getInt(5),rs.getString(6),rs.getDate(7),rs.getInt(8), rs.getInt(9));
 				provincia = rs.getString(10);
@@ -91,6 +92,7 @@ public class VehiculoDAO extends AbstractDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
+		
 		return miListaVehiculos;
 	}
 	/**
@@ -120,12 +122,12 @@ public class VehiculoDAO extends AbstractDAO{
 			preparedStmt.setString(5, miPrecio);
 			preparedStmt.setString(6, miColor);
 			preparedStmt.executeUpdate();
-		} catch (SQLException e) {
-			
+		} catch (SQLException e) {			
 			e.printStackTrace();
-		}
-		
+		}		
 	}
+	
+	
 	/////////////////////////////////////////////////////////
 	//FALTA HACERLO, YA QUE ESTO ES COPY PASTE DE CLiENTE///
 	///////////////////////////////////////////////////////
@@ -155,6 +157,7 @@ public class VehiculoDAO extends AbstractDAO{
 		
 		return miCliente;
 	}
+	
 	public String getNombreConcesionario() {
 		return nombreConcesionario;
 	}

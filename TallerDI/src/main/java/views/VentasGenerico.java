@@ -26,6 +26,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	protected JPanel panelDepartamento,panelUsuario,panelBotones;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur;
 	protected JButton btnAltaCl,btnBuscarVehiculos,btnBuscarClientes,btnPropuestaDeVenta,btnBuscarPropuesta,btnAltaCoche;
+	
 	/**
 	 * Create the application.
 	 */
@@ -40,6 +41,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	 */
 	private void initialize() {
 		ImageIcon imgLogoVentas,imgUsu;
+		
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,7 +74,6 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnPropuestaDeVenta.addActionListener(this);
 		btnBuscarPropuesta.addActionListener(this);
 		btnAltaCoche.addActionListener(this);
-		
 
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
@@ -190,9 +191,12 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 			ventanaAltaVehiculo = new VentasAltaVehiculo(miUser);
 			break;
 
-		}
-		
+		}		
 	}
+	/**
+	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
+	 * en este caso el de cerrar sesión, se cierre la sesión
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
@@ -205,25 +209,21 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 

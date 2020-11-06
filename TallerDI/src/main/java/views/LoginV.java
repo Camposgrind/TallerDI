@@ -21,7 +21,6 @@ import javax.swing.JButton;
 import java.awt.Font;
 
 public class LoginV extends JFrame implements ActionListener{
-
 	
 	private JTextField tFUsuario;
 	private JPasswordField pFPassword;
@@ -126,8 +125,7 @@ public class LoginV extends JFrame implements ActionListener{
 		panelUsuario.add(tFUsuario);		
 		panelPassword.add(lblPassword);
 		panelPassword.add(pFPassword);		
-		
-		
+				
 		panelPassword.add(lblLogin);
 		panelButton.add(btnNewButton);
 	

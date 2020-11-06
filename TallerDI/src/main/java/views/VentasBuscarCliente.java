@@ -2,7 +2,6 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,11 +24,10 @@ import models.Usuario;
 
 public class VentasBuscarCliente extends JFrame implements MouseListener,ActionListener{
 
-
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur,lblAltaClientes;
-	protected JButton btnVolver,btnAdd;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
+	protected JButton btnVolver,btnBuscar;
 	protected JLabel lblNombre;
 	protected JLabel lblApellidos;
 	protected JLabel lblTelefono;
@@ -39,6 +37,7 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 	protected JTextField tFTelefono;
 	protected JTextField tFDni;
 	protected ClienteDAO miClienteDao;
+	
 	/**
 	 * Create the application.
 	 */
@@ -53,6 +52,8 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		ImageIcon imgUsu;
+
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +61,6 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 		this.setResizable(false);
 		this.setBackground(new java.awt.Color( 244, 162, 97));
 		getContentPane().setLayout(null);
-		ImageIcon imgUsu;
 
 		//Iniciamos todos los componentes 
 		panelDepartamento = new JPanel();
@@ -82,12 +82,12 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 		tFTelefono = new JTextField();
 		tFDni = new JTextField();		
 		btnVolver = new JButton("Volver");
-		btnAdd = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar");
 		lblAddOk = new JLabel("CLIENTE NO ENCONTRADO");
 		lblAddOk.setVisible(false);
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
-		btnAdd.addActionListener(this);
+		btnBuscar.addActionListener(this);
 		
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
@@ -112,7 +112,7 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
 		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnAdd.setBackground(new java.awt.Color(0,92,48));
+		btnBuscar.setBackground(new java.awt.Color(0,92,48));
 		lblAddOk.setBackground(new java.awt.Color(0,92,48));
 		
 		//Damos el tamaño a los componentes que están en absoluto
@@ -133,7 +133,7 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 		tFTelefono.setBounds(376, 234, 222, 27);
 		tFDni.setBounds(376, 295, 222, 27);
 		btnVolver.setBounds(153, 391, 117, 35);
-		btnAdd.setBounds(516, 391, 117, 35);
+		btnBuscar.setBounds(516, 391, 117, 35);
 		lblAddOk.setBounds(258, 40, 276, 41);
 		
 		//Damos el tamaño, fuente y color a las letras 
@@ -160,8 +160,8 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 		tFDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
-		btnAdd.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		btnAdd.setForeground(Color.WHITE);
+		btnBuscar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnBuscar.setForeground(Color.WHITE);
 		lblAddOk.setForeground(Color.BLACK);
 		lblAddOk.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		
@@ -187,7 +187,7 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 		panelContenido.add(tFDni);
 		
 		panelContenido.add(btnVolver);
-		panelContenido.add(btnAdd);
+		panelContenido.add(btnBuscar);
 		panelContenido.add(lblAddOk);
 					
 		this.setVisible(true);
@@ -232,9 +232,12 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 			}
 			break;
 
-		}
-		
+		}		
 	}
+	/**
+	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
+	 * en este caso el de cerrar sesión, se cierre la sesión
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
@@ -247,26 +250,21 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
-
 }
