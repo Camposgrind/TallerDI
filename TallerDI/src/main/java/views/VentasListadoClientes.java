@@ -24,6 +24,7 @@ import dao.ClienteDAO;
 import models.Cliente;
 import models.Usuario;
 
+@SuppressWarnings("serial")
 public class VentasListadoClientes extends JFrame implements MouseListener, ActionListener {
 
 	protected ArrayList<Cliente> miLista;
@@ -171,6 +172,7 @@ public class VentasListadoClientes extends JFrame implements MouseListener, Acti
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		VentasBuscarCliente ventanaBuscarCliente;
@@ -181,6 +183,7 @@ public class VentasListadoClientes extends JFrame implements MouseListener, Acti
 
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	/**
 	 * Método para cuando pulsemos una celada nos de la ficha o si es el 

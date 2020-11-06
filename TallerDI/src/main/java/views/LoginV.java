@@ -22,6 +22,10 @@ import java.awt.Font;
 
 public class LoginV extends JFrame implements ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8657198232727133443L;
 	private JTextField tFUsuario;
 	private JPasswordField pFPassword;
 	protected JLabel lblUsuario,lblPassword,lblLogin;
@@ -134,6 +138,7 @@ public class LoginV extends JFrame implements ActionListener{
 	/**
 	 * Método para cuando se pulse el botón de iniciar sesión
 	 */
+	@SuppressWarnings("unused")
 	public void actionPerformed(ActionEvent e) {
 		//Pillamos la contraseña del textfield
 		String pass = new String(pFPassword.getPassword());		

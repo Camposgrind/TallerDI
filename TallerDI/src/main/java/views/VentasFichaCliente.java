@@ -21,6 +21,7 @@ import dao.ClienteDAO;
 import models.Cliente;
 import models.Usuario;
 
+@SuppressWarnings("serial")
 public class VentasFichaCliente extends JFrame implements MouseListener,ActionListener{
 
 	protected Cliente miCliente;
@@ -194,6 +195,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		VentasBuscarCliente ventanaBuscarCliente;
@@ -231,6 +233,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
 	 * en este caso el de cerrar sesión, se cierre la sesión
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
