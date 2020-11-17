@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +9,10 @@ import models.Usuario;
 
 public class JefeGenerico extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2266011807138157909L;
 	Usuario miUser;
 
 

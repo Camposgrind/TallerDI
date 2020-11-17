@@ -28,6 +28,7 @@ import models.Usuario;
 import models.Vehiculo;
 import javax.swing.JComboBox;
 
+@SuppressWarnings("serial")
 public class VentasBuscarVehiculo extends JFrame implements MouseListener,ActionListener{
 
 	protected Usuario miUser;
@@ -285,6 +286,7 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		VentasGenerico ventanaVentasG;
@@ -336,6 +338,7 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
 	 * en este caso el de cerrar sesión, se cierre la sesión
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;

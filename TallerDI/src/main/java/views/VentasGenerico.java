@@ -20,6 +20,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class VentasGenerico extends JFrame implements ActionListener, MouseListener{
 	
 	protected Usuario miUser;
@@ -153,6 +154,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		this.setVisible(true);
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		VentasAddCliente ventanaAddCliente;
@@ -197,6 +199,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
 	 * en este caso el de cerrar sesión, se cierre la sesión
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;

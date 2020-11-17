@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,8 +7,10 @@ import javax.swing.JFrame;
 
 import models.Usuario;
 
+@SuppressWarnings("serial")
 public class MecanicoGenerico extends JFrame implements ActionListener{
 
+	@SuppressWarnings("unused")
 	private JFrame frame;
 	protected Usuario miUser;
 	

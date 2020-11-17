@@ -20,6 +20,7 @@ import dao.ClienteDAO;
 import models.Usuario;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class VentasAddCliente extends JFrame implements MouseListener,ActionListener{
 
 
@@ -193,6 +194,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		VentasGenerico ventanaVentasG;
@@ -224,6 +226,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
 	 * en este caso el de cerrar sesión, se cierre la sesión
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
