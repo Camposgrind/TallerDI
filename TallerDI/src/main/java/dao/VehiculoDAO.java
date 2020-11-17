@@ -13,11 +13,11 @@ import models.Vehiculo;
 public class VehiculoDAO extends AbstractDAO{
 	
 	//ESTADO
-	Statement st;
-	ResultSet rs;
-	Vehiculo miVehiculo;
-	String nombreConcesionario;
-	String provincia;
+	protected Statement st;
+	protected ResultSet rs;
+	protected Vehiculo miVehiculo;
+	protected String nombreConcesionario;
+	protected String provincia;
 	
 	/**
 	 * Constructor
@@ -26,23 +26,24 @@ public class VehiculoDAO extends AbstractDAO{
 		super();
 		st = null;
 		rs=null;
-		nombreConcesionario="";
-		provincia="";
 		
 	}
 	/**
 	 * Método para buscar un vehículo en la BBDD
-	 * @param miMatricula la matrícula por la que vamos a buscar el coche 
-	 * @param miMarca la marca por la que vamos a buscar el coche
-	 * @param miModelo el modelo por el que vamos a buscar el coche
-	 * @param miTipo el tipo por el que vamos a buscar el coche 
-	 * @param miPrecio el precio por el que vamos a buscar el coche 
-	 * @param miColor el color por el que vamos a buscar el coche 
-	 * @param miFecha la fecha por la que vamos a buscar el coche
-	 * @return la lista de los vehículos encontrados 
+	 * @param miMatricula
+	 * @param miMarca
+	 * @param miModelo
+	 * @param miTipo
+	 * @param miPrecio
+	 * @param misKm
+	 * @param miColor
+	 * @param miCombustible
+	 * @param miFecha
+	 * @param idConcesionario
+	 * @return
 	 */
 	public ArrayList<Vehiculo> buscarVehiculo(String miMatricula, String miMarca,String miModelo,String miTipo,
-			String miPrecio,String miColor,String miFecha) {
+			String miPrecio,String misKm,String miColor,String miCombustible,String miFecha,String idConcesionario) {
 						
 			ArrayList<Vehiculo> miListaVehiculos=null;
 			Vehiculo miVehiculo;
@@ -51,21 +52,29 @@ public class VehiculoDAO extends AbstractDAO{
 			String precio="";
 			//iniciamos la fecha para añadirlo a la consulta 
 			String fecha = "'%"+miFecha+"%'" ;
+			String km = "";
+			String idCon = "";
+			int i = 7;
 			
 		//si la fecha no está vacia le añadimos la fecha que nos ha traido el textfield	
 		if(!miFecha.equals("")){
 		    fecha = "%" + Date.valueOf(miFecha) + "%";
 		}
+		if(!misKm.equals("")) {
+			km = " and precio like ?";
+		}
 		//si el precio no viene vacio le añadimos el string a la consulta 
 		if(!miPrecio.equals("")) {
-			precio = " and precio like ? ";			
+			precio = " and precio like ?";			
+		}
+		if(!idConcesionario.equals("")) {
+			idCon = " and idConcesionario like ?"; 
 		}
 
 		try {
-			 String query = "select vehiculo.*,ciudad,nombre"
-			 		+ " FROM vehiculo,concesionario where vehiculo.idConcesionario=concesionario.idConcesionario"
-			 		+ " and matricula like ? and marca like ? and modelo like ? and tipo like ?"
-			 		+ " and color like ? and fechaEntrada like " + fecha + precio;
+			 String query = "select *"
+			 		+ " FROM vehiculo where matricula like ? and marca like ? and modelo like ? and tipo like ?"
+			 		+ " and color like ? and combustible like ? and fechaEntrada like " + fecha + km + precio + idCon;
 			 
 			 preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					 ResultSet.CONCUR_UPDATABLE);
@@ -74,9 +83,21 @@ public class VehiculoDAO extends AbstractDAO{
 			 preparedStmt.setString(3, "%"+ miModelo + "%" );
 			 preparedStmt.setString(4, "%"+ miTipo + "%" );
 			 preparedStmt.setString(5, "%"+ miColor + "%" );
+			 preparedStmt.setString(6, "%"+ miCombustible + "%" );
 			 //Si el precio no era igual a "" que introduzca el precio al final que meta la variable precio en la consulta y asigne 
 			 //a la interrogación el valor que venia del textfield 
-			 if(!miPrecio.equals("")) preparedStmt.setInt(6,Integer.valueOf(miPrecio));
+			 if(!miPrecio.equals("")) {
+				 preparedStmt.setInt(i,Integer.valueOf(miPrecio));
+				 i++;
+			 }
+			 if(!misKm.equals("")) {
+				 preparedStmt.setInt(i,Integer.valueOf(misKm));
+				 i++;
+			 }
+			 if(!idConcesionario.equals("")) {
+				 preparedStmt.setInt(i,Integer.valueOf(idConcesionario));
+				 i++;
+			 }			 
 	            rs = preparedStmt.executeQuery();
 										
 			miListaVehiculos= new ArrayList<Vehiculo>();
@@ -84,9 +105,7 @@ public class VehiculoDAO extends AbstractDAO{
 			//mientras el resultset tenga filas creará clientes, les setea el estado y lo añade a la lista 
 			while(rs.next()){
 				miVehiculo = new Vehiculo(rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),
-						rs.getInt(5),rs.getString(6),rs.getDate(7),rs.getInt(8), rs.getInt(9));
-				provincia = rs.getString(10);
-				nombreConcesionario = rs.getString(11);
+						rs.getInt(5),rs.getInt(6),rs.getString(7),rs.getString(8),rs.getDate(9),rs.getInt(10), rs.getInt(11),rs.getBoolean(12));
 				miListaVehiculos.add(miVehiculo);
 			}	
 		} catch (SQLException e) {
@@ -95,79 +114,139 @@ public class VehiculoDAO extends AbstractDAO{
 		
 		return miListaVehiculos;
 	}
+	
 	/**
-	 * Método para añadir un vehículo a la BBDD 
-	 * @param miMatricula la matrícula que vamos a añadir 
-	 * @param miMarca la marca que vamos a añadir 
-	 * @param miModelo el modelo del coche que vamos a añadir 
-	 * @param miTipo el tipo del coche que vamos a añadir 
-	 * @param miPrecio el precio del coche que vamos a añadir 
-	 * @param miColor el color del coche que vamos a añadir 
-	 * @param miFecha la fecha de entrada del coche que vamos a añadir 
-	 * @param miConcesionario
+	 *  Método para añadir un vehículo a la BBDD
+	 * @param miMatricula
+	 * @param miMarca
+	 * @param miModelo
+	 * @param miTipo
+	 * @param miPrecio
+	 * @param misKm
+	 * @param miColor
+	 * @param miCombustible
+	 * @param miFecha
+	 * @param miIdConcesionario
 	 */
 	public void addVehiculo(String miMatricula, String miMarca,String miModelo,String miTipo,
-			String miPrecio,String miColor,String miFecha,String miConcesionario) {
+			String miPrecio,String misKm,String miColor,String miCombustible,String miFecha,String miIdConcesionario) {
 		
 		PreparedStatement preparedStmt;
 		
 		try {
+			
+			
 			preparedStmt = super.con.prepareStatement("insert into vehiculo (Matricula, Marca, Modelo, Tipo,"
-					+ " Precio, Color, FechaEntrada, idConcesionario) values (?,?,?,?,?,?,'2020-11-06',1)");
+					+ " Precio, Kilometros, Color, Combustible, FechaEntrada, idConcesionario) values (?,?,?,?,?,?,?,?,'2020-11-06',?)");
 			
 			preparedStmt.setString(1,miMatricula);
 			preparedStmt.setString(2, miMarca);
 			preparedStmt.setString(3, miModelo);
 			preparedStmt.setString(4, miTipo);
 			preparedStmt.setString(5, miPrecio);
-			preparedStmt.setString(6, miColor);
+			preparedStmt.setString(6, misKm);
+			preparedStmt.setString(7, miColor);
+			preparedStmt.setString(8, miCombustible);
+			preparedStmt.setString(9, miIdConcesionario);
+			
 			preparedStmt.executeUpdate();
+			
 		} catch (SQLException e) {			
 			e.printStackTrace();
-		}		
+		}
+
 	}
-	
-	
-	/////////////////////////////////////////////////////////
-	//FALTA HACERLO, YA QUE ESTO ES COPY PASTE DE CLiENTE///
-	///////////////////////////////////////////////////////
-	public Cliente modificarVehiculo(String miNombre, String miApellido, String miTlfn, String miDni,Cliente miCliente) {
+	/**
+	 * Metodo para modificar el vehiculo
+	 * @param miMatricula
+	 * @param miMarca
+	 * @param miModelo
+	 * @param miTipo
+	 * @param miPrecio
+	 * @param miCombustible
+	 * @param miColor
+	 * @param misKm
+	 * @param miFechaEntrada
+	 * @param idConcesionario
+	 * @param matriculaWhere
+	 * @return
+	 */
+	public Vehiculo modificarVehiculo(String miMatricula, String miMarca, String miModelo, String miTipo, String miPrecio,
+			String miCombustible, String miColor, String misKm, String miFechaEntrada,int idConcesionario,String matriculaWhere) {
 		PreparedStatement preparedStmt;
+		Vehiculo miVehiculo = new Vehiculo();
+		
 		try {
-			preparedStmt = super.con.prepareStatement("update cliente "
-					+ "set Nombre = ?,Apellidos = ?, Telefono = ? ,DNI = ? where idCliente = ?");
+
 			
-			preparedStmt.setString(1,miNombre);
-			preparedStmt.setString(2, miApellido);
-			preparedStmt.setString(3, miTlfn);
-			preparedStmt.setString(4, miDni);
+			preparedStmt = super.con.prepareStatement("update vehiculo "
+					+ "set Matricula = ?,Marca = ?, Modelo = ? ,Tipo = ?, Precio = ?, Kilometros = ?, Color = ?,"
+					+ " Combustible = ?, FechaEntrada = ?, idConcesionario = ? where matricula='"+matriculaWhere+"'");
 			
-			//Aquí le decimos que nos de el id cliente que tiene para ponerlo en el where
-			preparedStmt.setInt(5, miCliente.getIdCliente());
+			preparedStmt.setString(1,miMatricula);
+			preparedStmt.setString(2, miMarca);
+			preparedStmt.setString(3, miModelo);
+			preparedStmt.setString(4, miTipo);
+			preparedStmt.setInt(5, Integer.valueOf(miPrecio));
+			preparedStmt.setInt(6, Integer.valueOf(misKm));
+			preparedStmt.setString(7, miColor);
+			preparedStmt.setString(8, miCombustible);
+			preparedStmt.setString(9, miFechaEntrada);
+			preparedStmt.setInt(10, idConcesionario);
+			
+			//Aquí lo mismo habría que poner un where pero creo que se puede tocar algo en el SQL para que no haga falta 
+
 			preparedStmt.executeUpdate();
 			
-			//seteamos el estado del cliente en memoria para luego mostrarlo en el vista de la ficha 
-			miCliente.setNombre(miNombre);
-			miCliente.setApellidos(miApellido);
-			miCliente.setTelefono(miTlfn);
-			miCliente.setDni(miDni);
+			//seteamos el estado del Vehiculo en memoria para luego mostrarlo en el vista de la ficha 
+			miVehiculo.setMatricula(miMatricula);
+			miVehiculo.setMarca(miMarca);
+			miVehiculo.setModelo(miModelo);
+			miVehiculo.setTipo(miTipo);
+			miVehiculo.setPrecio(Integer.valueOf(miPrecio));
+			miVehiculo.setKilometros(Integer.valueOf(misKm));
+			miVehiculo.setColor(miColor);
+			miVehiculo.setCombustible(miCombustible);
+			miVehiculo.setFechaEntrada(Date.valueOf(miFechaEntrada));
+			miVehiculo.setIdConcesionario(idConcesionario);
+			//Lo mismo hay que cambiar también el concesionario 
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
 		
-		return miCliente;
+		return miVehiculo;
+	}
+	/**
+	 * Método para que nos de todos los combustibles que hay en la BBDD
+	 * @return
+	 */
+	public ArrayList<String> getCombustibles() {
+		ArrayList<String> listaCombustibles= new ArrayList<>();
+		String combustible;
+		PreparedStatement preparedStmt;
+		try {
+			String query = "SELECT DISTINCT(combustible) FROM vehiculo";
+			 preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
+					 ResultSet.CONCUR_UPDATABLE);
+			 rs = preparedStmt.executeQuery();
+			//ponemos el rs.next porque el puntero del sql se coloca antes de
+			//la primera fila de la tabla, por lo tanto si tiene un valor el 
+			//resulset devolverá true 
+
+			 while(rs.next()) {
+				 combustible = rs.getString(1);
+				 listaCombustibles.add(combustible);				 
+			 }
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listaCombustibles;
 	}
 	
-	public String getNombreConcesionario() {
-		return nombreConcesionario;
-	}
-	public void setNombreConcesionario(String nombreConcesionario) {
-		this.nombreConcesionario = nombreConcesionario;
-	}
-	public String getProvincia() {
-		return provincia;
-	}
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
+
+
 }

@@ -3,11 +3,11 @@ package models;
 public class Cliente {
 	
 	//ESTADO
-	int idCliente;
-	String nombre;
-	String apellidos;
-	String telefono;
-	String dni;
+	protected int idCliente;
+	protected String nombre;
+	protected String apellidos;
+	protected String telefono;
+	protected String dni;
 	
 	/**
 	 * Constructor vacío

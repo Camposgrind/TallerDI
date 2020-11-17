@@ -4,15 +4,18 @@ import java.util.Date;
 
 public class Vehiculo {
 	//ESTADO
-	String matricula;
-	String marca;
-	String modelo;
-	String tipo;
-	int precio;
-	String color;
-	Date fechaEntrada;
-	int idConcesionario;
-	int idCliente;
+	protected String matricula;
+	protected String marca;
+	protected String modelo;
+	protected String tipo;
+	protected int precio;
+	protected int km;
+	protected String color;
+	protected String combustible;
+	protected Date fechaEntrada;
+	protected int idConcesionario;
+	protected int idCliente;
+	protected boolean vendido;
 	/**
 	 * Constructor vacio
 	 */
@@ -32,17 +35,45 @@ public class Vehiculo {
 	 * @param miIDCliente
 	 */
 	public Vehiculo(String miMatricula, String miMarca,String miModelo,String miTipo,
-			int miPrecio,String miColor,Date miFecha,int miIDConcesio, int miIDCliente) {
+			int miPrecio,int misKm,String miColor,String miCombustible,Date miFecha,int miIDConcesio, int miIDCliente, boolean vendido) {
 		
 		matricula = miMatricula;
 		marca = miMarca;
 		modelo = miModelo;
 		tipo = miTipo;
 		precio = miPrecio;
+		km = misKm;
 		color = miColor;
+		combustible = miCombustible;
 		fechaEntrada = miFecha;
 		idConcesionario = miIDConcesio;
 		idCliente = miIDCliente;
+		this.vendido = vendido;
+	}
+	
+	public int getKm() {
+		return km;
+	}
+	public void setKm(int km) {
+		this.km = km;
+	}
+	public boolean isVendido() {
+		return vendido;
+	}
+	public void setVendido(boolean vendido) {
+		this.vendido = vendido;
+	}
+	public int getKilometros() {
+		return km;
+	}
+	public void setKilometros(int km) {
+		this.km = km;
+	}
+	public String getCombustible() {
+		return combustible;
+	}
+	public void setCombustible(String combustible) {
+		this.combustible = combustible;
 	}
 	public String getMatricula() {
 		return matricula;

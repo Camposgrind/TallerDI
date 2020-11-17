@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +12,9 @@ import models.Cliente;
 public class ClienteDAO extends AbstractDAO{
 
 	//ESTADO
-	Statement st;
-	ResultSet rs;
-	Cliente miCliente;
+	protected Statement st;
+	protected ResultSet rs;
+	protected Cliente miCliente;
 	
 	/**
 	 * Constructor

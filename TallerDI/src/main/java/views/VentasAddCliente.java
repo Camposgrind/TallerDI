@@ -36,7 +36,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	protected JTextField tFTelefono;
 	protected JTextField tFDni;
 	protected ClienteDAO miClienteDao;
-	ImageIcon imgUsu;
+	protected ImageIcon imgUsu;
 
 	/**
 	 * Create the application.

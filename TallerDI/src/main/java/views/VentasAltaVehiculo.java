@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import dao.ConcesionarioDAO;
 import dao.VehiculoDAO;
 import models.Usuario;
 import models.Vehiculo;
@@ -26,8 +28,8 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblBuscarCoches;
-	protected JButton btnVolver,btnAdd;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes,lblkm,lblCombustible;
+	protected JButton btnVolver,btnRegistrar;
 	protected JLabel lblMatricula;
 	protected JLabel lblMarca;
 	protected JLabel lblModelo;
@@ -37,14 +39,17 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 	protected JTextField tFMatricula;
 	protected JTextField tFMarca;
 	protected JTextField tFModelo;
-	protected JTextField tFTipo,tfFechaEntrada,tFPrecio,tFColor,tFConcesionario;
+	protected JTextField tfFechaEntrada,tFPrecio,tFColor;
 	protected VehiculoDAO miVehiculoDao;
-	
+	protected ConcesionarioDAO miConcesionarioDao;
+	protected JComboBox comboBox,comboCombustible,comboConcesionarios;
+	private JTextField tFKm;
 	/**
 	 * Create the application.
 	 */
 	public VentasAltaVehiculo(Usuario miUsuario) {
 		miVehiculoDao = new VehiculoDAO();
+		miConcesionarioDao = new ConcesionarioDAO();
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
@@ -55,6 +60,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 	 */
 	private void initialize() {
 		ImageIcon imgUsu;
+		ArrayList<String> listaConcesionarios;
 	
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
@@ -74,7 +80,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
-		lblBuscarCoches = new JLabel("Buscar coches");
+		lblAltaClientes = new JLabel("Alta vehículo");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");
 		lblMarca = new JLabel("Marca:");
 		lblModelo = new JLabel("Modelo:");
@@ -86,20 +92,21 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		tFMatricula = new JTextField();
 		tFMarca = new JTextField();
 		tFModelo = new JTextField();
-		tFTipo = new JTextField();	
 		tfFechaEntrada = new JTextField();
 		
 		tFPrecio = new JTextField();
 		tFColor = new JTextField();
-		tFConcesionario = new JTextField();
+		tFKm = new JTextField();
+		lblkm = new JLabel("Kilómetros:");
+		lblCombustible = new JLabel("Combustible:");
 		btnVolver = new JButton("Volver");
-		btnAdd = new JButton("Registrar");
-		lblAddOk = new JLabel("VEHÍCULO REGISTRADO CON ÉXITO");
+		btnRegistrar = new JButton("Registrar");
+		lblAddOk = new JLabel("VEHÍCULO AÑADIDO");
 		lblAddOk.setVisible(false);
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
-		btnAdd.addActionListener(this);
-
+		btnRegistrar.addActionListener(this);
+		
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
 		panelUsuario.setLayout(null);
@@ -123,7 +130,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
 		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnAdd.setBackground(new java.awt.Color(0,92,48));
+		btnRegistrar.setBackground(new java.awt.Color(0,92,48));
 		lblAddOk.setBackground(new java.awt.Color(0,92,48));
 		
 		//Damos el tamaño a los componentes que están en absoluto
@@ -135,26 +142,29 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		lblMatricula.setBounds(200, 74, 142, 30);
-		lblMarca.setBounds(200, 115, 135, 30);
-		lblModelo.setBounds(200, 156, 135, 30);
-		lblTipo.setBounds(200, 197, 142, 30);
+		
+		lblMatricula.setBounds(54, 109, 119, 30);
+		lblMarca.setBounds(54, 150, 119, 30);
+		lblModelo.setBounds(54, 191, 119, 30);
+		lblTipo.setBounds(54, 232, 119, 30);
 
-		lblPrecio.setBounds(200, 238, 142, 30); 
-		lblColor.setBounds(200, 279, 142, 30); 
-		lblFechaEntrada.setBounds(200, 320, 142, 30);
-		lblConcesionario.setBounds(200, 361, 142, 30); 	
-		tFMatricula.setBounds(376, 76, 222, 27);
-		tFMarca.setBounds(376, 117, 222, 27);
-		tFModelo.setBounds(376, 158, 222, 27);
-		tFTipo.setBounds(376, 199, 222, 27);
+		lblPrecio.setBounds(54, 303, 119, 30); 
+		lblColor.setBounds(412, 150, 142, 30); 
+		lblFechaEntrada.setBounds(412, 232, 142, 30);
+		lblConcesionario.setBounds(412, 303, 142, 30); 	
+		tFMatricula.setBounds(183, 111, 202, 27);
+		tFMarca.setBounds(183, 152, 202, 27);
+		tFModelo.setBounds(183, 194, 202, 27);
 
-		tFPrecio.setBounds(376, 240, 222, 27);
-		tFColor.setBounds(376, 281, 222, 27);
-		tfFechaEntrada.setBounds(376, 322, 222, 27);
-		tFConcesionario.setBounds(376, 363, 222, 27);
+		tFPrecio.setBounds(183, 305, 202, 27);
+		tFColor.setBounds(554, 152, 194, 27);
+		tfFechaEntrada.setBounds(554, 234, 194, 27);
+
+		tFKm.setBounds(554, 111, 194, 27);
+		lblkm.setBounds(412, 109, 142, 30);
+		lblCombustible.setBounds(412, 191, 131, 30);
 		btnVolver.setBounds(153, 420, 117, 35);
-		btnAdd.setBounds(515, 420, 117, 35);
+		btnRegistrar.setBounds(515, 420, 117, 35);
 		lblAddOk.setBounds(258, 40, 276, 41);
 		
 		//Damos el tamaño, fuente y color a las letras 
@@ -164,8 +174,8 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
 		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		lblBuscarCoches.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblBuscarCoches.setForeground(new java.awt.Color(38, 70, 83));
+		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
+		lblAltaClientes.setForeground(new java.awt.Color(38, 70, 83));
 		lblMatricula.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblMarca.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblModelo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
@@ -181,18 +191,18 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		tFMarca.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFModelo.setColumns(10);
 		tFModelo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFTipo.setColumns(10);
-		tFTipo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFKm.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblkm.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblCombustible.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		
 		tfFechaEntrada.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFPrecio.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFColor.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFConcesionario.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
-		btnAdd.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		btnAdd.setForeground(Color.WHITE);
+		btnRegistrar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnRegistrar.setForeground(Color.WHITE);
 		lblAddOk.setForeground(Color.BLACK);
 		lblAddOk.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		
@@ -207,28 +217,66 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		panelUsuario.add(lblCerrarSesion);				
 		//Añadimos el panel informativo, labels, textfield y botones 
 		panelContenido.add(panelInfo);
-		panelInfo.add(lblBuscarCoches);		
+		panelInfo.add(lblAltaClientes);	
+		
 		panelContenido.add(lblMatricula);		
 		panelContenido.add(lblMarca);		
 		panelContenido.add(lblModelo);		
 		panelContenido.add(lblTipo);
+		panelContenido.add(lblFechaEntrada);
 		panelContenido.add(lblPrecio);
 		panelContenido.add(lblColor);
-		//panelContenido.add(lblFechaEntrada);
-		//panelContenido.add(lblConcesionario);
+		panelContenido.add(lblConcesionario);
 		
 		panelContenido.add(tFMatricula);		
 		panelContenido.add(tFMarca);		
 		panelContenido.add(tFModelo);		
-		panelContenido.add(tFTipo);
+		panelContenido.add(tfFechaEntrada);		
 		panelContenido.add(tFPrecio);		
-		panelContenido.add(tFColor);		
-		//panelContenido.add(tfFechaEntrada);		
-		//panelContenido.add(tFConcesionario);
+		panelContenido.add(tFColor);			
+		panelContenido.add(tFKm);		
+		panelContenido.add(lblkm);		
+		panelContenido.add(lblCombustible);
 		
 		panelContenido.add(btnVolver);
-		panelContenido.add(btnAdd);
+		panelContenido.add(btnRegistrar);
 		panelContenido.add(lblAddOk);
+		
+		comboBox = new JComboBox();
+		comboBox.addItem("");
+		comboBox.addItem("Coche");
+		comboBox.addItem("Motocicleta");
+		comboBox.addItem("Ciclomotor");
+		comboBox.setSelectedItem("");
+		comboBox.addActionListener(this);
+		comboBox.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboBox.setBounds(183, 234, 202, 27);
+		panelContenido.add(comboBox);
+		
+		comboCombustible = new JComboBox();
+		comboCombustible.addItem("");
+		comboCombustible.addItem("Hibrido");
+		comboCombustible.addItem("Diesel");
+		comboCombustible.addItem("Gasolina");
+		comboCombustible.addItem("Electrico");
+		comboCombustible.setSelectedItem("");
+		comboCombustible.addActionListener(this);
+		comboCombustible.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboCombustible.setBounds(554, 193, 194, 27);
+		panelContenido.add(comboCombustible);
+		
+		comboConcesionarios = new JComboBox();
+		listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(0);
+		comboConcesionarios.addItem("");
+		for (int i = 0; i < listaConcesionarios.size(); i++) {
+			comboConcesionarios.addItem(listaConcesionarios.get(i));
+		}
+		comboConcesionarios.setSelectedItem("");
+		comboConcesionarios.addActionListener(this);
+		comboConcesionarios.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboConcesionarios.setBounds(554, 305, 195, 27);
+		panelContenido.add(comboConcesionarios);
+		
 					
 		this.setVisible(true);
 	}
@@ -242,9 +290,8 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		String txtBtn = e.getActionCommand();
 		VentasFichaCliente ventanaFicha;
 		VentasListadoClientes ventanaListaClientes;
-		String provincia="";
-		String nombreConcesionario="";
 		VentasFichaVehiculo ventanaFichaVehiculo;
+		String idConcesionario;
 		
 		switch (txtBtn) {
 		case "Volver":
@@ -255,18 +302,23 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 			
 		case "Registrar":
 			
+			idConcesionario = miConcesionarioDao.buscarIDConcesionario(comboConcesionarios.getSelectedItem().toString())+"";
 			miVehiculoDao.addVehiculo(
-					tFMatricula.getText(), tFMarca.getText(), tFModelo.getText(), tFTipo.getText(),
-					tFPrecio.getText(),tFColor.getText(),tfFechaEntrada.getText(),tFConcesionario.getText());
+					tFMatricula.getText(), tFMarca.getText(), tFModelo.getText(),
+					comboBox.getSelectedItem().toString(),tFPrecio.getText(),tFKm.getText(),tFColor.getText(),comboCombustible.getSelectedItem().toString(), 
+					tfFechaEntrada.getText(),idConcesionario);
+			
 			lblAddOk.setVisible(true);
 			tFMatricula.setText("");
 			tFMarca.setText("");
 			tFModelo.setText("");
-			tFTipo.setText("");
 			tfFechaEntrada.setText("");
 			tFPrecio.setText("");
 			tFColor.setText("");
-			tFConcesionario.setText("");
+			tFKm.setText("");
+			comboCombustible.setSelectedItem("");
+			comboBox.setSelectedItem("");
+			comboConcesionarios.setSelectedItem("");
 			break;
 
 

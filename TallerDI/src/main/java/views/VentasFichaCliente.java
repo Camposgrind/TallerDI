@@ -78,7 +78,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
-		lblFichaClientes = new JLabel("Buscar clientes");
+		lblFichaClientes = new JLabel("Ficha cliente");
 		lblNombre = new JLabel("Nombre: ");
 		lblApellidos = new JLabel("Apellidos:");
 		lblTelefono = new JLabel("Tel\u00E9fono:");

@@ -10,9 +10,9 @@ import models.Usuario;
 public class UsuarioDAO extends AbstractDAO{
 	
 	//ESTADO
-	Statement st;
-	ResultSet rs;
-	Usuario miUsuario;
+	protected Statement st;
+	protected ResultSet rs;
+	protected Usuario miUsuario;
 	
 	/**
 	 * Constructor

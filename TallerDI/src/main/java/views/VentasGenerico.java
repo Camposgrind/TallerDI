@@ -60,11 +60,11 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		lblFotoUsu = new JLabel(imgUsu);
 		btnAltaCl = new JButton("Alta de clientes");
-		btnBuscarVehiculos = new JButton("Buscar vehiculos");
+		btnBuscarVehiculos = new JButton("Buscar vehículos");
 		btnBuscarClientes = new JButton("Buscar clientes");
 		btnPropuestaDeVenta = new JButton("Propuesta de venta");
 		btnBuscarPropuesta = new JButton("Buscar propuesta de venta");
-		btnAltaCoche = new JButton("Alta coche");
+		btnAltaCoche = new JButton("Alta vehículo");
 		imgLogoVentas = new ImageIcon("iconoVentas.png");
 		lblFotoSur = new JLabel(imgLogoVentas);
 		lblCerrarSesion.addMouseListener(this);
@@ -168,7 +168,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 			this.dispose();
 			ventanaAddCliente = new VentasAddCliente(miUser);
 			break;
-		case "Buscar vehiculos":
+		case "Buscar vehículos":
 			this.setVisible(false);
 			this.dispose();
 			ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser);
@@ -185,7 +185,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 			
 			break;
 			
-		case "Alta coche":
+		case "Alta vehículo":
 			this.setVisible(false);
 			this.dispose();	
 			ventanaAltaVehiculo = new VentasAltaVehiculo(miUser);

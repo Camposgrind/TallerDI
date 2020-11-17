@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import dao.ConcesionarioDAO;
 import dao.VehiculoDAO;
 import models.Usuario;
 import models.Vehiculo;
@@ -35,20 +36,32 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 	protected JLabel lblPrecio,lblColor,lblConcesionario;
 	protected JLabel tFMatricula;
 	protected JLabel tFMarca;
-	protected JLabel tFModelo;
+	protected JLabel tFModelo, lblkm,lblCombustible,tFkm,tFCombustible;
 	protected JLabel tFTipo,tfFechaEntrada,tFPrecio,tFColor,tFConcesionario;
 	protected VehiculoDAO miVehiculoDao;
 	protected Vehiculo miVehiculo;
 	protected String provincia;
 	protected String nombreConcesionario;
+	protected VentasListadoVehiculos miVentanaListadoVehiculos;
+	protected ConcesionarioDAO miConcesionarioDao;
+	
 	/**
 	 * Create the application.
 	 */
-	public VentasFichaVehiculo(Usuario miUsuario,Vehiculo miVehiculo,String miProvincia,String miNombreConcesionario) {
+	/*public VentasFichaVehiculo(Usuario miUsuario,Vehiculo miVehiculo,String miProvincia,String miNombreConcesionario) {
 		miVehiculoDao = new VehiculoDAO();
 		provincia = miProvincia;
 		this.miVehiculo= miVehiculo;
 		nombreConcesionario = miNombreConcesionario;
+		miUser = miUsuario;
+		getContentPane().setForeground(Color.BLACK);
+		initialize();
+	}*/
+	public VentasFichaVehiculo(Usuario miUsuario,Vehiculo miVehiculo,VentasListadoVehiculos miVentanaListado) {
+		miConcesionarioDao = new ConcesionarioDAO();
+		miVentanaListadoVehiculos = miVentanaListado;
+		miVehiculoDao = new VehiculoDAO();
+		this.miVehiculo= miVehiculo;
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
@@ -59,7 +72,8 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 	 */
 	private void initialize() {
 		ImageIcon imgUsu;
-	
+		ArrayList<String> listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(miVehiculo.getIdConcesionario());
+		String concesionario= listaConcesionarios.get(0);
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +92,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
-		lblAltaClientes = new JLabel("Buscar coches");
+		lblAltaClientes = new JLabel("Ficha veh\u00EDculo");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");
 		lblMarca = new JLabel("Marca:");
 		lblModelo = new JLabel("Modelo:");
@@ -92,10 +106,14 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		tFModelo = new JLabel(miVehiculo.getModelo());
 		tFTipo = new JLabel(miVehiculo.getTipo());	
 		tfFechaEntrada = new JLabel(miVehiculo.getFechaEntrada().toString());
+		lblkm = new JLabel("Kilómetros:");
+		lblCombustible = new JLabel("Combustible:");
+		tFkm = new JLabel(miVehiculo.getKilometros()+"");
+		tFCombustible = new JLabel(miVehiculo.getCombustible());
 		
 		tFPrecio = new JLabel(miVehiculo.getPrecio()+"");
 		tFColor = new JLabel(miVehiculo.getColor());
-		tFConcesionario = new JLabel(nombreConcesionario+" ("+provincia+")");
+		tFConcesionario = new JLabel(concesionario);
 		btnVolver = new JButton("Volver");
 		btnModificar = new JButton("Modificar");
 		btnPropuesta = new JButton("Propuesta de venta");
@@ -141,24 +159,29 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		lblMatricula.setBounds(200, 74, 142, 30);
-		lblMarca.setBounds(200, 115, 135, 30);
-		lblModelo.setBounds(200, 156, 135, 30);
-		lblTipo.setBounds(200, 197, 142, 30);
+		
+		lblMatricula.setBounds(54, 109, 119, 30);
+		lblMarca.setBounds(54, 150, 119, 30);
+		lblModelo.setBounds(54, 191, 119, 30);
+		lblTipo.setBounds(54, 232, 119, 30);
 
-		lblPrecio.setBounds(200, 238, 142, 30); 
-		lblColor.setBounds(200, 279, 142, 30); 
-		lblFechaEntrada.setBounds(200, 320, 142, 30);
-		lblConcesionario.setBounds(200, 361, 142, 30); 	
-		tFMatricula.setBounds(376, 76, 222, 27);
-		tFMarca.setBounds(376, 117, 222, 27);
-		tFModelo.setBounds(376, 158, 222, 27);
-		tFTipo.setBounds(376, 199, 222, 27);
+		lblPrecio.setBounds(54, 303, 119, 30); 
+		lblColor.setBounds(425, 150, 142, 30); 
+		lblFechaEntrada.setBounds(425, 232, 142, 30);
+		lblConcesionario.setBounds(425, 303, 142, 30); 	
+		tFMatricula.setBounds(183, 111, 207, 27);
+		tFMarca.setBounds(183, 152, 207, 27);
+		tFModelo.setBounds(183, 194, 202, 27);
+		tFTipo.setBounds(183, 234, 202, 27);
+		lblkm.setBounds(425, 109, 142, 30);
+		tFkm.setBounds(577, 112, 179, 27);
+		tFCombustible.setBounds(577, 194, 179, 27);
+		lblCombustible.setBounds(425, 191, 131, 30);
 
-		tFPrecio.setBounds(376, 240, 222, 27);
-		tFColor.setBounds(376, 281, 222, 27);
-		tfFechaEntrada.setBounds(376, 322, 222, 27);
-		tFConcesionario.setBounds(376, 363, 299, 27);
+		tFPrecio.setBounds(183, 305, 222, 27);
+		tFColor.setBounds(577, 152, 179, 27);
+		tfFechaEntrada.setBounds(577, 234, 179, 27);
+		tFConcesionario.setBounds(569, 305, 207, 27);
 		btnVolver.setBounds(94, 424, 117, 35);
 		btnModificar.setBounds(295, 424, 117, 35);
 		btnPropuesta.setBounds(490, 424, 202, 35);
@@ -185,7 +208,10 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		tFMarca.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));				
 		tFModelo.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));		
 		tFTipo.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		
+		lblkm.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFkm.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
+		tFCombustible.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
+		lblCombustible.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));		
 		tfFechaEntrada.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
 		tFPrecio.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
 		tFColor.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
@@ -234,6 +260,11 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		panelContenido.add(btnModificar);
 		panelContenido.add(btnPropuesta);
 		panelContenido.add(lblAddOk);
+		
+		panelContenido.add(lblkm);
+		panelContenido.add(lblCombustible);
+		panelContenido.add(tFkm);
+		panelContenido.add(tFCombustible);
 					
 		this.setVisible(true);
 	}
@@ -247,16 +278,24 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		String txtBtn = e.getActionCommand();
 		VentasFichaCliente ventanaFicha;
 		VentasListadoClientes ventanaListaClientes;
+		VentasModificarVehiculo ventanaModificarVehiculo;
 		
 		switch (txtBtn) {
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
-			ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser);
+			if(miVentanaListadoVehiculos==null) {
+							
+				ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser);
+			}else {
+				miVentanaListadoVehiculos.setVisible(true);
+			}
 			break;
 			
 		case "Modificar":
-			
+			this.setVisible(false);
+			this.dispose();
+			ventanaModificarVehiculo = new VentasModificarVehiculo(miUser,miVehiculo);
 			break;
 
 		}
@@ -296,5 +335,4 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 	public void mouseExited(MouseEvent e) {
 		
 	}
-
 }
