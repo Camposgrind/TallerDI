@@ -161,7 +161,8 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		VentasBuscarCliente ventanaBuscarCliente;
 		VentasBuscarVehiculo ventanaBuscarVehiculo;
 		VentasAltaVehiculo ventanaAltaVehiculo;
-		VentasPropuestaVenta ventanaBuscarPropuesta;
+		VentasPropuestaVenta ventanaRealizarPropuesta;
+		VentasBuscarPropuesta ventanaBuscarPropuesta;
 		
 		String txtBtn = e.getActionCommand();
 		
@@ -184,11 +185,14 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		case "Propuesta de venta":
 			this.setVisible(false);
 			this.dispose();
-			ventanaBuscarPropuesta = new VentasPropuestaVenta(miUser,null,null);
+			ventanaRealizarPropuesta = new VentasPropuestaVenta(miUser,null,null);
 			
 			break;
 		case "Buscar propuesta de venta":
-
+			this.setVisible(false);
+			this.dispose();
+			ventanaBuscarPropuesta = new VentasBuscarPropuesta(miUser);
+			
 			break;
 			
 		case "Alta vehículo":

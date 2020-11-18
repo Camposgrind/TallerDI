@@ -125,4 +125,38 @@ public class ClienteDAO extends AbstractDAO{
 		
 		return miCliente;
 	}
+	/**
+	 * Método para buscar un cliente según la id que le pasemos
+	 * @param miIdCliente
+	 * @return cliente
+	 */
+	public Cliente buscarClienteById(int miIdCliente) {
+		
+		Cliente miCliente= null;
+		PreparedStatement preparedStmt;
+		
+		try {
+			 String query = "SELECT * FROM Cliente where idCliente like ?";
+			 preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
+					 ResultSet.CONCUR_UPDATABLE);
+			 
+			 preparedStmt.setInt(1,miIdCliente);
+
+	            rs = preparedStmt.executeQuery();
+										
+			//mientras el resultset tenga filas creará clientes, les setea el estado y lo añade a la lista 
+			if(rs.next()) {
+				miCliente = new Cliente();
+				miCliente.setIdCliente(rs.getInt(1));
+				miCliente.setNombre(rs.getString(2));
+				miCliente.setApellidos(rs.getString(3));
+				miCliente.setTelefono(rs.getString(4));
+				miCliente.setDni(rs.getString(5));		
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return miCliente;
+	}
+	
 }
