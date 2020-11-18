@@ -49,11 +49,13 @@ public class VentasModificarVehiculo extends JFrame implements MouseListener,Act
 	protected JTextField tFkm;
 	protected Concesionario miConcesionario;
 	protected ArrayList<String >listaCombustibles;
+	protected VentasPropuestaVenta ventanaPropuesta;
 	
 	/**
 	 * Create the application.
 	 */
-	public VentasModificarVehiculo(Usuario miUsuario,Vehiculo miVehiculo) {
+	public VentasModificarVehiculo(Usuario miUsuario,Vehiculo miVehiculo,VentasPropuestaVenta miVentanaPropuesta) {
+		ventanaPropuesta = miVentanaPropuesta;
 		miVehiculoDao = new VehiculoDAO();
 		miConcesionarioDao = new ConcesionarioDAO();
 		listaCombustibles = new ArrayList<String>();
@@ -315,7 +317,7 @@ public class VentasModificarVehiculo extends JFrame implements MouseListener,Act
 			
 			lblAddOk.setVisible(true);
 			this.setVisible(false);
-			ventanaFichaVehiculo = new VentasFichaVehiculo(miUser, miVehiculo, null);
+			ventanaFichaVehiculo = new VentasFichaVehiculo(miUser, miVehiculo, null,ventanaPropuesta);
 			
 			break;
 

@@ -35,15 +35,17 @@ public class VentasListadoClientes extends JFrame implements MouseListener, Acti
 	protected ClienteDAO miClienteDao;
 	private JTable table;
 	protected String info[][];
+	protected VentasPropuestaVenta ventanaPropuesta;
 
 	/**
 	 * Create the application.
 	 */
-	public VentasListadoClientes(Usuario miUsuario, ArrayList<Cliente> listaClientes) {
+	public VentasListadoClientes(Usuario miUsuario, ArrayList<Cliente> listaClientes,VentasPropuestaVenta miVentanaPropuesta) {
 
 		miClienteDao = new ClienteDAO();
 		miUser = miUsuario;
 		miLista = listaClientes;
+		ventanaPropuesta = miVentanaPropuesta;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
 	}
@@ -179,7 +181,7 @@ public class VentasListadoClientes extends JFrame implements MouseListener, Acti
 
 		this.setVisible(false);
 		this.dispose();
-		ventanaBuscarCliente = new VentasBuscarCliente(miUser);
+		ventanaBuscarCliente = new VentasBuscarCliente(miUser,ventanaPropuesta);
 
 	}
 
@@ -206,7 +208,7 @@ public class VentasListadoClientes extends JFrame implements MouseListener, Acti
 	        int i = table.getSelectedColumn();
 			table.getValueAt(row, i);
 			this.setVisible(false);
-			ventanaClienteSeleccionado = new VentasFichaCliente(miUser, miLista.get(row),this);
+			ventanaClienteSeleccionado = new VentasFichaCliente(miUser, miLista.get(row),this,ventanaPropuesta);
 		}
 	}
 

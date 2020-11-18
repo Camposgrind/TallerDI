@@ -38,17 +38,19 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		private JTable table;
 		protected ArrayList<String> listaNombreConce;
 		protected String info[][];
+		protected VentasPropuestaVenta ventanaPropuesta;
 		
 	/**
 	 * Constructor
 	 * @param miUser
 	 * @param miListaVehiculos
 	 */
-	public VentasListadoVehiculos(Usuario miUser, ArrayList<Vehiculo> miListaVehiculos) {
+	public VentasListadoVehiculos(Usuario miUser, ArrayList<Vehiculo> miListaVehiculos,VentasPropuestaVenta miVentanaPropuesta) {
 		miConcesionarioDao = new ConcesionarioDAO();
 		listaNombreConce = new ArrayList<String>();
 		this.miUser = miUser;
 		listaVehiculos = miListaVehiculos;
+		ventanaPropuesta = miVentanaPropuesta;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
 	}
@@ -190,7 +192,7 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 
 		this.setVisible(false);
 		this.dispose();
-		ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser);
+		ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser,ventanaPropuesta);
 
 	}
 
@@ -217,7 +219,7 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 	        int i = table.getSelectedColumn();
 			table.getValueAt(row, i);
 			this.setVisible(false);
-			ventanaVehiculoSeleccionado = new VentasFichaVehiculo(miUser, listaVehiculos.get(row),this);
+			ventanaVehiculoSeleccionado = new VentasFichaVehiculo(miUser, listaVehiculos.get(row),this,ventanaPropuesta);
 		}
 	}
 

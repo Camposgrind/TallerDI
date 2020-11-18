@@ -39,6 +39,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	protected JLabel infoDni;
 	protected ClienteDAO miClienteDao;
 	protected VentasListadoClientes ventasListadoClientes;
+	protected VentasPropuestaVenta ventanaPropuestas;
 	
 	/**
 	 * Constructor de la vista 
@@ -46,8 +47,10 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	 * @param miCliente
 	 * @param ventasListadoClientes
 	 */
-	public  VentasFichaCliente(Usuario miUsuario,Cliente miCliente, VentasListadoClientes ventasListadoClientes) {
+	public  VentasFichaCliente(Usuario miUsuario,Cliente miCliente, VentasListadoClientes ventasListadoClientes,
+			VentasPropuestaVenta miVentanaPropuesta) {
 		this.ventasListadoClientes = ventasListadoClientes;
+		ventanaPropuestas = miVentanaPropuesta;
 		this.miCliente = miCliente;
 		miClienteDao = new ClienteDAO();
 		miUser = miUsuario;
@@ -94,7 +97,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnModificar.addActionListener(this);
-		
+		btnPropuestaVenta.addActionListener(this);
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
 		panelUsuario.setLayout(null);
@@ -210,7 +213,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 			this.dispose();
 			if(ventasListadoClientes==null) {
 				
-				ventanaBuscarCliente = new VentasBuscarCliente(miUser);
+				ventanaBuscarCliente = new VentasBuscarCliente(miUser,ventanaPropuestas);
 			}else {
 				ventasListadoClientes.setVisible(true);
 			}
@@ -220,11 +223,21 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		case "Modificar":			
 			this.setVisible(false);
 			this.dispose();
-			ventanaModificar = new VentasModificarCliente(miUser, miCliente);
+			ventanaModificar = new VentasModificarCliente(miUser, miCliente,ventanaPropuestas);
 			//Aquí habría que meter una ventana de buscar cliente pero con los texfield ya puestos con la info 
 			break;
 			
 		case "Propuesta de venta":
+			this.setVisible(false);
+			this.dispose();
+			if(ventanaPropuestas!=null) {
+				ventanaPropuestas.setCliente(miCliente);				
+			}else {
+				ventanaPropuestas = new VentasPropuestaVenta(miUser, null, miCliente);
+			}
+			ventanaPropuestas.setTextFieldCliente();
+			ventanaPropuestas.setVisible(true);
+			
 			break;
 		}
 		
@@ -263,4 +276,5 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	public void mouseExited(MouseEvent e) {
 		
 	}
+
 }

@@ -51,12 +51,6 @@ public class Vehiculo {
 		this.vendido = vendido;
 	}
 	
-	public int getKm() {
-		return km;
-	}
-	public void setKm(int km) {
-		this.km = km;
-	}
 	public boolean isVendido() {
 		return vendido;
 	}

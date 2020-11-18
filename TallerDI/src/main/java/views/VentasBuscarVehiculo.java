@@ -49,12 +49,14 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 	protected ConcesionarioDAO miConcesionarioDao;
 	protected JComboBox comboBox,comboCombustible,comboConcesionarios;
 	private JTextField tFKm;
+	protected VentasPropuestaVenta ventanaPropuesta;
 	/**
 	 * Create the application.
 	 */
-	public VentasBuscarVehiculo(Usuario miUsuario) {
+	public VentasBuscarVehiculo(Usuario miUsuario, VentasPropuestaVenta miVentanaPropuesta ) {
 		miVehiculoDao = new VehiculoDAO();
 		miConcesionarioDao = new ConcesionarioDAO();
+		ventanaPropuesta = miVentanaPropuesta;
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
@@ -152,7 +154,6 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 		lblMarca.setBounds(54, 150, 119, 30);
 		lblModelo.setBounds(54, 191, 119, 30);
 		lblTipo.setBounds(54, 232, 119, 30);
-
 		lblPrecio.setBounds(54, 303, 119, 30); 
 		lblColor.setBounds(412, 150, 142, 30); 
 		lblFechaEntrada.setBounds(412, 232, 142, 30);
@@ -301,7 +302,12 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
-			ventanaVentasG = new VentasGenerico(miUser);			
+			
+			if(ventanaPropuesta!=null) {
+				ventanaPropuesta.setVisible(true);
+			}else {
+				ventanaVentasG = new VentasGenerico(miUser);						
+			}
 			break;
 			
 		case "Buscar":
@@ -316,13 +322,12 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 		
 			if(miListaVehiculos.size()==1) {
 				this.setVisible(false);
-				this.dispose();
-				//	
-				ventanaFichaVehiculo = new VentasFichaVehiculo(miUser,miListaVehiculos.get(0),null);
+				this.dispose();	
+				ventanaFichaVehiculo = new VentasFichaVehiculo(miUser,miListaVehiculos.get(0),null,ventanaPropuesta);
 			}else if(miListaVehiculos.size()>1) {
 				this.setVisible(false);
 				this.dispose();
-				ventanaListaVehiculos = new VentasListadoVehiculos(miUser,miListaVehiculos);
+				ventanaListaVehiculos = new VentasListadoVehiculos(miUser,miListaVehiculos,ventanaPropuesta);
 			}else{
 				lblAddOk.setVisible(true);
 				tFMatricula.setText("");

@@ -45,20 +45,15 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 	protected String nombreConcesionario;
 	protected VentasListadoVehiculos miVentanaListadoVehiculos;
 	protected ConcesionarioDAO miConcesionarioDao;
+	protected VentasPropuestaVenta ventanaPropuesta;
 	
 	/**
 	 * Create the application.
 	 */
-	/*public VentasFichaVehiculo(Usuario miUsuario,Vehiculo miVehiculo,String miProvincia,String miNombreConcesionario) {
-		miVehiculoDao = new VehiculoDAO();
-		provincia = miProvincia;
-		this.miVehiculo= miVehiculo;
-		nombreConcesionario = miNombreConcesionario;
-		miUser = miUsuario;
-		getContentPane().setForeground(Color.BLACK);
-		initialize();
-	}*/
-	public VentasFichaVehiculo(Usuario miUsuario,Vehiculo miVehiculo,VentasListadoVehiculos miVentanaListado) {
+	public VentasFichaVehiculo(Usuario miUsuario,Vehiculo miVehiculo,VentasListadoVehiculos miVentanaListado
+			,VentasPropuestaVenta miVentanaPropuesta) {
+		
+		ventanaPropuesta = miVentanaPropuesta;
 		miConcesionarioDao = new ConcesionarioDAO();
 		miVentanaListadoVehiculos = miVentanaListado;
 		miVehiculoDao = new VehiculoDAO();
@@ -123,6 +118,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnModificar.addActionListener(this);
+		btnPropuesta.addActionListener(this);
 
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
@@ -288,7 +284,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 			this.dispose();
 			if(miVentanaListadoVehiculos==null) {
 							
-				ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser);
+				ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser,ventanaPropuesta);
 			}else {
 				miVentanaListadoVehiculos.setVisible(true);
 			}
@@ -297,8 +293,20 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		case "Modificar":
 			this.setVisible(false);
 			this.dispose();
-			ventanaModificarVehiculo = new VentasModificarVehiculo(miUser,miVehiculo);
+			ventanaModificarVehiculo = new VentasModificarVehiculo(miUser,miVehiculo,ventanaPropuesta);
 			break;
+			
+		case "Propuesta de venta":
+			this.setVisible(false);
+			this.dispose();
+			
+			if(ventanaPropuesta!=null) {
+				ventanaPropuesta.setVehiculo(miVehiculo);				
+			}else {
+				ventanaPropuesta = new VentasPropuestaVenta(miUser, miVehiculo, null);
+			}
+			ventanaPropuesta.setVisible(true);
+			ventanaPropuesta.setTextFieldVehiculo();
 
 		}
 		

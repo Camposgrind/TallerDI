@@ -38,13 +38,14 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 	protected JTextField tFTelefono;
 	protected JTextField tFDni;
 	protected ClienteDAO miClienteDao;
-	
+	protected VentasPropuestaVenta miVentanaPropuesta;
 	/**
 	 * Create the application.
 	 */
-	public VentasBuscarCliente(Usuario miUsuario) {
+	public VentasBuscarCliente(Usuario miUsuario,VentasPropuestaVenta miVentanaPropuesta) {
 		miClienteDao = new ClienteDAO();
 		miUser = miUsuario;
+		this.miVentanaPropuesta=miVentanaPropuesta;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
 	}
@@ -209,7 +210,11 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
-			ventanaVentasG = new VentasGenerico(miUser);
+			if(miVentanaPropuesta!=null) {
+				miVentanaPropuesta.setVisible(true);
+			}else {
+				ventanaVentasG = new VentasGenerico(miUser);				
+			}
 			break;
 			
 		case "Buscar":			
@@ -220,11 +225,11 @@ public class VentasBuscarCliente extends JFrame implements MouseListener,ActionL
 			if(miListaClientes.size()==1) {
 				this.setVisible(false);
 				this.dispose();
-				ventanaFicha = new VentasFichaCliente(miUser,miListaClientes.get(0),null);
+				ventanaFicha = new VentasFichaCliente(miUser,miListaClientes.get(0),null,miVentanaPropuesta);
 			}else if(miListaClientes.size()>1) {
 				this.setVisible(false);
 				this.dispose();
-				ventanaListaClientes = new VentasListadoClientes(miUser,miListaClientes);
+				ventanaListaClientes = new VentasListadoClientes(miUser,miListaClientes,miVentanaPropuesta);
 			}else{
 				lblAddOk.setVisible(true);
 				tFNombre.setText("");
