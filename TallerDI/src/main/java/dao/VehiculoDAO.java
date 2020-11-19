@@ -74,7 +74,7 @@ public class VehiculoDAO extends AbstractDAO{
 		try {
 			 String query = "select *"
 			 		+ " FROM vehiculo where matricula like ? and marca like ? and modelo like ? and tipo like ?"
-			 		+ " and color like ? and combustible like ? and fechaEntrada like " + fecha + km + precio + idCon;
+			 		+ " and color like ? and combustible like ? and vendido like 0 and fechaEntrada like " + fecha + km + precio + idCon;
 			 
 			 preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					 ResultSet.CONCUR_UPDATABLE);
@@ -245,6 +245,30 @@ public class VehiculoDAO extends AbstractDAO{
 		}
 		
 		return listaCombustibles;
+	}
+	/**
+	 * Método para confirmar y modificar los campos del coche cuando se ha vendido
+	 * @param idUsuario
+	 * @param vendido
+	 * @param matriculaWhere
+	 */
+	public void venderVehiculo(int idUsuario, int vendido,String matriculaWhere) {
+		PreparedStatement preparedStmt;
+		
+		try {
+			preparedStmt = super.con.prepareStatement("update vehiculo "
+					+ "set idCliente = ?,Vendido = ? where matricula='"+matriculaWhere+"'");
+			
+			preparedStmt.setInt(1,idUsuario);
+			preparedStmt.setInt(2, vendido);
+
+			//Aquí lo mismo habría que poner un where pero creo que se puede tocar algo en el SQL para que no haga falta 
+
+			preparedStmt.executeUpdate();
+			
+		} catch (SQLException e) {
+		e.printStackTrace();
+		}
 	}
 	
 

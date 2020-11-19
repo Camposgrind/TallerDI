@@ -231,7 +231,7 @@ public class VentasListadoPropuestas extends JFrame implements MouseListener, Ac
 	 */
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
-		VentasFichaVehiculo ventanaVehiculoSeleccionado;
+		VentasFichaPropuesta ventanaPropuestaSeleccionada;
 		VentasFichaCliente ventanaClienteSeleccionado;
 		
 		Component txtBtn = e.getComponent();
@@ -247,7 +247,7 @@ public class VentasListadoPropuestas extends JFrame implements MouseListener, Ac
 	        int i = table.getSelectedColumn();
 			table.getValueAt(row, i);
 			this.setVisible(false);
-			//ventanaVehiculoSeleccionado = new VentasFichaVehiculo(miUser, listaVehiculos.get(row),this,ventanaPropuesta);
+			ventanaPropuestaSeleccionada = new VentasFichaPropuesta(miUser, listaPropuestas.get(row),this);
 		}
 	}
 	

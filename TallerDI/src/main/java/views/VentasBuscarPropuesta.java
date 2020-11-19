@@ -272,7 +272,7 @@ public class VentasBuscarPropuesta extends JFrame implements MouseListener,Actio
 				if(listaPropuestas.size()>1) {
 					ventanaListaPropo = new VentasListadoPropuestas(miUser,listaPropuestas);				
 				}else { 
-					//ventanaFichaPropuesta = new VentasFichaPropuesta(miUser,listaPropuestas.get(0));
+					ventanaFichaPropuesta = new VentasFichaPropuesta(miUser,listaPropuestas.get(0),null);
 				}				
 				
 			}else {

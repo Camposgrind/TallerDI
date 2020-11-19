@@ -47,6 +47,22 @@ public class UsuarioDAO extends AbstractDAO{
 		
 		return miUsuario;
 	}
+	public Usuario buscarUsuarioById(int idUsuario) {
+		try {
+			st = super.con.createStatement();
+			rs = st.executeQuery("SELECT * FROM USUARIO WHERE idUsuario='"+idUsuario+"'");
+			//ponemos el rs.next porque el puntero del sql se coloca antes de
+			//la primera fila de la tabla, por lo tanto si tiene un valor el 
+			//resulset devolverá true 
+			if(rs.next()) {
+				miUsuario = new Usuario();
+				this.setText();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return miUsuario;
+	}
 	/**
 	 * Método para setear todo el estado de usuario con la consulta a la BBDD
 	 */
@@ -70,4 +86,5 @@ public class UsuarioDAO extends AbstractDAO{
 			e.printStackTrace();
 		}		
 	}
+	
 }
