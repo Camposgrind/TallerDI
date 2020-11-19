@@ -73,7 +73,7 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		miUser = miUsuario;
 		miUsuarioPropuesta = miUsuarioDao.buscarUsuarioById(miPropuesta.getIdUsuario());
 		miVehiculo = miVehiculoDao.buscarVehiculo(miPropuesta.getMatricula()
-				, "", "", "", "", "", "", "", "", "").get(0);
+				, "", "", "", "", "", "", "", "", "",false).get(0);
 		miCliente = miClienteDao.buscarClienteById(miPropuesta.getIdCliente());
 		nombreConcesionario = miConcesionarioDao.buscarNombreConcesionario(miVehiculo.getIdConcesionario()).get(0);
 		getContentPane().setForeground(Color.BLACK);
@@ -142,6 +142,10 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnVender.addActionListener(this);
+		if(miVehiculo.isVendido()) {
+			btnVender.setText("Vehículo vendido");
+			btnVender.setEnabled(false);
+		}
 
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));

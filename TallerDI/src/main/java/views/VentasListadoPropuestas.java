@@ -193,11 +193,20 @@ public class VentasListadoPropuestas extends JFrame implements MouseListener, Ac
 	 */
 	private void rellenarListaVehiculos() {
 		Vehiculo miVehiculo;
+		ArrayList<Vehiculo> listaTemporal= new ArrayList<Vehiculo>();
 		
 		for (int i = 0; i < listaPropuestas.size(); i++) {
-			miVehiculo = miVehiculoDao.buscarVehiculo(listaPropuestas.get(i).getMatricula(),
+			
+			listaTemporal = miVehiculoDao.buscarVehiculo(listaPropuestas.get(i).getMatricula(),
+					"", "", "", "", "", "", "", "", "",false);
+			for (int j = 0; j < listaTemporal.size(); j++) {
+				listaVehiculos.add(listaTemporal.get(j));
+			}
+			
+			
+	/*		miVehiculo = miVehiculoDao.buscarVehiculo(listaPropuestas.get(i).getMatricula(),
 					"", "", "", "", "", "", "", "", "").get(0);
-			listaVehiculos.add(miVehiculo);			
+			listaVehiculos.add(miVehiculo);		*/	
 		}
 
 	}

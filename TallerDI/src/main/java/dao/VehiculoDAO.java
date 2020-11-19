@@ -42,8 +42,9 @@ public class VehiculoDAO extends AbstractDAO{
 	 * @param idConcesionario
 	 * @return
 	 */
-	public ArrayList<Vehiculo> buscarVehiculo(String miMatricula, String miMarca,String miModelo,String miTipo,
-			String miPrecio,String misKm,String miColor,String miCombustible,String miFecha,String idConcesionario) {
+	public ArrayList<Vehiculo> buscarVehiculo(String miMatricula, String miMarca,String miModelo,
+			String miTipo,String miPrecio,String misKm,String miColor,String miCombustible,
+			String miFecha,String idConcesionario,boolean buscarPorVender) {
 						
 			ArrayList<Vehiculo> miListaVehiculos=null;
 			Vehiculo miVehiculo;
@@ -54,6 +55,7 @@ public class VehiculoDAO extends AbstractDAO{
 			String fecha = "'%"+miFecha+"%'" ;
 			String km = "";
 			String idCon = "";
+			String vender = "";
 			int i = 7;
 			
 		//si la fecha no está vacia le añadimos la fecha que nos ha traido el textfield	
@@ -70,11 +72,14 @@ public class VehiculoDAO extends AbstractDAO{
 		if(!idConcesionario.equals("")) {
 			idCon = " and idConcesionario like ?"; 
 		}
-
+		if(buscarPorVender) {
+			
+		vender=" and vendido = 0 ";
+		}
 		try {
 			 String query = "select *"
 			 		+ " FROM vehiculo where matricula like ? and marca like ? and modelo like ? and tipo like ?"
-			 		+ " and color like ? and combustible like ? and vendido like 0 and fechaEntrada like " + fecha + km + precio + idCon;
+			 		+ " and color like ? and combustible like ?"+vender+" and fechaEntrada like " + fecha + km + precio + idCon;
 			 
 			 preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					 ResultSet.CONCUR_UPDATABLE);

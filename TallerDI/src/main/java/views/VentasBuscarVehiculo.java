@@ -318,7 +318,7 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 			}
 			miListaVehiculos = miVehiculoDao.buscarVehiculo(tFMatricula.getText(), tFMarca.getText(), 
 					tFModelo.getText(),comboBox.getSelectedItem().toString(),tFPrecio.getText(),tFKm.getText(),
-					tFColor.getText(),comboCombustible.getSelectedItem().toString(),tfFechaEntrada.getText(),idConcesionario);			
+					tFColor.getText(),comboCombustible.getSelectedItem().toString(),tfFechaEntrada.getText(),idConcesionario,true);			
 		
 			if(miListaVehiculos.size()==1) {
 				this.setVisible(false);

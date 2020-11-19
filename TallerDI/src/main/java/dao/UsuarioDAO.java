@@ -1,6 +1,7 @@
 package dao;
 
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -62,6 +63,39 @@ public class UsuarioDAO extends AbstractDAO{
 			e.printStackTrace();
 		}
 		return miUsuario;
+	}
+	public boolean addUsuario(String miNombreUsu,String miPass,String miNombre,String misApellidos,
+			String miTlfn,String miSueldo,String miRol,int mecaJefe,int espCoches,int espMotos,
+			int espCicloM,String miIdConcesionario) {
+		
+		
+		boolean resultado= false;
+		PreparedStatement preparedStmt;
+		
+		try {
+			preparedStmt = super.con.prepareStatement("insert into usuario"
+					+ "(usuario,Pass,Nombre,Apellidos,Telefono,Sueldo,Rol,Mecanico_Jefe,"
+					+ "Esp_coches,Esp_motos,Esp_Ciclomotores,Concesionario) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+			
+			preparedStmt.setString(1,miNombreUsu);
+			preparedStmt.setString(2, miPass);
+			preparedStmt.setString(3, miNombre);
+			preparedStmt.setString(4, misApellidos);
+			preparedStmt.setString(5, miTlfn);
+			preparedStmt.setString(6, miSueldo);
+			preparedStmt.setString(7, miRol);
+			preparedStmt.setInt(8, mecaJefe);
+			preparedStmt.setInt(9, espCoches);
+			preparedStmt.setInt(10, espMotos);
+			preparedStmt.setInt(11, espCicloM);
+			preparedStmt.setInt(12, Integer.valueOf(miIdConcesionario));
+			preparedStmt.executeUpdate();
+			resultado = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return resultado;
 	}
 	/**
 	 * Método para setear todo el estado de usuario con la consulta a la BBDD
