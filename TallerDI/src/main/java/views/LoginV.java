@@ -147,6 +147,8 @@ public class LoginV extends JFrame implements ActionListener{
 			lblLogin.setVisible(true);
 		}
 	}
+	
+	
 	/**
 	 * Método interno para cambiar la contraseña a MD5 
 	 * @param input
@@ -166,6 +168,7 @@ public class LoginV extends JFrame implements ActionListener{
 			 
 			 return hashtext;
 			 }
+		
 			 catch (NoSuchAlgorithmException e) {
 				 throw new RuntimeException(e);
 			 }

@@ -23,6 +23,11 @@ import dao.ConcesionarioDAO;
 import dao.VehiculoDAO;
 import models.Usuario;
 import models.Vehiculo;
+import views.ventas.VentasFichaCliente;
+import views.ventas.VentasFichaVehiculo;
+import views.ventas.VentasGenerico;
+import views.ventas.VentasListadoClientes;
+
 import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
