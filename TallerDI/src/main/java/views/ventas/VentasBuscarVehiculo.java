@@ -1,18 +1,20 @@
-package views;
+package views.ventas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,16 +23,20 @@ import javax.swing.SwingConstants;
 
 import dao.ConcesionarioDAO;
 import dao.VehiculoDAO;
+import models.Concesionario;
 import models.Usuario;
 import models.Vehiculo;
+import views.LoginV;
+
+import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
-public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionListener{
+public class VentasBuscarVehiculo extends JFrame implements MouseListener,ActionListener{
 
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes,lblkm,lblCombustible;
-	protected JButton btnVolver,btnRegistrar;
+	protected JButton btnVolver,btnBuscar;
 	protected JLabel lblMatricula;
 	protected JLabel lblMarca;
 	protected JLabel lblModelo;
@@ -45,12 +51,14 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 	protected ConcesionarioDAO miConcesionarioDao;
 	protected JComboBox comboBox,comboCombustible,comboConcesionarios;
 	private JTextField tFKm;
+	protected VentasPropuestaVenta ventanaPropuesta;
 	/**
 	 * Create the application.
 	 */
-	public VentasAltaVehiculo(Usuario miUsuario) {
+	public VentasBuscarVehiculo(Usuario miUsuario, VentasPropuestaVenta miVentanaPropuesta ) {
 		miVehiculoDao = new VehiculoDAO();
 		miConcesionarioDao = new ConcesionarioDAO();
+		ventanaPropuesta = miVentanaPropuesta;
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
@@ -81,7 +89,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
-		lblAltaClientes = new JLabel("Alta vehículo");
+		lblAltaClientes = new JLabel("Buscar vehículos");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");
 		lblMarca = new JLabel("Marca:");
 		lblModelo = new JLabel("Modelo:");
@@ -101,12 +109,12 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblkm = new JLabel("Kilómetros:");
 		lblCombustible = new JLabel("Combustible:");
 		btnVolver = new JButton("Volver");
-		btnRegistrar = new JButton("Registrar");
-		lblAddOk = new JLabel("VEHÍCULO AÑADIDO");
+		btnBuscar = new JButton("Buscar");
+		lblAddOk = new JLabel("VEHÍCULO NO ENCONTRADO");
 		lblAddOk.setVisible(false);
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
-		btnRegistrar.addActionListener(this);
+		btnBuscar.addActionListener(this);
 		
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
@@ -131,7 +139,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
 		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnRegistrar.setBackground(new java.awt.Color(0,92,48));
+		btnBuscar.setBackground(new java.awt.Color(0,92,48));
 		lblAddOk.setBackground(new java.awt.Color(0,92,48));
 		
 		//Damos el tamaño a los componentes que están en absoluto
@@ -148,7 +156,6 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblMarca.setBounds(54, 150, 119, 30);
 		lblModelo.setBounds(54, 191, 119, 30);
 		lblTipo.setBounds(54, 232, 119, 30);
-
 		lblPrecio.setBounds(54, 303, 119, 30); 
 		lblColor.setBounds(412, 150, 142, 30); 
 		lblFechaEntrada.setBounds(412, 232, 142, 30);
@@ -160,12 +167,11 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		tFPrecio.setBounds(183, 305, 202, 27);
 		tFColor.setBounds(554, 152, 194, 27);
 		tfFechaEntrada.setBounds(554, 234, 194, 27);
-
 		tFKm.setBounds(554, 111, 194, 27);
 		lblkm.setBounds(412, 109, 142, 30);
 		lblCombustible.setBounds(412, 191, 131, 30);
 		btnVolver.setBounds(153, 420, 117, 35);
-		btnRegistrar.setBounds(515, 420, 117, 35);
+		btnBuscar.setBounds(515, 420, 117, 35);
 		lblAddOk.setBounds(258, 40, 276, 41);
 		
 		//Damos el tamaño, fuente y color a las letras 
@@ -202,8 +208,8 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
-		btnRegistrar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		btnRegistrar.setForeground(Color.WHITE);
+		btnBuscar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnBuscar.setForeground(Color.WHITE);
 		lblAddOk.setForeground(Color.BLACK);
 		lblAddOk.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		
@@ -234,13 +240,13 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		panelContenido.add(tFModelo);		
 		panelContenido.add(tfFechaEntrada);		
 		panelContenido.add(tFPrecio);		
-		panelContenido.add(tFColor);			
+		panelContenido.add(tFColor);		
 		panelContenido.add(tFKm);		
 		panelContenido.add(lblkm);		
 		panelContenido.add(lblCombustible);
 		
 		panelContenido.add(btnVolver);
-		panelContenido.add(btnRegistrar);
+		panelContenido.add(btnBuscar);
 		panelContenido.add(lblAddOk);
 		
 		comboBox = new JComboBox();
@@ -277,7 +283,6 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		comboConcesionarios.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		comboConcesionarios.setBounds(554, 305, 195, 27);
 		panelContenido.add(comboConcesionarios);
-		
 					
 		this.setVisible(true);
 	}
@@ -291,41 +296,50 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		ArrayList<Vehiculo> miListaVehiculos;
 		String txtBtn = e.getActionCommand();
 		VentasFichaCliente ventanaFicha;
-		VentasListadoClientes ventanaListaClientes;
+		VentasListadoVehiculos ventanaListaVehiculos;
 		VentasFichaVehiculo ventanaFichaVehiculo;
-		String idConcesionario;
+		String idConcesionario=comboConcesionarios.getSelectedItem().toString();
 		
 		switch (txtBtn) {
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
-			ventanaVentasG = new VentasGenerico(miUser);			
+			
+			if(ventanaPropuesta!=null) {
+				ventanaPropuesta.setVisible(true);
+			}else {
+				ventanaVentasG = new VentasGenerico(miUser);						
+			}
 			break;
 			
-		case "Registrar":
+		case "Buscar":
 			
-			idConcesionario = miConcesionarioDao.buscarIDConcesionario(comboConcesionarios.getSelectedItem().toString())+"";
-			miVehiculoDao.addVehiculo(
-					tFMatricula.getText(), tFMarca.getText(), tFModelo.getText(),
-					comboBox.getSelectedItem().toString(),tFPrecio.getText(),tFKm.getText(),tFColor.getText(),comboCombustible.getSelectedItem().toString(), 
-					tfFechaEntrada.getText(),idConcesionario);
-			
-			lblAddOk.setVisible(true);
-			tFMatricula.setText("");
-			tFMarca.setText("");
-			tFModelo.setText("");
-			tfFechaEntrada.setText("");
-			tFPrecio.setText("");
-			tFColor.setText("");
-			tFKm.setText("");
-			comboCombustible.setSelectedItem("");
-			comboBox.setSelectedItem("");
-			comboConcesionarios.setSelectedItem("");
-			break;
-
-
-		}
+			lblAddOk.setVisible(false);
+			if(!idConcesionario.equals("")) {
+			idConcesionario = miConcesionarioDao.buscarIDConcesionario(idConcesionario)+"";
+			}
+			miListaVehiculos = miVehiculoDao.buscarVehiculo(tFMatricula.getText(), tFMarca.getText(), 
+					tFModelo.getText(),comboBox.getSelectedItem().toString(),tFPrecio.getText(),tFKm.getText(),
+					tFColor.getText(),comboCombustible.getSelectedItem().toString(),tfFechaEntrada.getText(),idConcesionario,true);			
 		
+			if(miListaVehiculos.size()==1) {
+				this.setVisible(false);
+				this.dispose();	
+				ventanaFichaVehiculo = new VentasFichaVehiculo(miUser,miListaVehiculos.get(0),null,ventanaPropuesta);
+			}else if(miListaVehiculos.size()>1) {
+				this.setVisible(false);
+				this.dispose();
+				ventanaListaVehiculos = new VentasListadoVehiculos(miUser,miListaVehiculos,ventanaPropuesta);
+			}else{
+				lblAddOk.setVisible(true);
+				tFMatricula.setText("");
+				tFMarca.setText("");
+				tFModelo.setText("");
+							
+			}
+			break;
+
+		}		
 	}
 	/**
 	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
@@ -335,35 +349,30 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
-		
+
 		this.setVisible(false);
 		this.dispose();
 		miUser = null;
 		loginCerrarSesion = new LoginV();
-
     }
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-
 		
 	}
 }

@@ -1,4 +1,4 @@
-package views;
+package views.ventas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,39 +21,36 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import dao.ClienteDAO;
-import dao.ConcesionarioDAO;
 import models.Cliente;
 import models.Usuario;
-import models.Vehiculo;
+import views.LoginV;
 
+@SuppressWarnings("serial")
+public class VentasListadoClientes extends JFrame implements MouseListener, ActionListener {
 
-public class VentasListadoVehiculos extends JFrame implements MouseListener, ActionListener {
+	protected ArrayList<Cliente> miLista;
+	protected Usuario miUser;
+	protected JPanel panelDepartamento, panelUsuario, panelContenido, panelInfo;
+	protected JLabel lblDepartamento, lblUsuario, lblFotoUsu, lblCerrarSesion, lblInfoVentana;
+	protected JButton btnVolver;
+	protected ClienteDAO miClienteDao;
+	private JTable table;
+	protected String info[][];
+	protected VentasPropuestaVenta ventanaPropuesta;
 
-		protected ArrayList<Vehiculo> listaVehiculos;
-		protected Usuario miUser;
-		protected JPanel panelDepartamento, panelUsuario, panelContenido, panelInfo;
-		protected JLabel lblDepartamento, lblUsuario, lblFotoUsu, lblCerrarSesion, lblInfoVentana;
-		protected JButton btnVolver;
-		protected ConcesionarioDAO miConcesionarioDao;
-		private JTable table;
-		protected ArrayList<String> listaNombreConce;
-		protected String info[][];
-		protected VentasPropuestaVenta ventanaPropuesta;
-		
 	/**
-	 * Constructor
-	 * @param miUser
-	 * @param miListaVehiculos
+	 * Create the application.
 	 */
-	public VentasListadoVehiculos(Usuario miUser, ArrayList<Vehiculo> miListaVehiculos,VentasPropuestaVenta miVentanaPropuesta) {
-		miConcesionarioDao = new ConcesionarioDAO();
-		listaNombreConce = new ArrayList<String>();
-		this.miUser = miUser;
-		listaVehiculos = miListaVehiculos;
+	public VentasListadoClientes(Usuario miUsuario, ArrayList<Cliente> listaClientes,VentasPropuestaVenta miVentanaPropuesta) {
+
+		miClienteDao = new ClienteDAO();
+		miUser = miUsuario;
+		miLista = listaClientes;
 		ventanaPropuesta = miVentanaPropuesta;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
 	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -78,7 +75,7 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
-		lblInfoVentana = new JLabel("Listado vehículos");
+		lblInfoVentana = new JLabel("Listado clientes");
 		btnVolver = new JButton("Volver");
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
@@ -143,26 +140,18 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		//Para la tabla 
 		//este array bidimensional sera para determinar como es de grande
 		//la tabla (filas, columnas)
-		info = new String[listaVehiculos.size()][10];
-		//String nombreConcesionario = miConcesionarioDao.get
+		info = new String[miLista.size()][5];
 		
 		//en esta array ponemos los nombre de las columnas
-		String[] nombresColumnas = { "Matrícula", "Marca", "Modelo", "Tipo", 
-				"Precio","KM","Color","Combustible","Fecha entrada","Concesionario" };
+		String[] nombresColumnas = { "ID cliente", "Nombre", "Apellidos", "Teléfono", "DNI" };
 		//hacemos un buvle para que la lista nos de los datos del cliente poniendo 
 		// "" para que si es un int lo convierta en string 
 		for (int i = 0; i < info.length; i++) {
-			info[i][0] = listaVehiculos.get(i).getMatricula() + "";
-			info[i][1] = listaVehiculos.get(i).getMarca() + "";
-			info[i][2] = listaVehiculos.get(i).getModelo() + "";
-			info[i][3] = listaVehiculos.get(i).getTipo() + "";
-			info[i][4] = listaVehiculos.get(i).getPrecio() + "";
-			info[i][5] = listaVehiculos.get(i).getKilometros() + "";
-			info[i][6] = listaVehiculos.get(i).getColor() + "";
-			info[i][7] = listaVehiculos.get(i).getCombustible() + "";
-			info[i][8] = listaVehiculos.get(i).getFechaEntrada() + "";
-			listaNombreConce = miConcesionarioDao.buscarNombreConcesionario(listaVehiculos.get(i).getIdConcesionario());
-			info[i][9] = listaNombreConce.get(0);
+			info[i][0] = miLista.get(i).getIdCliente() + "";
+			info[i][1] = miLista.get(i).getNombre() + "";
+			info[i][2] = miLista.get(i).getApellidos() + "";
+			info[i][3] = miLista.get(i).getTelefono() + "";
+			info[i][4] = miLista.get(i).getDni() + "";
 		}
 		//le decimos que la tabla tendra la array bi dimensional de info y las columnas de parametro
 		table = new JTable(info, nombresColumnas);
@@ -173,7 +162,7 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		//Iniciamos un scrollpane para que meta la tabla dentro 
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setBackground(new java.awt.Color(244, 162, 97));
-		scrollPane.setBounds(10, 112, 766, 213);
+		scrollPane.setBounds(65, 112, 657, 213);
 		//le añadimos un mouse listener para que cuando pinchemos nos salga la ficha
 		//del cliente que tocamos 
 		table.addMouseListener(this);
@@ -186,16 +175,18 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		VentasBuscarVehiculo ventanaBuscarVehiculo;
+		VentasBuscarCliente ventanaBuscarCliente;
 
 		this.setVisible(false);
 		this.dispose();
-		ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser,ventanaPropuesta);
+		ventanaBuscarCliente = new VentasBuscarCliente(miUser,ventanaPropuesta);
 
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	/**
 	 * Método para cuando pulsemos una celada nos de la ficha o si es el 
@@ -203,7 +194,6 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 	 */
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
-		VentasFichaVehiculo ventanaVehiculoSeleccionado;
 		VentasFichaCliente ventanaClienteSeleccionado;
 		
 		Component txtBtn = e.getComponent();
@@ -219,7 +209,7 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 	        int i = table.getSelectedColumn();
 			table.getValueAt(row, i);
 			this.setVisible(false);
-			ventanaVehiculoSeleccionado = new VentasFichaVehiculo(miUser, listaVehiculos.get(row),this,ventanaPropuesta);
+			ventanaClienteSeleccionado = new VentasFichaCliente(miUser, miLista.get(row),this,ventanaPropuesta);
 		}
 	}
 
@@ -242,5 +232,4 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 	public void mouseExited(MouseEvent e) {
 
 	}
-		
 }
