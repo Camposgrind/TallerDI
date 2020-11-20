@@ -7,12 +7,16 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import dao.UsuarioDAO;
 import models.Usuario;
+import views.ventas.VentasGenerico;
 
 import java.awt.FlowLayout;
 import javax.swing.JPasswordField;
@@ -145,6 +149,8 @@ public class LoginV extends JFrame implements ActionListener{
 		VentasGenerico ventanaV;
 		JefeGenerico ventanaJ;
 		MecanicoGenerico ventanaM;
+		pass= this.getMD5(pass);
+		
 		miUsuario = miUsuarioDao.testLogin(tFUsuario.getText(),pass);	
 
 		if(miUsuario!=null) {
@@ -172,5 +178,29 @@ public class LoginV extends JFrame implements ActionListener{
 			//si es null ponemos el label de aviso verdadero
 			lblLogin.setVisible(true);
 		}
+	}
+	/**
+	 * Método interno para cambiar la contraseña a MD5 
+	 * @param input
+	 * @return
+	 */
+	private String getMD5(String input) {
+		
+		try {
+			 MessageDigest md = MessageDigest.getInstance("MD5");
+			 byte[] messageDigest = md.digest(input.getBytes());
+			 BigInteger number = new BigInteger(1, messageDigest);
+			 String hashtext = number.toString(16);
+
+			 while (hashtext.length() < 32) {
+				 hashtext = "0" + hashtext;
+			 }
+			 
+			 return hashtext;
+			 }
+			 catch (NoSuchAlgorithmException e) {
+				 throw new RuntimeException(e);
+			 }
+		
 	}
 }

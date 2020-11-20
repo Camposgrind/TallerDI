@@ -1,4 +1,4 @@
-package views;
+package views.ventas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import dao.ClienteDAO;
 import models.Cliente;
 import models.Usuario;
+import views.LoginV;
 
 @SuppressWarnings("serial")
 public class VentasFichaCliente extends JFrame implements MouseListener,ActionListener{

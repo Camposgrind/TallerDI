@@ -1,4 +1,4 @@
-package views;
+package views.ventas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,20 +15,21 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import dao.ClienteDAO;
+import models.Cliente;
 import models.Usuario;
-import javax.swing.JTextField;
+import views.LoginV;
 
 @SuppressWarnings("serial")
-public class VentasAddCliente extends JFrame implements MouseListener,ActionListener{
-
+public class VentasBuscarCliente extends JFrame implements MouseListener,ActionListener{
 
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
-	protected JButton btnVolver,btnAdd;
+	protected JButton btnVolver,btnBuscar;
 	protected JLabel lblNombre;
 	protected JLabel lblApellidos;
 	protected JLabel lblTelefono;
@@ -37,14 +39,14 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	protected JTextField tFTelefono;
 	protected JTextField tFDni;
 	protected ClienteDAO miClienteDao;
-	protected ImageIcon imgUsu;
-
+	protected VentasPropuestaVenta miVentanaPropuesta;
 	/**
 	 * Create the application.
 	 */
-	public VentasAddCliente(Usuario miUsuario) {
+	public VentasBuscarCliente(Usuario miUsuario,VentasPropuestaVenta miVentanaPropuesta) {
 		miClienteDao = new ClienteDAO();
 		miUser = miUsuario;
+		this.miVentanaPropuesta=miVentanaPropuesta;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
 	}
@@ -53,6 +55,8 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		ImageIcon imgUsu;
+
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +64,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		this.setResizable(false);
 		this.setBackground(new java.awt.Color( 244, 162, 97));
 		getContentPane().setLayout(null);
-		
+
 		//Iniciamos todos los componentes 
 		panelDepartamento = new JPanel();
 		panelContenido = new JPanel();
@@ -71,7 +75,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
-		lblAltaClientes = new JLabel("Alta clientes");
+		lblAltaClientes = new JLabel("Buscar clientes");
 		lblNombre = new JLabel("Nombre: ");
 		lblApellidos = new JLabel("Apellidos:");
 		lblTelefono = new JLabel("Tel\u00E9fono:");
@@ -81,12 +85,12 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		tFTelefono = new JTextField();
 		tFDni = new JTextField();		
 		btnVolver = new JButton("Volver");
-		btnAdd = new JButton("Registrar");
-		lblAddOk = new JLabel("CLIENTE REGISTRADO CON \u00C9XITO");
+		btnBuscar = new JButton("Buscar");
+		lblAddOk = new JLabel("CLIENTE NO ENCONTRADO");
 		lblAddOk.setVisible(false);
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
-		btnAdd.addActionListener(this);
+		btnBuscar.addActionListener(this);
 		
 		//Ponemos sus layouts
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
@@ -111,7 +115,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
 		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnAdd.setBackground(new java.awt.Color(0,92,48));
+		btnBuscar.setBackground(new java.awt.Color(0,92,48));
 		lblAddOk.setBackground(new java.awt.Color(0,92,48));
 		
 		//Damos el tamaño a los componentes que están en absoluto
@@ -132,7 +136,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		tFTelefono.setBounds(376, 234, 222, 27);
 		tFDni.setBounds(376, 295, 222, 27);
 		btnVolver.setBounds(153, 391, 117, 35);
-		btnAdd.setBounds(516, 391, 117, 35);
+		btnBuscar.setBounds(516, 391, 117, 35);
 		lblAddOk.setBounds(258, 40, 276, 41);
 		
 		//Damos el tamaño, fuente y color a las letras 
@@ -159,8 +163,8 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		tFDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
-		btnAdd.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		btnAdd.setForeground(Color.WHITE);
+		btnBuscar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnBuscar.setForeground(Color.WHITE);
 		lblAddOk.setForeground(Color.BLACK);
 		lblAddOk.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		
@@ -186,7 +190,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		panelContenido.add(tFDni);
 		
 		panelContenido.add(btnVolver);
-		panelContenido.add(btnAdd);
+		panelContenido.add(btnBuscar);
 		panelContenido.add(lblAddOk);
 					
 		this.setVisible(true);
@@ -198,28 +202,44 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		VentasGenerico ventanaVentasG;
-		
+		ArrayList<Cliente> miListaClientes;
 		String txtBtn = e.getActionCommand();
+		VentasFichaCliente ventanaFicha;
+		VentasListadoClientes ventanaListaClientes;
 		
 		switch (txtBtn) {
 		case "Volver":
-			
 			this.setVisible(false);
 			this.dispose();
-			ventanaVentasG = new VentasGenerico(miUser);			
+			if(miVentanaPropuesta!=null) {
+				miVentanaPropuesta.setVisible(true);
+			}else {
+				ventanaVentasG = new VentasGenerico(miUser);				
+			}
 			break;
 			
-		case "Registrar":
-			
+		case "Buscar":			
 			lblAddOk.setVisible(false);
-			miClienteDao.addCliente(
+			miListaClientes = miClienteDao.buscarCliente(
 					tFNombre.getText(), tFApellidos.getText(), tFTelefono.getText(), tFDni.getText());
-			lblAddOk.setVisible(true);
-			tFNombre.setText("");
-			tFApellidos.setText("");
-			tFTelefono.setText("");
-			tFDni.setText("");
+			
+			if(miListaClientes.size()==1) {
+				this.setVisible(false);
+				this.dispose();
+				ventanaFicha = new VentasFichaCliente(miUser,miListaClientes.get(0),null,miVentanaPropuesta);
+			}else if(miListaClientes.size()>1) {
+				this.setVisible(false);
+				this.dispose();
+				ventanaListaClientes = new VentasListadoClientes(miUser,miListaClientes,miVentanaPropuesta);
+			}else{
+				lblAddOk.setVisible(true);
+				tFNombre.setText("");
+				tFApellidos.setText("");
+				tFTelefono.setText("");
+				tFDni.setText("");			
+			}
 			break;
+
 		}		
 	}
 	/**

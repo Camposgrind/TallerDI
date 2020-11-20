@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -78,7 +81,7 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 		panelContenido = new JPanel();
 		panelUsuario = new JPanel();
 		panelInfo = new JPanel();
-		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
+		lblDepartamento = new JLabel("JEFE");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
@@ -328,6 +331,7 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 		int insertEspeCiclo = this.compruebaCombos(comboMMotoC.getSelectedItem().toString());
 		boolean todoOk =false;
 		String pass = new String(tFPassWord.getPassword());
+		pass= this.getMD5(pass);
 		
 		switch (txtBtn) {
 		case "Volver":
@@ -418,5 +422,24 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 			resultado = 1;
 		}
 		return resultado;
+	}
+private String getMD5(String input) {
+		
+		try {
+			 MessageDigest md = MessageDigest.getInstance("MD5");
+			 byte[] messageDigest = md.digest(input.getBytes());
+			 BigInteger number = new BigInteger(1, messageDigest);
+			 String hashtext = number.toString(16);
+
+			 while (hashtext.length() < 32) {
+				 hashtext = "0" + hashtext;
+			 }
+			 
+			 return hashtext;
+			 }
+			 catch (NoSuchAlgorithmException e) {
+				 throw new RuntimeException(e);
+			 }
+		
 	}
 }

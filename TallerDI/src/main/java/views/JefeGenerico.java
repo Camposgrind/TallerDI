@@ -52,7 +52,7 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 		panelDepartamento = new JPanel();
 		panelBotones = new JPanel();
 		panelUsuario = new JPanel();
-		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
+		lblDepartamento = new JLabel("JEFE");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		imgUsu = new ImageIcon("user-icon.png");
 		lblCerrarSesion = new JLabel("Cerrar sesión");

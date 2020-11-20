@@ -1,4 +1,4 @@
-package views;
+package views.ventas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import models.Usuario;
+import views.LoginV;
 
 import java.awt.Color;
 

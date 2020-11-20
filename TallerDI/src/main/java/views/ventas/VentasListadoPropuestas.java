@@ -1,4 +1,4 @@
-package views;
+package views.ventas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -29,6 +29,7 @@ import models.Cliente;
 import models.Propuesta;
 import models.Usuario;
 import models.Vehiculo;
+import views.LoginV;
 
 public class VentasListadoPropuestas extends JFrame implements MouseListener, ActionListener {
 
