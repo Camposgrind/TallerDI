@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import models.Cliente;
 import models.Usuario;
 
 public class UsuarioDAO extends AbstractDAO{
@@ -64,6 +66,7 @@ public class UsuarioDAO extends AbstractDAO{
 		}
 		return miUsuario;
 	}
+	
 	public boolean addUsuario(String miNombreUsu,String miPass,String miNombre,String misApellidos,
 			String miTlfn,String miSueldo,String miRol,int mecaJefe,int espCoches,int espMotos,
 			int espCicloM,String miIdConcesionario) {
@@ -116,9 +119,49 @@ public class UsuarioDAO extends AbstractDAO{
 			miUsuario.setMecaMotos(rs.getBoolean(11));
 			miUsuario.setMecaCicloMotor(rs.getBoolean(12));
 			miUsuario.setComisionVentas(rs.getInt(13));
+			miUsuario.setIdConcesionario(rs.getInt(14));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	
+	public ArrayList<Usuario> buscarMecanicos() {
+		ArrayList<Usuario> listaMecanicos = new ArrayList<Usuario>();
+		Usuario mecanico;
+		PreparedStatement preparedStmt;
+		
+		try {
+			
+			String query = "select * from usuario where rol = \"Mecánico\"";
+			preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);			
+			rs = preparedStmt.executeQuery();
+			
+			//mientras el resultset tenga filas creará clientes, les setea el estado y lo añade a la lista 
+			while(rs.next()) {
+				mecanico = new Usuario();
+				mecanico.setIdUsuario(rs.getInt(1));
+				mecanico.setNomUsuario(rs.getString(2));
+				mecanico.setPassword(rs.getString(3));
+				mecanico.setNombre(rs.getString(4));
+				mecanico.setApellido(rs.getString(5));
+				mecanico.setTelefono(rs.getString(6));
+				mecanico.setSueldo(rs.getInt(7));
+				mecanico.setRol(rs.getString(8));
+				mecanico.setMecanicoJefe(rs.getBoolean(9));
+				mecanico.setMecaCoches(rs.getBoolean(10));
+				mecanico.setMecaMotos(rs.getBoolean(11));
+				mecanico.setMecaCicloMotor(rs.getBoolean(12));
+				mecanico.setIdConcesionario(rs.getInt(14));
+				listaMecanicos.add(mecanico);
+			}	
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listaMecanicos;
+				
 	}
 	
 }

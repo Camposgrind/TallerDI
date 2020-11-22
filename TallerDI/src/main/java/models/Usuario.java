@@ -16,7 +16,14 @@ public class Usuario {
 	protected boolean mecaMotos;
 	protected boolean mecaCicloMotor;
 	protected int comisionVentas;
+	protected int idConcesionario;
 	
+	public int getIdConcesionario() {
+		return idConcesionario;
+	}
+	public void setIdConcesionario(int idConcesionario) {
+		this.idConcesionario = idConcesionario;
+	}
 	/**
 	 * Constructor vacío
 	 */
@@ -41,7 +48,7 @@ public class Usuario {
 	 */
 	public Usuario(int miID, String miNomUsuario, String miPassword, String miNombre, String miApellido, String miTelefono,
 			int miSueldo, String miRol, boolean miMecanicoJefe, boolean miMecaCoches, boolean miMecaMotos, boolean miMecaCicloMotor,
-			int miComisionVentas) {
+			int miComisionVentas, int miIdConcesionario) {
 		
 		idUsuario = miID;
 		nomUsuario = miNomUsuario;
@@ -56,6 +63,7 @@ public class Usuario {
 		mecaMotos = miMecaMotos;
 		mecaCicloMotor = miMecaCicloMotor;
 		comisionVentas = miComisionVentas;
+		idConcesionario = miIdConcesionario;
 	}
 
 	//Getter y setter del usuario

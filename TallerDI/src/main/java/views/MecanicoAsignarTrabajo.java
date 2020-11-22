@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import dao.ConcesionarioDAO;
+import dao.UsuarioDAO;
 import dao.VehiculoDAO;
 import models.Usuario;
 import models.Vehiculo;
@@ -40,8 +40,8 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 	protected JLabel lblAddOk;
 	protected JLabel lblMecanico;
 	protected VehiculoDAO miVehiculoDao;
-	protected ConcesionarioDAO miConcesionarioDao;
-	protected JComboBox comboMecanico;
+	protected UsuarioDAO miUsuarioDao;
+	protected JComboBox<String> comboMecanico;
 	private JTextField tfTiempo;
 	private JTextField tfPresupuesto;
 	private JTextField tfTarea;
@@ -55,7 +55,7 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 	public MecanicoAsignarTrabajo(Usuario miUsuario) {
 		setTitle("piCARso - Taller");
 		miVehiculoDao = new VehiculoDAO();
-		miConcesionarioDao = new ConcesionarioDAO();
+		miUsuarioDao = new UsuarioDAO();
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
@@ -66,7 +66,7 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 	 */
 	private void initialize() {
 		ImageIcon imgUsu;
-		ArrayList<String> listaConcesionarios;
+		ArrayList<Usuario> listaMecanicos;
 	
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 810, 610);
@@ -176,13 +176,16 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		panelContenido.add(btnRegistrar);
 		panelContenido.add(lblAddOk);
 		
+		comboMecanico = new JComboBox<String>();
 		
-		comboMecanico = new JComboBox();
-		
-		listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(0);
+		listaMecanicos = miUsuarioDao.buscarMecanicos();
 		comboMecanico.addItem("");
-		for (int i = 0; i < listaConcesionarios.size(); i++) {
-			comboMecanico.addItem(listaConcesionarios.get(i));
+		String mecanicoConcat = "";
+		for (int i = 0; i < listaMecanicos.size(); i++) {
+			mecanicoConcat = listaMecanicos.get(i).getNombre()+" "
+					+listaMecanicos.get(i).getApellido()+" ("
+					+listaMecanicos.get(i).getNomUsuario()+")";
+			comboMecanico.addItem(mecanicoConcat);
 		}
 		
 		comboMecanico.setSelectedItem("");
