@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import models.Concesionario;
-import models.Usuario;
-
 public class ConcesionarioDAO extends AbstractDAO {
 	
 	//ESTADO

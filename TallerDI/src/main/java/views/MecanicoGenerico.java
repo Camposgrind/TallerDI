@@ -29,7 +29,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelBotones;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur;
-	protected JButton btnAltaVeh,btnHistorialTaller,btnVerVehiculosTaller,btnFinalizarReparacion,btnTrabajoAsignado;
+	protected JButton btnAltaVeh,btnHistorialTaller,btnVerVehiculosTaller,btnAsignarTrabajo,btnTrabajoAsignado;
 	private JLabel lblFotoSurPeque;
 	protected JTextPane textPanelOpcion;
 	boolean jefe = false;
@@ -48,6 +48,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		ImageIcon imgLogoTaller,imgUsu;
 		
 		//iniciamos y damos las propiedades al frame 
@@ -70,7 +71,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnAltaVeh = new JButton("Alta de veh\u00EDculos");
 		btnHistorialTaller = new JButton("Consultar historial");
 		btnVerVehiculosTaller = new JButton("Veh\u00EDculos en taller");
-		btnFinalizarReparacion = new JButton("Asignar trabajo");
+		btnAsignarTrabajo = new JButton("Asignar trabajo");
 		btnTrabajoAsignado = new JButton("Trabajo asignado");
 		imgLogoTaller = new ImageIcon("logoTaller.png");
 		lblFotoSur = new JLabel(imgLogoTaller);
@@ -78,7 +79,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnAltaVeh.addActionListener(this);
 		btnHistorialTaller.addActionListener(this);
 		btnVerVehiculosTaller.addActionListener(this);
-		btnFinalizarReparacion.addActionListener(this);
+		btnAsignarTrabajo.addActionListener(this);
 		btnTrabajoAsignado.addActionListener(this);
 		panelUsuario.setLayout(null);
 		panelBotones.setLayout(null);
@@ -93,10 +94,16 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		panelUsuario.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
 		panelBotones.setBackground(new java.awt.Color(233, 196, 106));
-		btnAltaVeh.setBackground(new java.awt.Color(38, 70, 83));
+		jefe = miUser.isMecanicoJefe();
+		if(jefe == true) {
+			btnAltaVeh.setBackground(new java.awt.Color(38, 70, 83));
+			btnAsignarTrabajo.setBackground(new java.awt.Color(38, 70, 83));
+		} else if (jefe == false) {
+			btnAltaVeh.setBackground(Color.GRAY);
+			btnAsignarTrabajo.setBackground(Color.GRAY);
+		}
 		btnHistorialTaller.setBackground(new java.awt.Color(38, 70, 83));
 		btnVerVehiculosTaller.setBackground(new java.awt.Color(38, 70, 83));
-		btnFinalizarReparacion.setBackground(new java.awt.Color(38, 70, 83));
 		btnTrabajoAsignado.setBackground(new java.awt.Color(38, 70, 83));
 		
 		//Damos el tamaño a los componentes que están en absoluto
@@ -110,7 +117,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnHistorialTaller.setBounds(490, 113, 270, 79);
 		btnVerVehiculosTaller.setBounds(490, 27, 270, 75);
 		btnTrabajoAsignado.setBounds(490, 203, 270, 79);
-		btnFinalizarReparacion.setBounds(32, 112, 270, 80);
+		btnAsignarTrabajo.setBounds(32, 112, 270, 80);
 		lblFotoSur.setBounds(10, 323, 774, 162);
 		lblUsuario.setForeground(Color.BLACK);
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
@@ -120,11 +127,11 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnAltaVeh.setForeground(Color.WHITE);
 		btnHistorialTaller.setForeground(Color.WHITE);
 		btnVerVehiculosTaller.setForeground(Color.WHITE);
-		btnFinalizarReparacion.setForeground(Color.WHITE);
+		btnAsignarTrabajo.setForeground(Color.WHITE);
 		btnAltaVeh.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnHistorialTaller.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnVerVehiculosTaller.setFont(new Font("Dialog", Font.PLAIN, 25));
-		btnFinalizarReparacion.setFont(new Font("Dialog", Font.PLAIN, 25));
+		btnAsignarTrabajo.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnTrabajoAsignado.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnTrabajoAsignado.setForeground(Color.WHITE);
 		//Añadimos los componentes al panel principal los paneles	
@@ -152,7 +159,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		panelBotones.add(btnAltaVeh);
 		panelBotones.add(btnHistorialTaller);
 		panelBotones.add(btnVerVehiculosTaller);
-		panelBotones.add(btnFinalizarReparacion);
+		panelBotones.add(btnAsignarTrabajo);
 		panelBotones.add(btnTrabajoAsignado);
 		panelBotones.add(lblFotoSur);
 		
@@ -178,8 +185,6 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		MecanicoConsultarHistorial ventanaConsultarHistorial;
 		
 		String txtBtn = e.getActionCommand();
-		
-		jefe = miUser.isMecanicoJefe();
 		
 		switch (txtBtn) {
 		case "Alta de vehículos":

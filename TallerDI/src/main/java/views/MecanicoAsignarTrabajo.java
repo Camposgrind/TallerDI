@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,6 +27,7 @@ import views.ventas.VentasListadoClientes;
 
 import javax.swing.border.LineBorder;
 import javax.swing.Icon;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,ActionListener{
@@ -37,16 +36,19 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
 	protected JButton btnVolver,btnRegistrar;
-	protected JLabel lblResumen;
-	protected JLabel lblTarea;
+	protected JLabel lblVehiculo;
 	protected JLabel lblAddOk;
-	protected JLabel lblConcesionario;
-	protected JTextField tFResumen;
-	protected JTextField tFTarea;
+	protected JLabel lblMecanico;
 	protected VehiculoDAO miVehiculoDao;
 	protected ConcesionarioDAO miConcesionarioDao;
-	protected JComboBox comboConcesionarios;
-	private JTextField textField;
+	protected JComboBox comboMecanico;
+	private JTextField tfTiempo;
+	private JTextField tfPresupuesto;
+	private JTextField tfTarea;
+	private JLabel lblTarea;
+	private JLabel lblPiezas;
+	private JTextArea textArea;
+	
 	/**
 	 * Create the application.
 	 */
@@ -87,11 +89,8 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Asignar trabajo a los mec\u00E1nicos");
-		lblResumen = new JLabel("Resumen:");
-		lblTarea = new JLabel("Tarea:");
-		lblConcesionario = new JLabel("Mec\u00E1nico:");
-		tFResumen = new JTextField();
-		tFTarea = new JTextField();
+		lblVehiculo = new JLabel("Vehiculo:");
+		lblMecanico = new JLabel("Mec\u00E1nico:");
 		btnVolver = new JButton("Volver");
 		btnRegistrar = new JButton("Asignar");
 		lblAddOk = new JLabel("TRABAJO ASIGNADO CORRECTAMENTE");
@@ -105,8 +104,7 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		lblDepartamento.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFotoUsu.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblResumen.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTarea.setHorizontalAlignment(SwingConstants.LEFT);
+		lblVehiculo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAddOk.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		//Damos color a los paneles, botones y lineas 
@@ -126,15 +124,11 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		panelDepartamento.setBounds(0, 0, 394, 76);
 		panelContenido.setBounds(0, 76, 794, 495);
 		panelInfo.setBounds(0, 0, 794, 41);
-		
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		lblResumen.setBounds(10, 122, 119, 30);
-		lblTarea.setBounds(10, 163, 119, 30);
-		lblConcesionario.setBounds(10, 84, 142, 30);
-		tFResumen.setBounds(117, 124, 667, 27);
-		tFTarea.setBounds(117, 165, 667, 184);
+		lblVehiculo.setBounds(76, 121, 119, 30);
+		lblMecanico.setBounds(76, 84, 142, 30);
 		btnVolver.setBounds(10, 407, 375, 77);
 		btnRegistrar.setBounds(409, 407, 375, 77);
 		lblAddOk.setBounds(0, 40, 794, 41);
@@ -148,15 +142,8 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
 		lblAltaClientes.setForeground(Color.BLACK);
-		lblResumen.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblTarea.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblConcesionario.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFResumen.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFResumen.setColumns(10);
-		tFResumen.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFTarea.setColumns(10);
-		tFTarea.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		
+		lblVehiculo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblMecanico.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		btnVolver.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnVolver.setForeground(Color.WHITE);
 		btnRegistrar.setFont(new Font("Dialog", Font.PLAIN, 25));
@@ -169,9 +156,9 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		getContentPane().add(panelUsuario);
 		getContentPane().add(panelContenido);
 		panelDepartamento.setLayout(null);
+		
 		//Añadimos los labels a los paneles 
 		panelDepartamento.add(lblDepartamento);
-		
 		JLabel lblFotoSur = new JLabel((Icon) null);
 		lblFotoSur.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFotoSur.setBounds(34, 11, 70, 54);
@@ -179,45 +166,86 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		panelUsuario.add(lblUsuario);
 		panelUsuario.add(lblFotoUsu);
 		panelUsuario.add(lblCerrarSesion);				
+		
 		//Añadimos el panel informativo, labels, textfield y botones 
 		panelContenido.add(panelInfo);
 		panelInfo.add(lblAltaClientes);
-		panelContenido.add(lblResumen);		
-		panelContenido.add(lblTarea);
-		panelContenido.add(lblConcesionario);
-		panelContenido.add(tFResumen);		
-		panelContenido.add(tFTarea);
-		
+		panelContenido.add(lblVehiculo);
+		panelContenido.add(lblMecanico);
 		panelContenido.add(btnVolver);
 		panelContenido.add(btnRegistrar);
 		panelContenido.add(lblAddOk);
 		
-		comboConcesionarios = new JComboBox();
+		
+		comboMecanico = new JComboBox();
+		
 		listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(0);
-		comboConcesionarios.addItem("");
+		comboMecanico.addItem("");
 		for (int i = 0; i < listaConcesionarios.size(); i++) {
-			comboConcesionarios.addItem(listaConcesionarios.get(i));
+			comboMecanico.addItem(listaConcesionarios.get(i));
 		}
-		comboConcesionarios.setSelectedItem("");
-		comboConcesionarios.addActionListener(this);
-		comboConcesionarios.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		comboConcesionarios.setBounds(117, 86, 268, 27);
-		panelContenido.add(comboConcesionarios);
 		
-		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setFont(new Font("Dialog", Font.PLAIN, 19));
-		lblFecha.setBounds(436, 81, 142, 30);
-		panelContenido.add(lblFecha);
+		comboMecanico.setSelectedItem("");
+		comboMecanico.addActionListener(this);
+		comboMecanico.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboMecanico.setBounds(210, 86, 508, 27);
+		panelContenido.add(comboMecanico);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Dialog", Font.PLAIN, 19));
-		textField.setColumns(10);
-		textField.setBounds(516, 83, 268, 27);
-		panelContenido.add(textField);
+		JLabel lblTiempo = new JLabel("Tiempo est:");
+		lblTiempo.setFont(new Font("Dialog", Font.PLAIN, 19));
+		lblTiempo.setBounds(76, 300, 142, 30);
+		panelContenido.add(lblTiempo);
+		
+		tfTiempo = new JTextField();
+		tfTiempo.setFont(new Font("Dialog", Font.PLAIN, 19));
+		tfTiempo.setColumns(10);
+		tfTiempo.setBounds(210, 302, 509, 27);
+		panelContenido.add(tfTiempo);
+		
+		JComboBox comboVehiculo = new JComboBox();
+		comboVehiculo.setFont(new Font("Dialog", Font.PLAIN, 19));
+		comboVehiculo.setBounds(209, 122, 508, 27);
+		panelContenido.add(comboVehiculo);
+		
+		JLabel lblPresupuesto = new JLabel("Presupuesto:");
+		lblPresupuesto.setFont(new Font("Dialog", Font.PLAIN, 19));
+		lblPresupuesto.setBounds(76, 336, 142, 30);
+		panelContenido.add(lblPresupuesto);
+		
+		tfPresupuesto = new JTextField();
+		tfPresupuesto.setFont(new Font("Dialog", Font.PLAIN, 19));
+		tfPresupuesto.setColumns(10);
+		tfPresupuesto.setBounds(210, 338, 509, 27);
+		panelContenido.add(tfPresupuesto);
+		
+		tfTarea = new JTextField();
+		tfTarea.setFont(new Font("Dialog", Font.PLAIN, 19));
+		tfTarea.setColumns(10);
+		tfTarea.setBounds(209, 160, 509, 27);
+		panelContenido.add(tfTarea);
+		
+		lblTarea = new JLabel("Tarea:");
+		lblTarea.setFont(new Font("Dialog", Font.PLAIN, 19));
+		lblTarea.setBounds(76, 158, 142, 30);
+		panelContenido.add(lblTarea);
+		
+		lblPiezas = new JLabel("Piezas:");
+		lblPiezas.setFont(new Font("Dialog", Font.PLAIN, 19));
+		lblPiezas.setBounds(76, 193, 142, 30);
+		panelContenido.add(lblPiezas);
+		
+		textArea = new JTextArea();
+		textArea.setFont(new Font("Dialog", Font.PLAIN, 19));
+		textArea.setBounds(210, 198, 508, 91);
+		panelContenido.add(textArea);
 		
 					
 		this.setVisible(true);
+		
+		
 	}
+	
+	
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
@@ -233,28 +261,28 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		String idConcesionario;
 		
 		switch (txtBtn) {
+		
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
 			ventanaMecanicoG = new MecanicoGenerico(miUser);			
 			break;
 			
-		case "Registrar":
-			
-			idConcesionario = miConcesionarioDao.buscarIDConcesionario(comboConcesionarios.getSelectedItem().toString())+"";
-
+		case "Asignar":
+			//idConcesionario = miConcesionarioDao.buscarIDConcesionario(comboMecanico.getSelectedItem().toString())+"";
 			lblAddOk.setVisible(true);
-
-			tFResumen.setText("");
-			tFTarea.setText("");
-
-			comboConcesionarios.setSelectedItem("");
+			textArea.setText("");
+			tfTarea.setText("");
+			tfTiempo.setText("");
+			tfPresupuesto.setText("");
+			comboMecanico.setSelectedItem("");
+			//comboVehiculo.setSelectedItem("");
 			break;
-
-
 		}
 		
 	}
+	
+	
 	/**
 	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
 	 * en este caso el de cerrar sesión, se cierre la sesión
@@ -263,12 +291,10 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
-		
 		this.setVisible(false);
 		this.dispose();
 		miUser = null;
 		loginCerrarSesion = new LoginV();
-
     }
 	
 	@Override

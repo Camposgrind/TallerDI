@@ -136,7 +136,7 @@ public class LoginV extends JFrame implements ActionListener{
 				this.setVisible(false);
 				ventanaJ = new JefeGenerico(miUsuario);
 				break;
-			case "Mecánico":
+			case "mecanico":
 				this.setVisible(false);
 				dispose();
 				ventanaM = new MecanicoGenerico(miUsuario);
