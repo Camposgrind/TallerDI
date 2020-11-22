@@ -140,7 +140,7 @@ public class LoginV extends JFrame implements ActionListener{
 				this.setVisible(false);
 				dispose();
 				ventanaM = new MecanicoGenerico(miUsuario);
-				break;		
+				break;
 			}			
 		}else {
 			//si es null ponemos el label de aviso verdadero

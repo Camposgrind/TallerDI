@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import models.Cliente;
 import models.Usuario;
 
 public class UsuarioDAO extends AbstractDAO{
@@ -100,6 +99,8 @@ public class UsuarioDAO extends AbstractDAO{
 				
 		return resultado;
 	}
+	
+	
 	/**
 	 * Método para setear todo el estado de usuario con la consulta a la BBDD
 	 */
@@ -126,15 +127,34 @@ public class UsuarioDAO extends AbstractDAO{
 	}
 	
 	
-	public ArrayList<Usuario> buscarMecanicos() {
+	public ArrayList<Usuario> buscarMecanicos(String tipo) {
 		ArrayList<Usuario> listaMecanicos = new ArrayList<Usuario>();
 		Usuario mecanico;
 		PreparedStatement preparedStmt;
 		
+		String query = "";
+
 		try {
 			
-			String query = "select * from usuario where rol = \"Mecánico\"";
-			preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);			
+			if (tipo.equals("")) {
+				query = "select * from usuario where rol = \"Mecánico\"";
+			}
+			
+			else {
+				switch (tipo) {
+					case "Coche":
+						query = "select * from usuario where rol = \"Mecánico\" and esp_Coches=true";
+						break;
+					case "Motocicleta":
+						query = "select * from usuario where rol = \"Mecánico\" and esp_Motos=true";
+						break;
+					case "Ciclomotor":
+						query = "select * from usuario where rol = \"Mecánico\" and esp_Ciclomotores=true";
+						break;
+					}
+			}
+			
+			preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			rs = preparedStmt.executeQuery();
 			
 			//mientras el resultset tenga filas creará clientes, les setea el estado y lo añade a la lista 

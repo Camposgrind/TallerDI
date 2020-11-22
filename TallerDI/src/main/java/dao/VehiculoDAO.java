@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import models.Cliente;
+import models.Usuario;
 import models.Vehiculo;
 
 public class VehiculoDAO extends AbstractDAO{
@@ -117,6 +118,42 @@ public class VehiculoDAO extends AbstractDAO{
 		
 		return miListaVehiculos;
 	}
+	
+	
+	public ArrayList<Vehiculo> buscarVehiculos() {
+		ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
+		Vehiculo vehiculo;
+		PreparedStatement preparedStmt;
+		
+		try {
+			
+			String query = "select * from vehiculo where vendido=true";
+			preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);			
+			rs = preparedStmt.executeQuery();
+			
+			//mientras el resultset tenga filas creará clientes, les setea el estado y lo añade a la lista 
+			while(rs.next()) {
+				vehiculo = new Vehiculo();
+				vehiculo.setMatricula(rs.getString(1));
+				vehiculo.setMarca(rs.getString(2));
+				vehiculo.setModelo(rs.getString(3));
+				vehiculo.setTipo(rs.getString(4));
+				vehiculo.setPrecio(rs.getInt(5));
+				vehiculo.setKilometros(rs.getInt(6));
+				vehiculo.setColor(rs.getString(7));
+				vehiculo.setCombustible(rs.getString(8));
+				vehiculo.setFechaEntrada(rs.getDate(9));
+				vehiculo.setIdConcesionario(rs.getInt(10));
+				vehiculo.setIdCliente(rs.getInt(11));
+				vehiculo.setVendido(rs.getBoolean(12));
+				listaVehiculos.add(vehiculo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaVehiculos;
+	}
+	
 	
 	/**
 	 *  Método para añadir un vehículo a la BBDD
