@@ -26,6 +26,8 @@ public class ReparacionDAO extends AbstractDAO{
 		preparedStmt = null;
 		
 	}
+	
+	
 	/**
 	 * Método para que el jefe de taller introduzca una reparación en la BBDD<br>
 	 * este método deja muchos campos a null de la tabla que en otra ventana el <br>
@@ -55,6 +57,18 @@ public class ReparacionDAO extends AbstractDAO{
 		
 		return resultado;
 	}
+	
+	
+//	public void asignarReparacion(String miMatricula, int idUsuario) {
+//		
+//		try {
+//			preparedStmt = super.con.prepareStatement("insert into repara (Matricula,Fecha_Entrada) values(?,?)");
+//		} catch (Exception e) {
+//			
+//		}
+//	}
+	
+	
 	
 	public ArrayList<Reparacion> buscarReparacionesEmpleado(int idUsuario) {
 		ArrayList<Reparacion> listaReparaciones = null;

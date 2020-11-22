@@ -49,7 +49,6 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 	private JLabel lblTarea;
 	private JLabel lblPiezas;
 	private JTextArea textArea;
-
 	private ArrayList<Usuario> listaMecanicos;
 	private ArrayList<Vehiculo> listaVehiculos;
 
@@ -66,12 +65,14 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		initialize();
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		//Foto del usuario
 		ImageIcon imgUsu;
-
 	
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 810, 610);
@@ -181,136 +182,127 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		panelContenido.add(btnRegistrar);
 		panelContenido.add(lblAddOk);
 		
-		
-		
-		
-		
+		//Iniciamos el ComboBox con la lista de mecánicos
 		comboMecanico = new JComboBox<String>();
-		
 		listaMecanicos = miUsuarioDao.buscarMecanicos("");
 		comboMecanico.addItem("");
-		String mecanicoConcat = "";
 		for (int i = 0; i < listaMecanicos.size(); i++) {
-			mecanicoConcat = listaMecanicos.get(i).getNombre()+" "
-					+listaMecanicos.get(i).getApellido()+" ("
-					+listaMecanicos.get(i).getNomUsuario()+")";
-			comboMecanico.addItem(mecanicoConcat);
+			comboMecanico.addItem(listaMecanicos.get(i).getNomUsuario());
 		}
 		
-			
-		
-//		comboMecanico.setSelectedItem("");
-//		comboMecanico.addActionListener (new ActionListener () {
-//		    public void actionPerformed(ActionEvent e) {
-//		        buscarMecanicoPorTipo();
-//		    }
-//		});
-		
-		
+		//Valores ComboBox Mecánico
 		comboMecanico.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		comboMecanico.setBounds(210, 86, 508, 27);
 		panelContenido.add(comboMecanico);
 		
-		
-		
-		
-		
-		
-		
-		
+		//Texto plano "Tiempo"
 		JLabel lblTiempo = new JLabel("Tiempo est:");
 		lblTiempo.setFont(new Font("Dialog", Font.PLAIN, 19));
 		lblTiempo.setBounds(76, 300, 142, 30);
 		panelContenido.add(lblTiempo);
 		
+		//Valores TextField tiempo estimado
 		tfTiempo = new JTextField();
 		tfTiempo.setFont(new Font("Dialog", Font.PLAIN, 19));
 		tfTiempo.setColumns(10);
 		tfTiempo.setBounds(210, 302, 509, 27);
 		panelContenido.add(tfTiempo);
 		
-		
-		
-		
-		
-		
+		//Inicializamos y llenamos el ComboBox de vehículos
 		comboVehiculo = new JComboBox<String>();
-		
 		listaVehiculos = miVehiculoDao.buscarVehiculos();
 		comboVehiculo.addItem("");
-		
-		
-//		String vehiculoConcat = "";
-//		for (int i = 0; i < listaVehiculos.size(); i++) {
-//			vehiculoConcat = listaVehiculos.get(i).getMarca()+" "
-//					+listaVehiculos.get(i).getModelo()+". Matrícula "
-//					+listaVehiculos.get(i).getMatricula();
-//			comboVehiculo.addItem(vehiculoConcat);
-//		}
-		
-		
+		//Obtenemos la matrícula del vehículo
 		for (int i = 0; i < listaVehiculos.size(); i++) {
 			comboVehiculo.addItem(listaVehiculos.get(i).getMatricula());
 		}
 		
-		
+		//Reiniciamos el ComboBox con los mecánicos especialistas
 		comboVehiculo.setSelectedItem("");
 		comboVehiculo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
 		        buscarMecanicoPorTipo(comboVehiculo.getSelectedItem().toString());
 		    }
 		});
-		
-		
-		
-		
-		
+
+		//Valores ComboBox vehículos
 		comboVehiculo.setFont(new Font("Dialog", Font.PLAIN, 19));
 		comboVehiculo.setBounds(209, 122, 508, 27);
 		panelContenido.add(comboVehiculo);
-		
-		
-		
-		
-		
-		
+
+		//Texto plano "Presupuesto"
 		JLabel lblPresupuesto = new JLabel("Presupuesto:");
 		lblPresupuesto.setFont(new Font("Dialog", Font.PLAIN, 19));
 		lblPresupuesto.setBounds(76, 336, 142, 30);
 		panelContenido.add(lblPresupuesto);
 		
+		//Valores del TextField con el presupuesto
 		tfPresupuesto = new JTextField();
 		tfPresupuesto.setFont(new Font("Dialog", Font.PLAIN, 19));
 		tfPresupuesto.setColumns(10);
 		tfPresupuesto.setBounds(210, 338, 509, 27);
 		panelContenido.add(tfPresupuesto);
 		
+		//Valores del TextField con la tarea a realizar
 		tfTarea = new JTextField();
 		tfTarea.setFont(new Font("Dialog", Font.PLAIN, 19));
 		tfTarea.setColumns(10);
 		tfTarea.setBounds(209, 160, 509, 27);
 		panelContenido.add(tfTarea);
 		
+		//Texto plano "Tarea"
 		lblTarea = new JLabel("Tarea:");
 		lblTarea.setFont(new Font("Dialog", Font.PLAIN, 19));
 		lblTarea.setBounds(76, 158, 142, 30);
 		panelContenido.add(lblTarea);
 		
+		//Texto plano "Piezas"
 		lblPiezas = new JLabel("Piezas:");
 		lblPiezas.setFont(new Font("Dialog", Font.PLAIN, 19));
 		lblPiezas.setBounds(76, 193, 142, 30);
 		panelContenido.add(lblPiezas);
 		
+		//Área de texto con las piezas que requerirá la reparación
 		textArea = new JTextArea();
 		textArea.setFont(new Font("Dialog", Font.PLAIN, 19));
 		textArea.setBounds(210, 198, 508, 91);
 		panelContenido.add(textArea);
-		
 					
 		this.setVisible(true);
+	}
+	
+	
+	/**
+	 * Con este método, cuando se selecciona un vehículo que está en taller,
+	 * el ComboBox de mecánicos se reinicia con los mecánicos especialistas
+	 * en este tipo de vehículo, para no poder asignar a un mecánico una
+	 * reparación de un vehículo que no está autorizado a reparar.
+	 * 
+	 * @param miMatricula
+	 */
+	public void buscarMecanicoPorTipo(String miMatricula) {
 		
+		ArrayList<Vehiculo> listaTemporal;
+		ArrayList<Usuario> usuariosTemporal;
+		Vehiculo vehiculoTemporal;
+		
+		comboMecanico.removeAllItems();
+		
+		listaTemporal = miVehiculoDao.buscarVehiculo(miMatricula, "", "", "", "", "", "", "", "", "", false);
+		vehiculoTemporal = listaTemporal.get(0);
+		usuariosTemporal = miUsuarioDao.buscarMecanicos(vehiculoTemporal.getTipo());
+		
+		comboMecanico.addItem("");
+		//String mecanicoConcat = "";
+		for (int i = 0; i < usuariosTemporal.size(); i++) {
+//			mecanicoConcat = usuariosTemporal.get(i).getNombre()+" "
+//					+usuariosTemporal.get(i).getApellido()+" ("
+//					+usuariosTemporal.get(i).getNomUsuario()+")";
+			comboMecanico.addItem(usuariosTemporal.get(i).getNomUsuario());
+		}
 		
 	}
+	
 	
 	
 	/**
@@ -337,17 +329,14 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 			break;
 			
 		case "Asignar":
-			//idConcesionario = miConcesionarioDao.buscarIDConcesionario(comboMecanico.getSelectedItem().toString())+"";
 			lblAddOk.setVisible(true);
 			textArea.setText("");
 			tfTarea.setText("");
 			tfTiempo.setText("");
 			tfPresupuesto.setText("");
 			comboMecanico.setSelectedItem("");
-			//comboVehiculo.setSelectedItem("");
 			break;
 		}
-		
 	}
 	
 	
@@ -365,61 +354,19 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		loginCerrarSesion = new LoginV();
     }
 	
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-
-		
-	}
 	
 	
-	
-	public void buscarMecanicoPorTipo(String miMatricula) {
-//		ArrayList<Usuario> usuariosTemporal;
-//		ArrayList<Vehiculo> listaTemporal;
-//		Vehiculo vehiculoTemporal;
-//		listaTemporal = miVehiculoDao.buscarVehiculo(miMatricula, "", "", "", "", "", "", "", "", "", true);
-//		vehiculoTemporal = listaTemporal.get(0);
-//		usuariosTemporal = miUsuarioDao.buscarMecanicos(vehiculoTemporal.getTipo());
-		//return usuariosTemporal;
-		
-		ArrayList<Vehiculo> listaTemporal;
-		ArrayList<Usuario> usuariosTemporal;
-		Vehiculo vehiculoTemporal;
-		
-		comboMecanico.removeAllItems();
-		
-		listaTemporal = miVehiculoDao.buscarVehiculo(miMatricula, "", "", "", "", "", "", "", "", "", false);
-		vehiculoTemporal = listaTemporal.get(0);
-		usuariosTemporal = miUsuarioDao.buscarMecanicos(vehiculoTemporal.getTipo());
-		
-		comboMecanico.addItem("");
-		//String mecanicoConcat = "";
-		for (int i = 0; i < usuariosTemporal.size(); i++) {
-//			mecanicoConcat = usuariosTemporal.get(i).getNombre()+" "
-//					+usuariosTemporal.get(i).getApellido()+" ("
-//					+usuariosTemporal.get(i).getNomUsuario()+")";
-			comboMecanico.addItem(usuariosTemporal.get(i).getNomUsuario());
-		}
-		
-	}
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {	}
 	
 
 	
