@@ -231,6 +231,7 @@ public class MecanicoTrabajoAsignado extends JFrame implements MouseListener,Act
 	@SuppressWarnings("unused")
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		MecanicoFichaReparacion ventanaFichaReparacion;
 		Component txtBtn = e.getComponent();
 		LoginV loginCerrarSesion;
 		
@@ -248,7 +249,7 @@ public class MecanicoTrabajoAsignado extends JFrame implements MouseListener,Act
 			table.getValueAt(row, i);
 			this.setVisible(false);
 			//Aquí debería inicarse una Ficha de reparación 
-			//ventanaFichaReparacion = new MecanicoFichaReparacion(miUser, listaReparaciones.get(row),this);
+			ventanaFichaReparacion = new MecanicoFichaReparacion(miUser, listaReparaciones.get(row),this);
 		}
 
     }

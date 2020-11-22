@@ -1,4 +1,4 @@
-package views.ventas;
+package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,58 +23,54 @@ import dao.ConcesionarioDAO;
 import dao.UsuarioDAO;
 import dao.VehiculoDAO;
 import models.Cliente;
-import models.Concesionario;
 import models.Propuesta;
+import models.Reparacion;
 import models.Usuario;
 import models.Vehiculo;
-import views.LoginV;
+import views.ventas.VentasBuscarPropuesta;
+import views.ventas.VentasGenerico;
+import views.ventas.VentasListadoPropuestas;
+import views.ventas.VentasPropuestaVenta;
+import javax.swing.JTextArea;
 
-public class VentasFichaPropuesta extends JFrame implements MouseListener,ActionListener{
+public class MecanicoFichaReparacion extends JFrame implements MouseListener,ActionListener{
 
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
-	protected JButton btnVolver,btnVender;
-	protected JLabel lblMatricula,lblNombreUsu,lblApellidosUsu;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFichaReparacion;
+	protected JButton btnVolver,btnFinalizarRep,btnIniciarRepa;
+	protected JLabel lblMatricula,lblNombreUsu,lblTrabajo;
 	protected JLabel lblMarca,lblNombreCl,lblApellidosCl;
 	protected JLabel lblModelo;
 	protected JLabel lblTipo;
-	protected JLabel lblFechaPropuesta;
-	protected JLabel lblPrecio,lblColor,lblConcesionario;
-	protected JLabel tFMatricula,tFNombreUsu,tFApellidosUsu;
+	protected JLabel lblFechaEntrada;
+	protected JLabel lblPresupuesto,lblEstado;
+	protected JLabel tFMatricula,tFNombreUsu,tFTrabajo;
 	protected JLabel tFMarca,tFNombreCl,tFApellidosCl;
-	protected JLabel tFModelo, lblkm,lblCombustible,tFkm,tFCombustible;
-	protected JLabel tFTipo,tfFechaPropuesta,tFPrecio,tFColor,tFConcesionario;
-	protected VentasListadoPropuestas ventanaListadoPropuesta;
+	protected JLabel tFModelo, lblPiezas,lblCombustible,tFCombustible;
+	protected JLabel tFTipo,tfFechaEntrada,tFPresupuesto,tFEstado;
+	protected JTextArea textArea;
+	protected MecanicoTrabajoAsignado ventanaTrabajoAsignado;
 	protected VentasPropuestaVenta ventanaPropuesta;
 	protected VehiculoDAO miVehiculoDao;
-	protected ConcesionarioDAO miConcesionarioDao;
 	protected ClienteDAO miClienteDao;
-	protected UsuarioDAO miUsuarioDao;
 	protected Vehiculo miVehiculo;
-	protected Propuesta miPropuesta;
+	protected Reparacion miReparacion;
 	protected Cliente miCliente;
-	protected Usuario miUsuarioPropuesta;
-	protected String nombreConcesionario;
 	
 	/**
 	 * Create the application.
 	 */
-	public VentasFichaPropuesta(Usuario miUsuario,Propuesta miPropuesta, VentasListadoPropuestas miVentanaListado) {
+	public MecanicoFichaReparacion(Usuario miUsuario,Reparacion miReparacion, MecanicoTrabajoAsignado miVentanaTrabajo) {
 		
-		miConcesionarioDao = new ConcesionarioDAO();
 		miVehiculoDao = new VehiculoDAO();
 		miClienteDao = new ClienteDAO();
-		miUsuarioDao = new UsuarioDAO();
-		ventanaListadoPropuesta = miVentanaListado;
-			
-		this.miPropuesta = miPropuesta;
+		ventanaTrabajoAsignado = miVentanaTrabajo;		
+		this.miReparacion = miReparacion;
 		miUser = miUsuario;
-		miUsuarioPropuesta = miUsuarioDao.buscarUsuarioById(miPropuesta.getIdUsuario());
-		miVehiculo = miVehiculoDao.buscarVehiculo(miPropuesta.getMatricula()
+		miVehiculo = miVehiculoDao.buscarVehiculo(miReparacion.getMatricula()
 				, "", "", "", "", "", "", "", "", "",false).get(0);
-		miCliente = miClienteDao.buscarClienteById(miPropuesta.getIdCliente());
-		nombreConcesionario = miConcesionarioDao.buscarNombreConcesionario(miVehiculo.getIdConcesionario()).get(0);
+		miCliente = miClienteDao.buscarClienteById(miVehiculo.getIdCliente());
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
 	}
@@ -100,51 +95,55 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		panelContenido = new JPanel();
 		panelUsuario = new JPanel();
 		panelInfo = new JPanel();
-		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
+		lblDepartamento = new JLabel("MEC\u00C1NICO");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
-		lblAltaClientes = new JLabel("Ficha veh\u00EDculo");
+		lblFichaReparacion = new JLabel("Ficha reparaci\u00F3n");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");
 		lblMarca = new JLabel("Marca:");
 		lblModelo = new JLabel("Modelo:");
 		lblTipo = new JLabel("Tipo:");
-		lblFechaPropuesta = new JLabel("Fecha propuesta:");
-		lblPrecio =  new JLabel("Precio:");
-		lblColor = new JLabel("Color:");
-		lblConcesionario = new JLabel("Concesionario:");	
+		lblFechaEntrada = new JLabel("Fecha entrada:");
+		lblPresupuesto =  new JLabel("Presupuesto:");
+		lblEstado = new JLabel("Estado:");
 		tFMatricula = new JLabel(miVehiculo.getMatricula());
 		tFMarca = new JLabel(miVehiculo.getMarca());
 		tFModelo = new JLabel(miVehiculo.getModelo());
 		tFTipo = new JLabel(miVehiculo.getTipo());	
-		tfFechaPropuesta = new JLabel(miPropuesta.getFecha().toString());
-		lblkm = new JLabel("Kilómetros:");
+		tfFechaEntrada = new JLabel(miReparacion.getFechaEntrada().toString());
+		lblPiezas = new JLabel("Piezas:");
 		lblCombustible = new JLabel("Combustible:");
-		tFkm = new JLabel(miVehiculo.getKilometros()+"");
 		tFCombustible = new JLabel(miVehiculo.getCombustible());
-		lblNombreUsu = new JLabel("Nombre vendedor");
-		lblApellidosUsu = new JLabel("Apellidos vendedor:");
+		lblNombreUsu = new JLabel("Nombre mec\u00E1nico:");
+		lblTrabajo = new JLabel("Trabajo:");
 		lblNombreCl = new JLabel("Nombre cliente:");
 		lblApellidosCl = new JLabel("Apellidos cliente:");
-		tFNombreUsu = new JLabel(miUsuarioPropuesta.getNombre());
-		tFApellidosUsu  = new JLabel(miUsuarioPropuesta.getApellido());
+		tFNombreUsu = new JLabel(miUser.getNombre());
+		tFTrabajo  = new JLabel(miReparacion.getTrabajo());
 		tFNombreCl  = new JLabel(miCliente.getNombre());
 		tFApellidosCl = new JLabel(miCliente.getApellidos());
-		
-		tFPrecio = new JLabel(miPropuesta.getPresupuesto()+"");
-		tFColor = new JLabel(miVehiculo.getColor());
+		textArea = new JTextArea(miReparacion.getPiezas());
+		textArea.setEditable(false);
+		btnIniciarRepa = new JButton("Iniciar reparaci\u00F3n");
+		tFPresupuesto = new JLabel(miReparacion.getPresupuesto()+"");
+		tFEstado = new JLabel(miReparacion.getEstado());
 		//Hay que modificar esto
-		tFConcesionario = new JLabel(nombreConcesionario);
 		btnVolver = new JButton("Volver");
 		//btnModificar = new JButton("Vender");
-		btnVender = new JButton("Vender");
+		btnFinalizarRep = new JButton("Finalizar reparaci\u00F3n");
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
-		btnVender.addActionListener(this);
-		if(miVehiculo.isVendido()) {
-			btnVender.setText("Vehículo vendido");
-			btnVender.setEnabled(false);
+		btnFinalizarRep.addActionListener(this);
+		
+		if(miReparacion.getEstado().equals("Pendiente")) {
+			btnFinalizarRep.setEnabled(false);
+		}else if(miReparacion.getEstado().equals("En curso")) {
+			btnIniciarRepa.setEnabled(false);
+		}else {
+			btnFinalizarRep.setEnabled(false);
+			btnIniciarRepa.setEnabled(false);
 		}
 
 		//Ponemos sus layouts
@@ -169,52 +168,52 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
 		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnVender.setBackground(new Color(82, 21, 255));
+		btnFinalizarRep.setBackground(new Color(82, 21, 255));
+		textArea.setBackground(new java.awt.Color( 244, 162, 97));
+		btnIniciarRepa.setBackground(new Color(82, 21, 255));
 		
 		//Damos el tamaño a los componentes que están en absoluto
 		panelUsuario.setBounds(393, 0, 393, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
 		panelContenido.setBounds(0, 76, 786, 485);
-		panelInfo.setBounds(281, 0, 228, 41);
+		panelInfo.setBounds(0, 0, 786, 41);
 		
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
 		
 		lblMatricula.setBounds(425, 70, 119, 30);
-		lblMarca.setBounds(425, 191, 119, 30);
-		lblModelo.setBounds(425, 232, 119, 30);
+		lblMarca.setBounds(425, 152, 119, 30);
+		lblModelo.setBounds(425, 193, 119, 30);
 		lblTipo.setBounds(425, 111, 119, 30);
 
-		lblPrecio.setBounds(24, 314, 119, 30); 
-		lblColor.setBounds(425, 150, 142, 30); 
-		lblFechaPropuesta.setBounds(24, 273, 179, 30);
-		lblConcesionario.setBounds(425, 355, 142, 30); 	
+		lblPresupuesto.setBounds(23, 232, 163, 30); 
+		lblEstado.setBounds(24, 273, 142, 30); 
+		lblFechaEntrada.setBounds(24, 314, 179, 30);
 		tFMatricula.setBounds(569, 72, 207, 27);
-		tFMarca.setBounds(569, 193, 207, 27);
-		tFModelo.setBounds(569, 234, 202, 27);
+		tFMarca.setBounds(569, 154, 207, 27);
+		tFModelo.setBounds(574, 195, 202, 27);
 		tFTipo.setBounds(569, 111, 202, 27);
-		lblkm.setBounds(425, 273, 142, 30);
-		tFkm.setBounds(569, 275, 179, 27);
-		tFCombustible.setBounds(569, 316, 179, 27);
-		lblCombustible.setBounds(425, 314, 131, 30);
+		lblPiezas.setBounds(425, 273, 119, 30);
+		tFCombustible.setBounds(569, 234, 179, 27);
+		lblCombustible.setBounds(425, 234, 131, 30);
 
-		tFPrecio.setBounds(213, 316, 189, 27);
-		tFColor.setBounds(569, 152, 179, 27);
-		tfFechaPropuesta.setBounds(213, 275, 179, 27);
-		tFConcesionario.setBounds(569, 357, 207, 27);
+		tFPresupuesto.setBounds(213, 234, 189, 27);
+		tFEstado.setBounds(213, 275, 179, 27);
+		tfFechaEntrada.setBounds(213, 317, 179, 27);
 		
-		lblNombreUsu.setBounds(27, 111, 179, 30);
-		lblApellidosUsu.setBounds(27, 150, 179, 30); 
-		lblNombreCl.setBounds(27, 191, 159, 30);
-		lblApellidosCl.setBounds(27, 232, 159, 30);
-		tFNombreUsu.setBounds(213, 113, 202, 27);
-		tFApellidosUsu.setBounds(213, 152, 179, 27);
-		tFNombreCl.setBounds(213, 193, 207, 27);
-		tFApellidosCl.setBounds(213, 234, 202, 27);
-		
-		btnVolver.setBounds(94, 424, 117, 35);
-		btnVender.setBounds(490, 424, 202, 35);
+		lblNombreUsu.setBounds(24, 70, 179, 30);
+		lblTrabajo.setBounds(24, 191, 179, 30); 
+		lblNombreCl.setBounds(24, 111, 159, 30);
+		lblApellidosCl.setBounds(24, 150, 159, 30);
+		tFNombreUsu.setBounds(213, 70, 202, 27);
+		tFTrabajo.setBounds(213, 194, 179, 27);
+		tFNombreCl.setBounds(213, 113, 207, 27);
+		tFApellidosCl.setBounds(213, 152, 202, 27);
+		textArea.setBounds(569, 279, 179, 92);
+		btnIniciarRepa.setBounds(270, 399, 240, 75);
+		btnVolver.setBounds(10, 399, 238, 75);
+		btnFinalizarRep.setBounds(536, 399, 240, 75);
 
 		//Damos el tamaño, fuente y color a las letras 
 		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
@@ -223,42 +222,41 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
 		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblAltaClientes.setForeground(new java.awt.Color(38, 70, 83));
+		lblFichaReparacion.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
+		lblFichaReparacion.setForeground(new java.awt.Color(38, 70, 83));
 		lblMatricula.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblMarca.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblModelo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblTipo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblFechaPropuesta.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblPrecio.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
-		lblColor.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
-		lblConcesionario.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 			
+		lblFechaEntrada.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblPresupuesto.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
+		lblEstado.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 		
 		tFMatricula.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));		
 		tFMarca.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));				
 		tFModelo.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));		
 		tFTipo.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		lblkm.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFkm.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
+		lblPiezas.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFCombustible.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
 		lblCombustible.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));		
-		tfFechaPropuesta.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		tFPrecio.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		tFColor.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		tFConcesionario.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
+		tfFechaEntrada.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
+		tFPresupuesto.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
+		tFEstado.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
 		
 		lblNombreUsu.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
-		lblApellidosUsu.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
+		lblTrabajo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
 		lblNombreCl.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
 		lblApellidosCl.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
 		tFNombreUsu.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		tFApellidosUsu.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
+		tFTrabajo.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
 		tFNombreCl.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
 		tFApellidosCl.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		
+		textArea.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
+		btnIniciarRepa.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
-		btnVender.setForeground(Color.WHITE);
-		btnVender.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnFinalizarRep.setForeground(Color.WHITE);
+		btnIniciarRepa.setForeground(Color.WHITE);
+		btnFinalizarRep.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		
 		//Añadimos los componentes al panel principal los paneles	
 		getContentPane().add(panelDepartamento);
@@ -271,39 +269,37 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		panelUsuario.add(lblCerrarSesion);				
 		//Añadimos el panel informativo, labels, textfield y botones 
 		panelContenido.add(panelInfo);
-		panelInfo.add(lblAltaClientes);		
+		panelInfo.add(lblFichaReparacion);		
 		panelContenido.add(lblMatricula);		
 		panelContenido.add(lblMarca);		
 		panelContenido.add(lblModelo);		
 		panelContenido.add(lblTipo);
-		panelContenido.add(lblFechaPropuesta);
-		panelContenido.add(lblPrecio);
-		panelContenido.add(lblColor);
-		panelContenido.add(lblConcesionario);
+		panelContenido.add(lblFechaEntrada);
+		panelContenido.add(lblPresupuesto);
+		panelContenido.add(lblEstado);
 		
 		panelContenido.add(tFMatricula);		
 		panelContenido.add(tFMarca);		
 		panelContenido.add(tFModelo);		
 		panelContenido.add(tFTipo);
-		panelContenido.add(tfFechaPropuesta);		
-		panelContenido.add(tFPrecio);		
-		panelContenido.add(tFColor);		
-		panelContenido.add(tFConcesionario);
+		panelContenido.add(tfFechaEntrada);		
+		panelContenido.add(tFPresupuesto);		
+		panelContenido.add(tFEstado);		
 		panelContenido.add(lblNombreCl);
 		panelContenido.add(lblApellidosCl);
 		panelContenido.add(lblNombreUsu);
-		panelContenido.add(lblApellidosUsu);
+		panelContenido.add(lblTrabajo);
 		panelContenido.add(tFNombreCl);
 		panelContenido.add(tFNombreUsu);
 		panelContenido.add(tFApellidosCl);
-		panelContenido.add(tFApellidosUsu);
+		panelContenido.add(tFTrabajo);
 		
 		panelContenido.add(btnVolver);
-		panelContenido.add(btnVender);
-		
-		panelContenido.add(lblkm);
+		panelContenido.add(btnFinalizarRep);
+		panelContenido.add(textArea);
+		panelContenido.add(btnIniciarRepa);
+		panelContenido.add(lblPiezas);
 		panelContenido.add(lblCombustible);
-		panelContenido.add(tFkm);
 		panelContenido.add(tFCombustible);
 					
 		this.setVisible(true);
@@ -322,11 +318,11 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
-			if(ventanaListadoPropuesta==null) {
+			if(ventanaTrabajoAsignado==null) {
 							
 				ventanaBuscarPropuesta = new VentasBuscarPropuesta(miUser);
 			}else {
-				ventanaListadoPropuesta.setVisible(true);
+				ventanaTrabajoAsignado.setVisible(true);
 			}
 			break;
 
@@ -334,7 +330,7 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 			this.setVisible(false);
 			this.dispose();
 			ventanaVentasGenerico = new VentasGenerico(miUser);
-			miVehiculoDao.venderVehiculo(miUsuarioPropuesta.getIdUsuario(),1,miVehiculo.getMatricula());
+			//miVehiculoDao.venderVehiculo(miUsuarioPropuesta.getIdUsuario(),1,miVehiculo.getMatricula());
 			JOptionPane.showMessageDialog(this, "Venta realizada con éxito");
 			
 
