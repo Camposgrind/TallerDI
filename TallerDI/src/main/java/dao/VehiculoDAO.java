@@ -13,7 +13,6 @@ import models.Vehiculo;
 public class VehiculoDAO extends AbstractDAO{
 	
 	//ESTADO
-	protected Statement st;
 	protected ResultSet rs;
 	protected Vehiculo miVehiculo;
 	protected String nombreConcesionario;
@@ -24,7 +23,6 @@ public class VehiculoDAO extends AbstractDAO{
 	 */
 	public VehiculoDAO() {
 		super();
-		st = null;
 		rs=null;
 		
 	}
@@ -228,7 +226,7 @@ public class VehiculoDAO extends AbstractDAO{
 	 * @return
 	 */
 	public ArrayList<String> getCombustibles() {
-		ArrayList<String> listaCombustibles= new ArrayList<>();
+		ArrayList<String> listaCombustibles= new ArrayList<String>();
 		String combustible;
 		PreparedStatement preparedStmt;
 		try {

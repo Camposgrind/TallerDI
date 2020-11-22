@@ -127,16 +127,16 @@ public class LoginV extends JFrame implements ActionListener{
 			lblLogin.setVisible(false);
 			
 			switch (rol) {
-			case "ventas":
+			case "Ventas":
 				this.setVisible(false);
 				dispose();
 				ventanaV = new VentasGenerico(miUsuario);
 				break;
-			case "jefe":
+			case "Jefe":
 				this.setVisible(false);
 				ventanaJ = new JefeGenerico(miUsuario);
 				break;
-			case "mecanico":
+			case "Mecánico":
 				this.setVisible(false);
 				dispose();
 				ventanaM = new MecanicoGenerico(miUsuario);
