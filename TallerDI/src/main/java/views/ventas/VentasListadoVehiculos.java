@@ -20,9 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
-import dao.ClienteDAO;
 import dao.ConcesionarioDAO;
-import models.Cliente;
 import models.Usuario;
 import models.Vehiculo;
 import views.LoginV;
@@ -59,7 +57,7 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ImageIcon imgUsu;
+
 
 		// iniciamos y damos las propiedades al frame
 		this.setBounds(100, 100, 800, 600);
@@ -70,6 +68,93 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		getContentPane().setLayout(null);
 
 		// Iniciamos todos los componentes
+		this.iniciarComponentes();
+
+		// Ponemos sus layouts
+		this.ponerLayoutsComponentes();
+
+		// Damos color a los paneles, botones y lineas
+		this.darColorComponentes();
+
+		// Damos el tamaño a los componentes que están en absoluto
+		this.colocarComponentes();
+
+		// Damos el tamaño, fuente y color a las letras
+		this.addPropiedadesLetras();
+
+		// Añadimos los componentes al panel principal los paneles
+		this.addComponentes();
+		
+		this.rellenarTabla();
+
+		this.setVisible(true);
+	}
+
+	/**
+	 * Método para cuando se pulse algún botón
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		VentasBuscarVehiculo ventanaBuscarVehiculo;
+
+		this.setVisible(false);
+		this.dispose();
+		ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser,ventanaPropuesta);
+
+	}
+
+	@Override
+	/**
+	 * Método para cuando pulsemos una celada nos de la ficha o si es el 
+	 * label de cerrar sesión se salga del usuario
+	 */
+	public void mouseClicked(MouseEvent e) {
+		LoginV loginCerrarSesion;
+		VentasFichaVehiculo ventanaVehiculoSeleccionado;
+		
+		Component txtBtn = e.getComponent();
+		if(txtBtn==lblCerrarSesion) {
+			this.setVisible(false);
+			this.dispose();
+			miUser = null;
+			loginCerrarSesion = new LoginV();
+		}else {
+			 //obtener la fila
+	        int row = table.getSelectedRow();
+	        //obtener la columna
+	        int i = table.getSelectedColumn();
+			table.getValueAt(row, i);
+			this.setVisible(false);
+			ventanaVehiculoSeleccionado = new VentasFichaVehiculo(miUser, listaVehiculos.get(row),this,ventanaPropuesta);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
+	
+	/**
+	 * Método interno para iniciar los componentes
+	 */
+	private void iniciarComponentes() {
+		ImageIcon imgUsu;
+		
 		panelDepartamento = new JPanel();
 		panelContenido = new JPanel();
 		panelUsuario = new JPanel();
@@ -83,8 +168,12 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		btnVolver = new JButton("Volver");
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
-
-		// Ponemos sus layouts
+	}
+	/**
+	 * Metodo para poner a los paneles y label los layout que necesitan
+	 */
+	private void ponerLayoutsComponentes() {
+		
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
 		panelUsuario.setLayout(null);
 		panelContenido.setLayout(null);
@@ -92,8 +181,12 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		lblDepartamento.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFotoUsu.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
-
-		// Damos color a los paneles, botones y lineas
+	}
+	/**
+	 * Método interno para dar color a los componenetes (botones, lineas, labels, panels...)
+	 */
+	private void darColorComponentes() {
+		
 		panelDepartamento.setBackground(new java.awt.Color(244, 162, 97));
 		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
 		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
@@ -102,8 +195,12 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
 		panelInfo.setBackground(new java.awt.Color(244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-
-		// Damos el tamaño a los componentes que están en absoluto
+	}
+	/**
+	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
+	 */
+	private void colocarComponentes() {
+		
 		panelUsuario.setBounds(393, 0, 393, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
 		panelContenido.setBounds(0, 76, 786, 485);
@@ -113,8 +210,12 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
 		btnVolver.setBounds(332, 403, 117, 35);
-
-		// Damos el tamaño, fuente y color a las letras
+	}
+	/**
+	 * Método para darle la fuentes a las letras de los componentes
+	 */
+	private void addPropiedadesLetras() {
+		
 		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
 		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
@@ -125,8 +226,11 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		lblInfoVentana.setForeground(new java.awt.Color(38, 70, 83));
 		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
 		btnVolver.setForeground(Color.WHITE);
-
-		// Añadimos los componentes al panel principal los paneles
+	}
+	/**
+	 * Método para añadir todos los componentes al panel principal 
+	 */
+	private void addComponentes() {
 		getContentPane().add(panelDepartamento);
 		getContentPane().add(panelUsuario);
 		getContentPane().add(panelContenido);
@@ -140,7 +244,11 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		panelInfo.add(lblInfoVentana);
 
 		panelContenido.add(btnVolver);
-		
+	} 
+	/**
+	 * Método interno para rellenar la tabla 
+	 */
+	private void rellenarTabla() {
 		//Para la tabla 
 		//este array bidimensional sera para determinar como es de grande
 		//la tabla (filas, columnas)
@@ -180,68 +288,5 @@ public class VentasListadoVehiculos extends JFrame implements MouseListener, Act
 		table.addMouseListener(this);
 
 		panelContenido.add(scrollPane);
-
-		this.setVisible(true);
 	}
-
-	/**
-	 * Método para cuando se pulse algún botón
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		VentasBuscarVehiculo ventanaBuscarVehiculo;
-
-		this.setVisible(false);
-		this.dispose();
-		ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser,ventanaPropuesta);
-
-	}
-
-	@Override
-	/**
-	 * Método para cuando pulsemos una celada nos de la ficha o si es el 
-	 * label de cerrar sesión se salga del usuario
-	 */
-	public void mouseClicked(MouseEvent e) {
-		LoginV loginCerrarSesion;
-		VentasFichaVehiculo ventanaVehiculoSeleccionado;
-		VentasFichaCliente ventanaClienteSeleccionado;
-		
-		Component txtBtn = e.getComponent();
-		if(txtBtn==lblCerrarSesion) {
-			this.setVisible(false);
-			this.dispose();
-			miUser = null;
-			loginCerrarSesion = new LoginV();
-		}else {
-			 //obtener la fila
-	        int row = table.getSelectedRow();
-	        //obtener la columna
-	        int i = table.getSelectedColumn();
-			table.getValueAt(row, i);
-			this.setVisible(false);
-			ventanaVehiculoSeleccionado = new VentasFichaVehiculo(miUser, listaVehiculos.get(row),this,ventanaPropuesta);
-		}
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-
-	}
-		
 }

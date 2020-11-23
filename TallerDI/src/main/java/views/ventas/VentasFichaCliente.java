@@ -63,7 +63,6 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {		
-		ImageIcon imgUsu;
 
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
@@ -74,125 +73,21 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		getContentPane().setLayout(null);
 		
 		//Iniciamos todos los componentes 
-		panelDepartamento = new JPanel();
-		panelContenido = new JPanel();
-		panelUsuario = new JPanel();
-		panelInfo = new JPanel();
-		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
-		lblUsuario = new JLabel(miUser.getNomUsuario());
-		lblCerrarSesion = new JLabel("Cerrar sesion");
-		imgUsu = new ImageIcon("user-icon.png");
-		lblFotoUsu = new JLabel(imgUsu);
-		lblFichaClientes = new JLabel("Ficha cliente");
-		lblNombre = new JLabel("Nombre: ");
-		lblApellidos = new JLabel("Apellidos:");
-		lblTelefono = new JLabel("Tel\u00E9fono:");
-		lblDni = new JLabel("DNI:");
-		infoNombre = new JLabel(miCliente.getNombre());
-		infoApellidos = new JLabel(miCliente.getApellidos());
-		infoTelefono = new JLabel(miCliente.getTelefono());
-		infoDni = new JLabel(miCliente.getDni());		
-		btnVolver = new JButton("Volver");
-		btnModificar = new JButton("Modificar");
-		btnPropuestaVenta = new JButton("Propuesta de venta");
-		lblCerrarSesion.addMouseListener(this);
-		btnVolver.addActionListener(this);
-		btnModificar.addActionListener(this);
-		btnPropuestaVenta.addActionListener(this);
+		this.iniciarComponentes();
 		//Ponemos sus layouts
-		panelDepartamento.setLayout(new BorderLayout(0, 0));
-		panelUsuario.setLayout(null);
-		panelContenido.setLayout(null);
-		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblDepartamento.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFotoUsu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
-		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTelefono.setHorizontalAlignment(SwingConstants.LEFT);
-		lblDni.setHorizontalAlignment(SwingConstants.LEFT);
+		this.ponerLayoutsComponentes();
 		
 		//Damos color a los paneles, botones y lineas 
-		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
-		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
-		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
-		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
-		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
-		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnModificar.setBackground(new java.awt.Color(0,92,48));
-		btnPropuestaVenta.setBackground(new Color(82, 21, 255));
+		this.darColorComponentes();
 		
 		//Damos el tamaño a los componentes que están en absoluto
-		panelUsuario.setBounds(393, 0, 393, 76);
-		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelContenido.setBounds(-2, 76, 786, 485);
-		panelInfo.setBounds(281, 0, 228, 41);
-		
-		lblUsuario.setBounds(183, 11, 123, 24);
-		lblCerrarSesion.setBounds(183, 46, 123, 14);
-		lblFotoUsu.setBounds(327, 9, 46, 51);
-		lblNombre.setBounds(236, 97, 106, 30);
-		lblApellidos.setBounds(236, 160, 99, 30);
-		lblTelefono.setBounds(236, 229, 99, 30);
-		lblDni.setBounds(236, 295, 106, 30);
-		infoNombre.setBounds(376, 100, 222, 27);
-		infoApellidos.setBounds(376, 165, 222, 27);
-		infoTelefono.setBounds(376, 234, 222, 27);
-		infoDni.setBounds(376, 295, 222, 27);
-		btnVolver.setBounds(93, 391, 117, 35);
-		btnModificar.setBounds(295, 391, 117, 35);
-		btnPropuestaVenta.setBounds(492, 391, 202, 35);
+		this.colocarComponentes();
 		
 		//Damos el tamaño, fuente y color a las letras 
-		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
-		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
-		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
-		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		lblFichaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblFichaClientes.setForeground(new java.awt.Color(38, 70, 83));
-		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		infoNombre.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
-		infoApellidos.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
-		infoTelefono.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
-		infoDni.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
-		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		btnVolver.setForeground(Color.WHITE);
-		btnModificar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		btnModificar.setForeground(Color.WHITE);
-		btnPropuestaVenta.setForeground(Color.WHITE);
-		btnPropuestaVenta.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		this.addPropiedadesLetras();
 		
 		//Añadimos los componentes al panel principal los paneles	
-		getContentPane().add(panelDepartamento);
-		getContentPane().add(panelUsuario);
-		getContentPane().add(panelContenido);
-		//Añadimos los labels a los paneles 
-		panelDepartamento.add(lblDepartamento);
-		panelUsuario.add(lblUsuario);
-		panelUsuario.add(lblFotoUsu);
-		panelUsuario.add(lblCerrarSesion);				
-		//Añadimos el panel informativo, labels, textfield y botones 
-		panelContenido.add(panelInfo);
-		panelInfo.add(lblFichaClientes);		
-		panelContenido.add(lblNombre);		
-		panelContenido.add(lblApellidos);		
-		panelContenido.add(lblTelefono);		
-		panelContenido.add(lblDni);		
-		panelContenido.add(infoNombre);		
-		panelContenido.add(infoApellidos);		
-		panelContenido.add(infoTelefono);		
-		panelContenido.add(infoDni);
-		
-		panelContenido.add(btnVolver);
-		panelContenido.add(btnModificar);		
-		panelContenido.add(btnPropuestaVenta);
+		this.addComponentes();
 							
 		this.setVisible(true);
 	}
@@ -277,5 +172,151 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	public void mouseExited(MouseEvent e) {
 		
 	}
+	/**
+	 * Método interno para iniciar los componentes
+	 */
+	private void iniciarComponentes() {
+		ImageIcon imgUsu;
+		
+		panelDepartamento = new JPanel();
+		panelContenido = new JPanel();
+		panelUsuario = new JPanel();
+		panelInfo = new JPanel();
+		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
+		lblUsuario = new JLabel(miUser.getNomUsuario());
+		lblCerrarSesion = new JLabel("Cerrar sesion");
+		imgUsu = new ImageIcon("user-icon.png");
+		lblFotoUsu = new JLabel(imgUsu);
+		lblFichaClientes = new JLabel("Ficha cliente");
+		lblNombre = new JLabel("Nombre: ");
+		lblApellidos = new JLabel("Apellidos:");
+		lblTelefono = new JLabel("Tel\u00E9fono:");
+		lblDni = new JLabel("DNI:");
+		infoNombre = new JLabel(miCliente.getNombre());
+		infoApellidos = new JLabel(miCliente.getApellidos());
+		infoTelefono = new JLabel(miCliente.getTelefono());
+		infoDni = new JLabel(miCliente.getDni());		
+		btnVolver = new JButton("Volver");
+		btnModificar = new JButton("Modificar");
+		btnPropuestaVenta = new JButton("Propuesta de venta");
+		lblCerrarSesion.addMouseListener(this);
+		btnVolver.addActionListener(this);
+		btnModificar.addActionListener(this);
+		btnPropuestaVenta.addActionListener(this);
+	}
+	/**
+	 * Metodo para poner a los paneles y label los layout que necesitan
+	 */
+	private void ponerLayoutsComponentes() {
+		
+		panelDepartamento.setLayout(new BorderLayout(0, 0));
+		panelUsuario.setLayout(null);
+		panelContenido.setLayout(null);
+		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblDepartamento.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFotoUsu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
+		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTelefono.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDni.setHorizontalAlignment(SwingConstants.LEFT);
+	}
+	/**
+	 * Método interno para dar color a los componenetes (botones, lineas, labels, panels...)
+	 */
+	private void darColorComponentes() {
+		
+		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
+		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
+		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
+		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
+		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
+		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
+		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
+		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
+		btnModificar.setBackground(new java.awt.Color(0,92,48));
+		btnPropuestaVenta.setBackground(new Color(82, 21, 255));
+	}
+	/**
+	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
+	 */
+	private void colocarComponentes() {
+		
+		panelUsuario.setBounds(393, 0, 393, 76);
+		panelDepartamento.setBounds(0, 0, 393, 76);
+		panelContenido.setBounds(-2, 76, 786, 485);
+		panelInfo.setBounds(281, 0, 228, 41);
+		
+		lblUsuario.setBounds(183, 11, 123, 24);
+		lblCerrarSesion.setBounds(183, 46, 123, 14);
+		lblFotoUsu.setBounds(327, 9, 46, 51);
+		lblNombre.setBounds(236, 97, 106, 30);
+		lblApellidos.setBounds(236, 160, 99, 30);
+		lblTelefono.setBounds(236, 229, 99, 30);
+		lblDni.setBounds(236, 295, 106, 30);
+		infoNombre.setBounds(376, 100, 222, 27);
+		infoApellidos.setBounds(376, 165, 222, 27);
+		infoTelefono.setBounds(376, 234, 222, 27);
+		infoDni.setBounds(376, 295, 222, 27);
+		btnVolver.setBounds(93, 391, 117, 35);
+		btnModificar.setBounds(295, 391, 117, 35);
+		btnPropuestaVenta.setBounds(492, 391, 202, 35);
+	}
+	/**
+	 * Método para darle la fuentes a las letras de los componentes
+	 */
+	private void addPropiedadesLetras() {
+		
+		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
+		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
+		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
+		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
+		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
+		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		lblFichaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
+		lblFichaClientes.setForeground(new java.awt.Color(38, 70, 83));
+		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblDni.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		infoNombre.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
+		infoApellidos.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
+		infoTelefono.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
+		infoDni.setFont(new Font("DejaVu Sans", Font.ITALIC, 19));
+		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnVolver.setForeground(Color.WHITE);
+		btnModificar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnModificar.setForeground(Color.WHITE);
+		btnPropuestaVenta.setForeground(Color.WHITE);
+		btnPropuestaVenta.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+	}
+	/**
+	 * Método para añadir todos los componentes al panel principal 
+	 */
+	private void addComponentes() {
+		getContentPane().add(panelDepartamento);
+		getContentPane().add(panelUsuario);
+		getContentPane().add(panelContenido);
+		//Añadimos los labels a los paneles 
+		panelDepartamento.add(lblDepartamento);
+		panelUsuario.add(lblUsuario);
+		panelUsuario.add(lblFotoUsu);
+		panelUsuario.add(lblCerrarSesion);				
+		//Añadimos el panel informativo, labels, textfield y botones 
+		panelContenido.add(panelInfo);
+		panelInfo.add(lblFichaClientes);		
+		panelContenido.add(lblNombre);		
+		panelContenido.add(lblApellidos);		
+		panelContenido.add(lblTelefono);		
+		panelContenido.add(lblDni);		
+		panelContenido.add(infoNombre);		
+		panelContenido.add(infoApellidos);		
+		panelContenido.add(infoTelefono);		
+		panelContenido.add(infoDni);
+		
+		panelContenido.add(btnVolver);
+		panelContenido.add(btnModificar);		
+		panelContenido.add(btnPropuestaVenta);
+	} 
 
 }

@@ -99,6 +99,12 @@ public class ReparacionDAO extends AbstractDAO{
 		
 		return listaReparaciones;
 	}
+	/**
+	 * Método que actualiza en la BBDD el estado de la reparación
+	 * @param estado
+	 * @param matriculaWhere
+	 * @return
+	 */
 	public boolean actualizarEstado(String estado,String matriculaWhere) {
 		boolean resultado = false;
 		String fecha="";

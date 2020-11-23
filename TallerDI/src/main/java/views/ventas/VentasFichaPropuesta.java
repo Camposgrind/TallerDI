@@ -2,13 +2,11 @@ package views.ventas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,7 +22,6 @@ import dao.ConcesionarioDAO;
 import dao.UsuarioDAO;
 import dao.VehiculoDAO;
 import models.Cliente;
-import models.Concesionario;
 import models.Propuesta;
 import models.Usuario;
 import models.Vehiculo;
@@ -84,8 +81,6 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ImageIcon imgUsu;
-		//ArrayList<String> listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(miVehiculo.getIdConcesionario());
 		
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
@@ -96,6 +91,104 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		getContentPane().setLayout(null);
 
 		//Iniciamos todos los componentes 
+		this.iniciarComponentes();
+
+		//Ponemos sus layouts
+		this.ponerLayoutsComponentes();
+		
+		//Damos color a los paneles, botones y lineas 
+		this.darColorComponentes();
+		
+		//Damos el tamaño a los componentes que están en absoluto
+		this.colocarComponentes();
+
+		//Damos el tamaño, fuente y color a las letras 
+		this.addPropiedadesLetras();
+		
+		//Añadimos los componentes al panel principal los paneles	
+		this.addComponentes();
+					
+		this.setVisible(true);
+	}
+	/**
+	 * Método para cuando se pulse algún botón
+	 */
+	@SuppressWarnings("unused")
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		VentasBuscarPropuesta ventanaBuscarPropuesta;
+		VentasGenerico ventanaVentasGenerico;
+		int comisionActualizada;
+		String txtBtn = e.getActionCommand();
+		
+		switch (txtBtn) {
+		case "Volver":
+			this.setVisible(false);
+			this.dispose();
+			if(ventanaListadoPropuesta==null) {
+							
+				ventanaBuscarPropuesta = new VentasBuscarPropuesta(miUser);
+			}else {
+				ventanaListadoPropuesta.setVisible(true);
+			}
+			break;
+
+		case "Vender":
+			this.setVisible(false);
+			this.dispose();
+			ventanaVentasGenerico = new VentasGenerico(miUser);
+			//Sumamon las comisión que tenia el usuario a el precio que se había estimado la venta
+			comisionActualizada = miUser.getComisionVentas() + miPropuesta.getPresupuesto();
+			miVehiculoDao.venderVehiculo(miCliente.getIdCliente(),1,miVehiculo.getMatricula(),comisionActualizada);
+			
+			JOptionPane.showMessageDialog(this, "Venta realizada con éxito");
+			
+
+		}
+		
+	}
+	/**
+	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
+	 * en este caso el de cerrar sesión, se cierre la sesión
+	 */
+	@SuppressWarnings("unused")
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		LoginV loginCerrarSesion;
+
+		this.setVisible(false);
+		this.dispose();
+		miUser = null;
+		loginCerrarSesion = new LoginV();
+		
+    }
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
+	}
+	/**
+	 * Método interno para iniciar los componentes
+	 */
+	private void iniciarComponentes() {
+
+		ImageIcon imgUsu;
+
 		panelDepartamento = new JPanel();
 		panelContenido = new JPanel();
 		panelUsuario = new JPanel();
@@ -142,12 +235,17 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnVender.addActionListener(this);
+		
 		if(miVehiculo.isVendido()) {
 			btnVender.setText("Vehículo vendido");
 			btnVender.setEnabled(false);
 		}
-
-		//Ponemos sus layouts
+	}
+	/**
+	 * Metodo para poner a los paneles y label los layout que necesitan
+	 */
+	private void ponerLayoutsComponentes() {
+		
 		panelDepartamento.setLayout(new BorderLayout(0, 0));
 		panelUsuario.setLayout(null);
 		panelContenido.setLayout(null);
@@ -159,8 +257,12 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		lblMarca.setHorizontalAlignment(SwingConstants.LEFT);
 		lblModelo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTipo.setHorizontalAlignment(SwingConstants.LEFT);
+	}
+	/**
+	 * Método interno para dar color a los componenetes (botones, lineas, labels, panels...)
+	 */
+	private void darColorComponentes() {
 		
-		//Damos color a los paneles, botones y lineas 
 		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
 		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
 		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
@@ -170,8 +272,12 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
 		btnVender.setBackground(new Color(82, 21, 255));
+	}
+	/**
+	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
+	 */
+	private void colocarComponentes() {
 		
-		//Damos el tamaño a los componentes que están en absoluto
 		panelUsuario.setBounds(393, 0, 393, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
 		panelContenido.setBounds(0, 76, 786, 485);
@@ -185,7 +291,6 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		lblMarca.setBounds(425, 191, 119, 30);
 		lblModelo.setBounds(425, 232, 119, 30);
 		lblTipo.setBounds(425, 111, 119, 30);
-
 		lblPrecio.setBounds(24, 314, 119, 30); 
 		lblColor.setBounds(425, 150, 142, 30); 
 		lblFechaPropuesta.setBounds(24, 273, 179, 30);
@@ -198,12 +303,10 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		tFkm.setBounds(569, 275, 179, 27);
 		tFCombustible.setBounds(569, 316, 179, 27);
 		lblCombustible.setBounds(425, 314, 131, 30);
-
 		tFPrecio.setBounds(213, 316, 189, 27);
 		tFColor.setBounds(569, 152, 179, 27);
 		tfFechaPropuesta.setBounds(213, 275, 179, 27);
-		tFConcesionario.setBounds(569, 357, 207, 27);
-		
+		tFConcesionario.setBounds(569, 357, 207, 27);	
 		lblNombreUsu.setBounds(27, 111, 179, 30);
 		lblApellidosUsu.setBounds(27, 150, 179, 30); 
 		lblNombreCl.setBounds(27, 191, 159, 30);
@@ -215,8 +318,12 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		
 		btnVolver.setBounds(94, 424, 117, 35);
 		btnVender.setBounds(490, 424, 202, 35);
-
-		//Damos el tamaño, fuente y color a las letras 
+	}
+	/**
+	 * Método para darle la fuentes a las letras de los componentes
+	 */
+	private void addPropiedadesLetras() {
+		
 		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
 		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
@@ -244,8 +351,7 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		tfFechaPropuesta.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
 		tFPrecio.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
 		tFColor.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		tFConcesionario.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));
-		
+		tFConcesionario.setFont(new Font("DejaVu Sans", Font.BOLD | Font.ITALIC, 19));	
 		lblNombreUsu.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
 		lblApellidosUsu.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
 		lblNombreCl.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
@@ -259,8 +365,11 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		btnVolver.setForeground(Color.WHITE);
 		btnVender.setForeground(Color.WHITE);
 		btnVender.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		
-		//Añadimos los componentes al panel principal los paneles	
+	}
+	/**
+	 * Método para añadir todos los componentes al panel principal 
+	 */
+	private void addComponentes() {
 		getContentPane().add(panelDepartamento);
 		getContentPane().add(panelUsuario);
 		getContentPane().add(panelContenido);
@@ -272,6 +381,7 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		//Añadimos el panel informativo, labels, textfield y botones 
 		panelContenido.add(panelInfo);
 		panelInfo.add(lblAltaClientes);		
+		
 		panelContenido.add(lblMatricula);		
 		panelContenido.add(lblMarca);		
 		panelContenido.add(lblModelo);		
@@ -279,8 +389,7 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		panelContenido.add(lblFechaPropuesta);
 		panelContenido.add(lblPrecio);
 		panelContenido.add(lblColor);
-		panelContenido.add(lblConcesionario);
-		
+		panelContenido.add(lblConcesionario);	
 		panelContenido.add(tFMatricula);		
 		panelContenido.add(tFMarca);		
 		panelContenido.add(tFModelo);		
@@ -296,87 +405,13 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		panelContenido.add(tFNombreCl);
 		panelContenido.add(tFNombreUsu);
 		panelContenido.add(tFApellidosCl);
-		panelContenido.add(tFApellidosUsu);
-		
-		panelContenido.add(btnVolver);
-		panelContenido.add(btnVender);
-		
+		panelContenido.add(tFApellidosUsu);		
 		panelContenido.add(lblkm);
 		panelContenido.add(lblCombustible);
 		panelContenido.add(tFkm);
 		panelContenido.add(tFCombustible);
-					
-		this.setVisible(true);
-	}
-	/**
-	 * Método para cuando se pulse algún botón
-	 */
-	@SuppressWarnings("unused")
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		VentasBuscarPropuesta ventanaBuscarPropuesta;
-		VentasGenerico ventanaVentasGenerico;
-		String txtBtn = e.getActionCommand();
 		
-		switch (txtBtn) {
-		case "Volver":
-			this.setVisible(false);
-			this.dispose();
-			if(ventanaListadoPropuesta==null) {
-							
-				ventanaBuscarPropuesta = new VentasBuscarPropuesta(miUser);
-			}else {
-				ventanaListadoPropuesta.setVisible(true);
-			}
-			break;
-
-		case "Vender":
-			this.setVisible(false);
-			this.dispose();
-			ventanaVentasGenerico = new VentasGenerico(miUser);
-			miVehiculoDao.venderVehiculo(miCliente.getIdCliente(),1,miVehiculo.getMatricula());
-			JOptionPane.showMessageDialog(this, "Venta realizada con éxito");
-			
-
-		}
-		
-	}
-	/**
-	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
-	 * en este caso el de cerrar sesión, se cierre la sesión
-	 */
-	@SuppressWarnings("unused")
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		LoginV loginCerrarSesion;
-
-		this.setVisible(false);
-		this.dispose();
-		miUser = null;
-		loginCerrarSesion = new LoginV();
-		
-    }
-	
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		
-	}
-	private void getUsuario() {
-		
-	}
+		panelContenido.add(btnVolver);
+		panelContenido.add(btnVender);
+	} 
 }

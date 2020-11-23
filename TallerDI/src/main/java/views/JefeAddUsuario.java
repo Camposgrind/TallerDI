@@ -40,7 +40,7 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 	protected JLabel lblNombre;
 	protected JLabel lblApellidos,lblAddOk;
 	protected JLabel lblEspeMoto;
-	protected JLabel lblSueldo,lblMecaJefe,lblConcesionario;
+	protected JLabel lblSueldo,lblMecaJefe,lblConcesionario,lblEspeCoches,lblEspecialidadMotocicleta;
 	protected JTextField tFUsuario;
 	protected JPasswordField tFPassWord;
 	protected JTextField tFNombre;
@@ -65,8 +65,8 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ImageIcon imgUsu;
-		ArrayList<String> listaConcesionarios;
+
+
 	
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100, 100, 800, 600);
@@ -77,241 +77,22 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 		getContentPane().setLayout(null);
 
 		//Iniciamos todos los componentes 
-		panelDepartamento = new JPanel();
-		panelContenido = new JPanel();
-		panelUsuario = new JPanel();
-		panelInfo = new JPanel();
-		lblDepartamento = new JLabel("JEFE");
-		lblUsuario = new JLabel(miUser.getNomUsuario());
-		lblCerrarSesion = new JLabel("Cerrar sesion");
-		imgUsu = new ImageIcon("user-icon.png");
-		lblFotoUsu = new JLabel(imgUsu);
-		lblAltaUsu = new JLabel("Alta usuario");
-		lblNombreUsu = new JLabel("Usuario:");
-		lblPassword = new JLabel("Password:");
-		lblNombre = new JLabel("Nombre:");
-		lblApellidos = new JLabel("Apellidos:");
-		lblEspeMoto = new JLabel("Especialidad moto:");
-		lblSueldo =  new JLabel("Sueldo:");
-		lblMecaJefe = new JLabel("Mecanico jefe:");
-		lblConcesionario = new JLabel("Concesionario:");	
-		tFUsuario = new JTextField();
-		tFPassWord = new JPasswordField();;
-		tFNombre = new JTextField();
-		tFTlfn = new JTextField();
-		
-		tFSueldo = new JTextField();
-		tFApellidos = new JTextField();
-		lblTlfn = new JLabel("Tel\u00E9fono:");
-		lblRol = new JLabel("Rol empresa:");
-		btnVolver = new JButton("Volver");
-		btnRegistrar = new JButton("Registrar");
-		lblAddOk = new JLabel("VEHÍCULO AÑADIDO");
-		lblAddOk.setVisible(false);
-		lblCerrarSesion.addMouseListener(this);
-		btnVolver.addActionListener(this);
-		btnRegistrar.addActionListener(this);
+		this.iniciarComponentes();
 		
 		//Ponemos sus layouts
-		panelDepartamento.setLayout(new BorderLayout(0, 0));
-		panelUsuario.setLayout(null);
-		panelContenido.setLayout(null);
-		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblDepartamento.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFotoUsu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNombreUsu.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
-		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
-		lblAddOk.setHorizontalAlignment(SwingConstants.CENTER);
+		this.ponerLayoutsComponentes();
 		
 		//Damos color a los paneles, botones y lineas 
-		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
-		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
-		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
-		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
-		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
-		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnRegistrar.setBackground(new java.awt.Color(0,92,48));
-		lblAddOk.setBackground(new java.awt.Color(0,92,48));
-		
+		this.darColorComponentes();
 		//Damos el tamaño a los componentes que están en absoluto
-		panelUsuario.setBounds(393, 0, 393, 76);
-		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelContenido.setBounds(0, 76, 786, 485);
-		panelInfo.setBounds(281, 0, 228, 41);
-		
-		lblUsuario.setBounds(183, 11, 123, 24);
-		lblCerrarSesion.setBounds(183, 46, 123, 14);
-		lblFotoUsu.setBounds(327, 9, 46, 51);
-		
-		lblNombreUsu.setBounds(30, 109, 119, 30);
-		lblPassword.setBounds(30, 150, 119, 30);
-		lblNombre.setBounds(30, 191, 119, 30);
-		lblApellidos.setBounds(30, 232, 119, 30);
-
-		lblSueldo.setBounds(30, 314, 119, 30); 
-		lblMecaJefe.setBounds(354, 150, 184, 30); 
-		lblEspeMoto.setBounds(354, 232, 212, 30);
-		lblConcesionario.setBounds(354, 314, 155, 30); 	
-		tFUsuario.setBounds(129, 111, 202, 27);
-		tFPassWord.setBounds(129, 152, 202, 27);
-		tFNombre.setBounds(129, 193, 202, 27);
-
-		tFSueldo.setBounds(129, 316, 202, 27);
-		tFTlfn.setBounds(129, 276, 202, 27);
-
-		tFApellidos.setBounds(129, 234, 202, 27);
-		lblTlfn.setBounds(30, 273, 142, 30);
-		lblRol.setBounds(354, 109, 173, 30);
-		btnVolver.setBounds(153, 420, 117, 35);
-		btnRegistrar.setBounds(515, 420, 117, 35);
-		lblAddOk.setBounds(258, 40, 276, 41);
+		this.colocarComponentes();
 		
 		//Damos el tamaño, fuente y color a las letras 
-		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
-		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
-		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
-		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		lblAltaUsu.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblAltaUsu.setForeground(new java.awt.Color(38, 70, 83));
-		lblNombreUsu.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblPassword.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblEspeMoto.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblSueldo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
-		lblMecaJefe.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
-		lblConcesionario.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 			
-		tFUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFUsuario.setColumns(10);
-		tFPassWord.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFPassWord.setColumns(10);
-		tFPassWord.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFNombre.setColumns(10);
-		tFNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblTlfn.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblRol.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		
-		tFTlfn.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFSueldo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		
-		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		btnVolver.setForeground(Color.WHITE);
-		btnRegistrar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		btnRegistrar.setForeground(Color.WHITE);
-		lblAddOk.setForeground(Color.BLACK);
-		lblAddOk.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
+		this.addPropiedadesLetras();
 		
 		//Añadimos los componentes al panel principal los paneles	
-		getContentPane().add(panelDepartamento);
-		getContentPane().add(panelUsuario);
-		getContentPane().add(panelContenido);
-		//Añadimos los labels a los paneles 
-		panelDepartamento.add(lblDepartamento);
-		panelUsuario.add(lblUsuario);
-		panelUsuario.add(lblFotoUsu);
-		panelUsuario.add(lblCerrarSesion);				
-		//Añadimos el panel informativo, labels, textfield y botones 
-		panelContenido.add(panelInfo);
-		panelInfo.add(lblAltaUsu);	
-		
-		panelContenido.add(lblNombreUsu);		
-		panelContenido.add(lblPassword);		
-		panelContenido.add(lblNombre);		
-		panelContenido.add(lblApellidos);
-		panelContenido.add(lblEspeMoto);
-		panelContenido.add(lblSueldo);
-		panelContenido.add(lblMecaJefe);
-		panelContenido.add(lblConcesionario);
-		
-		panelContenido.add(tFUsuario);		
-		panelContenido.add(tFPassWord);		
-		panelContenido.add(tFNombre);		
-		panelContenido.add(tFTlfn);		
-		panelContenido.add(tFSueldo);					
-		panelContenido.add(tFApellidos);		
-		panelContenido.add(lblTlfn);		
-		panelContenido.add(lblRol);
-		
-		panelContenido.add(btnVolver);
-		panelContenido.add(btnRegistrar);
-		panelContenido.add(lblAddOk);
-		
-		comboRol = new JComboBox();
-		comboRol.addItem("");
-		comboRol.addItem("Ventas");
-		comboRol.addItem("Mecánico");
-		comboRol.setSelectedItem("");
-		comboRol.addActionListener(this);
-		comboRol.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		comboRol.setBounds(588, 111, 172, 27);
-		panelContenido.add(comboRol);
-		
-		comboConcesionarios = new JComboBox();
-		listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(0);
-		comboConcesionarios.addItem("");
-		for (int i = 0; i < listaConcesionarios.size(); i++) {
-			comboConcesionarios.addItem(listaConcesionarios.get(i));
-		}
-		comboConcesionarios.setSelectedItem("");
-		comboConcesionarios.addActionListener(this);
-		comboConcesionarios.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		comboConcesionarios.setBounds(588, 316, 172, 27);
-		panelContenido.add(comboConcesionarios);
-		
-		comboMJefe = new JComboBox();
-		comboMJefe.addItem("No");
-		comboMJefe.addItem("Sí");
-		comboMJefe.setSelectedItem("No");
-		comboMJefe.addActionListener(this);
-		comboMJefe.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		comboMJefe.setBounds(588, 150, 172, 27);
-		panelContenido.add(comboMJefe);
-		
-		
-		comboMCoche = new JComboBox();
-		comboMCoche.addItem("No");
-		comboMCoche.addItem("Sí");
-		comboMCoche.setSelectedItem("No");
-		comboMCoche.addActionListener(this);
-		comboMCoche.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		comboMCoche.setBounds(588, 191, 172, 27); 
-		panelContenido.add(comboMCoche);
-		
-		comboMMotoC = new JComboBox();
-		comboMMotoC.addItem("No");
-		comboMMotoC.addItem("Sí");
-		comboMMotoC.setSelectedItem("No");
-		comboMMotoC.addActionListener(this);
-		comboMMotoC.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		comboMMotoC.setBounds(588, 273, 172, 27);
-		panelContenido.add(comboMMotoC);
-		
-		comboMMoto= new JComboBox();
-		comboMMoto.addItem("No");
-		comboMMoto.addItem("Sí");
-		comboMMoto.setSelectedItem("No");
-		comboMMoto.addActionListener(this);
-		comboMMoto.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		comboMMoto.setBounds(588, 232, 172, 27);
-		panelContenido.add(comboMMoto);
-		
-		JLabel lblEspeCoches = new JLabel("Especialidad coche:");
-		lblEspeCoches.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblEspeCoches.setBounds(354, 191, 184, 30);
-		panelContenido.add(lblEspeCoches);
-		
-		JLabel lblEspecialidadMotocicleta = new JLabel("Especialidad motocicleta:");
-		lblEspecialidadMotocicleta.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		lblEspecialidadMotocicleta.setBounds(354, 273, 247, 30);
-		panelContenido.add(lblEspecialidadMotocicleta);
+		this.addComponentes();
+		this.rellenarCombos();
 		
 					
 		this.setVisible(true);
@@ -440,6 +221,269 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 			 catch (NoSuchAlgorithmException e) {
 				 throw new RuntimeException(e);
 			 }
+		
+	}
+	/**
+	 * Método interno para iniciar los componentes
+	 */
+	private void iniciarComponentes() {
+		ImageIcon imgUsu;
+		
+		panelDepartamento = new JPanel();
+		panelContenido = new JPanel();
+		panelUsuario = new JPanel();
+		panelInfo = new JPanel();
+		lblDepartamento = new JLabel("JEFE");
+		lblUsuario = new JLabel(miUser.getNomUsuario());
+		lblCerrarSesion = new JLabel("Cerrar sesion");
+		imgUsu = new ImageIcon("user-icon.png");
+		lblFotoUsu = new JLabel(imgUsu);
+		lblAltaUsu = new JLabel("Alta usuario");
+		lblNombreUsu = new JLabel("Usuario:");
+		lblPassword = new JLabel("Password:");
+		lblNombre = new JLabel("Nombre:");
+		lblApellidos = new JLabel("Apellidos:");
+		lblEspeMoto = new JLabel("Especialidad moto:");
+		lblSueldo =  new JLabel("Sueldo:");
+		lblMecaJefe = new JLabel("Mecanico jefe:");
+		lblConcesionario = new JLabel("Concesionario:");	
+		tFUsuario = new JTextField();
+		tFPassWord = new JPasswordField();;
+		tFNombre = new JTextField();
+		tFTlfn = new JTextField();
+		lblEspeCoches = new JLabel("Especialidad coche:");
+		lblEspecialidadMotocicleta = new JLabel("Especialidad motocicleta:");
+		tFSueldo = new JTextField();
+		tFApellidos = new JTextField();
+		lblTlfn = new JLabel("Tel\u00E9fono:");
+		lblRol = new JLabel("Rol empresa:");
+		btnVolver = new JButton("Volver");
+		btnRegistrar = new JButton("Registrar");
+		lblAddOk = new JLabel("VEHÍCULO AÑADIDO");
+		lblAddOk.setVisible(false);
+		lblCerrarSesion.addMouseListener(this);
+		btnVolver.addActionListener(this);
+		btnRegistrar.addActionListener(this);
+	}
+	/**
+	 * Metodo para poner a los paneles y label los layout que necesitan
+	 */
+	private void ponerLayoutsComponentes() {
+		
+		panelDepartamento.setLayout(new BorderLayout(0, 0));
+		panelUsuario.setLayout(null);
+		panelContenido.setLayout(null);
+		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblDepartamento.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFotoUsu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNombreUsu.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
+		lblApellidos.setHorizontalAlignment(SwingConstants.LEFT);
+		lblAddOk.setHorizontalAlignment(SwingConstants.CENTER);
+	}
+	/**
+	 * Método interno para dar color a los componenetes (botones, lineas, labels, panels...)
+	 */
+	private void darColorComponentes() {
+		
+		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
+		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
+		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
+		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
+		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
+		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
+		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
+		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
+		btnRegistrar.setBackground(new java.awt.Color(0,92,48));
+		lblAddOk.setBackground(new java.awt.Color(0,92,48));
+		
+	}
+	/**
+	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
+	 */
+	private void colocarComponentes() {
+		
+		panelUsuario.setBounds(393, 0, 393, 76);
+		panelDepartamento.setBounds(0, 0, 393, 76);
+		panelContenido.setBounds(0, 76, 786, 485);
+		panelInfo.setBounds(281, 0, 228, 41);
+		
+		lblUsuario.setBounds(183, 11, 123, 24);
+		lblCerrarSesion.setBounds(183, 46, 123, 14);
+		lblFotoUsu.setBounds(327, 9, 46, 51);
+		
+		lblNombreUsu.setBounds(30, 109, 119, 30);
+		lblPassword.setBounds(30, 150, 119, 30);
+		lblNombre.setBounds(30, 191, 119, 30);
+		lblApellidos.setBounds(30, 232, 119, 30);
+		lblSueldo.setBounds(30, 314, 119, 30); 
+		lblMecaJefe.setBounds(354, 150, 184, 30); 
+		lblEspeMoto.setBounds(354, 232, 212, 30);
+		lblConcesionario.setBounds(354, 314, 155, 30); 	
+		tFUsuario.setBounds(129, 111, 202, 27);
+		tFPassWord.setBounds(129, 152, 202, 27);
+		tFNombre.setBounds(129, 193, 202, 27);
+		tFSueldo.setBounds(129, 316, 202, 27);
+		tFTlfn.setBounds(129, 276, 202, 27);
+		tFApellidos.setBounds(129, 234, 202, 27);
+		lblTlfn.setBounds(30, 273, 142, 30);
+		lblRol.setBounds(354, 109, 173, 30);
+		btnVolver.setBounds(153, 420, 117, 35);
+		btnRegistrar.setBounds(515, 420, 117, 35);
+		lblAddOk.setBounds(258, 40, 276, 41);
+		lblEspeCoches.setBounds(354, 191, 184, 30);
+		lblEspecialidadMotocicleta.setBounds(354, 273, 247, 30);
+	}
+	/**
+	 * Método para darle la fuentes a las letras de los componentes
+	 */
+	private void addPropiedadesLetras() {
+		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
+		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
+		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
+		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
+		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
+		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		lblAltaUsu.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
+		lblAltaUsu.setForeground(new java.awt.Color(38, 70, 83));
+		lblNombreUsu.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblPassword.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblEspeMoto.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblSueldo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
+		lblMecaJefe.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 
+		lblConcesionario.setFont(new Font("DejaVu Sans", Font.PLAIN, 19)); 			
+		tFUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFUsuario.setColumns(10);
+		tFPassWord.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFPassWord.setColumns(10);
+		tFPassWord.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFNombre.setColumns(10);
+		tFNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblTlfn.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblRol.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		
+		tFTlfn.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		tFSueldo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		
+		btnVolver.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnVolver.setForeground(Color.WHITE);
+		btnRegistrar.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
+		btnRegistrar.setForeground(Color.WHITE);
+		lblAddOk.setForeground(Color.BLACK);
+		lblAddOk.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
+		lblEspeCoches.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		lblEspecialidadMotocicleta.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+	}
+	/**
+	 * Método para añadir todos los componentes al panel principal 
+	 */
+	private void addComponentes() {
+		
+		getContentPane().add(panelDepartamento);
+		getContentPane().add(panelUsuario);
+		getContentPane().add(panelContenido);
+		//Añadimos los labels a los paneles 
+		panelDepartamento.add(lblDepartamento);
+		panelUsuario.add(lblUsuario);
+		panelUsuario.add(lblFotoUsu);
+		panelUsuario.add(lblCerrarSesion);				
+		//Añadimos el panel informativo, labels, textfield y botones 
+		panelContenido.add(panelInfo);
+		panelInfo.add(lblAltaUsu);	
+		
+		panelContenido.add(lblNombreUsu);		
+		panelContenido.add(lblPassword);		
+		panelContenido.add(lblNombre);		
+		panelContenido.add(lblApellidos);
+		panelContenido.add(lblEspeMoto);
+		panelContenido.add(lblSueldo);
+		panelContenido.add(lblMecaJefe);
+		panelContenido.add(lblConcesionario);
+		panelContenido.add(tFUsuario);		
+		panelContenido.add(tFPassWord);		
+		panelContenido.add(tFNombre);		
+		panelContenido.add(tFTlfn);		
+		panelContenido.add(tFSueldo);					
+		panelContenido.add(tFApellidos);		
+		panelContenido.add(lblTlfn);		
+		panelContenido.add(lblRol);
+		panelContenido.add(lblEspeCoches);
+		panelContenido.add(lblEspecialidadMotocicleta);
+		
+		panelContenido.add(btnVolver);
+		panelContenido.add(btnRegistrar);
+		panelContenido.add(lblAddOk);
+	} 
+	/**
+	 * Método interno para rellenar el combo, iniciarlo...
+	 */
+	private void rellenarCombos() {
+		ArrayList<String> listaConcesionarios;
+		
+		comboRol = new JComboBox();
+		comboRol.addItem("");
+		comboRol.addItem("Ventas");
+		comboRol.addItem("Mecánico");
+		comboRol.setSelectedItem("");
+		comboRol.addActionListener(this);
+		comboRol.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboRol.setBounds(588, 111, 172, 27);
+		panelContenido.add(comboRol);
+		
+		comboConcesionarios = new JComboBox();
+		listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(0);
+		comboConcesionarios.addItem("");
+		for (int i = 0; i < listaConcesionarios.size(); i++) {
+			comboConcesionarios.addItem(listaConcesionarios.get(i));
+		}
+		comboConcesionarios.setSelectedItem("");
+		comboConcesionarios.addActionListener(this);
+		comboConcesionarios.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboConcesionarios.setBounds(588, 316, 172, 27);
+		panelContenido.add(comboConcesionarios);
+		
+		comboMJefe = new JComboBox();
+		comboMJefe.addItem("No");
+		comboMJefe.addItem("Sí");
+		comboMJefe.setSelectedItem("No");
+		comboMJefe.addActionListener(this);
+		comboMJefe.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboMJefe.setBounds(588, 150, 172, 27);
+		panelContenido.add(comboMJefe);
+		
+		
+		comboMCoche = new JComboBox();
+		comboMCoche.addItem("No");
+		comboMCoche.addItem("Sí");
+		comboMCoche.setSelectedItem("No");
+		comboMCoche.addActionListener(this);
+		comboMCoche.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboMCoche.setBounds(588, 191, 172, 27); 
+		panelContenido.add(comboMCoche);
+		
+		comboMMotoC = new JComboBox();
+		comboMMotoC.addItem("No");
+		comboMMotoC.addItem("Sí");
+		comboMMotoC.setSelectedItem("No");
+		comboMMotoC.addActionListener(this);
+		comboMMotoC.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboMMotoC.setBounds(588, 273, 172, 27);
+		panelContenido.add(comboMMotoC);
+		
+		comboMMoto= new JComboBox();
+		comboMMoto.addItem("No");
+		comboMMoto.addItem("Sí");
+		comboMMoto.setSelectedItem("No");
+		comboMMoto.addActionListener(this);
+		comboMMoto.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
+		comboMMoto.setBounds(588, 232, 172, 27);
+		panelContenido.add(comboMMoto);
+
 		
 	}
 }
