@@ -16,10 +16,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import dao.ClienteDAO;
 import dao.ConcesionarioDAO;
+import dao.PropuestaDAO;
+import dao.ReparacionDAO;
 import dao.UsuarioDAO;
 import dao.VehiculoDAO;
 import models.Cliente;
@@ -32,6 +35,7 @@ import views.ventas.VentasGenerico;
 import views.ventas.VentasListadoPropuestas;
 import views.ventas.VentasPropuestaVenta;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class MecanicoFichaReparacion extends JFrame implements MouseListener,ActionListener{
 
@@ -49,11 +53,13 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 	protected JLabel tFMarca,tFNombreCl,tFApellidosCl;
 	protected JLabel tFModelo, lblPiezas,lblCombustible,tFCombustible;
 	protected JLabel tFTipo,tfFechaEntrada,tFPresupuesto,tFEstado;
+	protected JScrollPane scrollPane;
 	protected JTextArea textArea;
 	protected MecanicoTrabajoAsignado ventanaTrabajoAsignado;
 	protected VentasPropuestaVenta ventanaPropuesta;
 	protected VehiculoDAO miVehiculoDao;
 	protected ClienteDAO miClienteDao;
+	protected ReparacionDAO miReparacionDao;
 	protected Vehiculo miVehiculo;
 	protected Reparacion miReparacion;
 	protected Cliente miCliente;
@@ -65,6 +71,7 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 		
 		miVehiculoDao = new VehiculoDAO();
 		miClienteDao = new ClienteDAO();
+		miReparacionDao = new ReparacionDAO();
 		ventanaTrabajoAsignado = miVentanaTrabajo;		
 		this.miReparacion = miReparacion;
 		miUser = miUsuario;
@@ -125,8 +132,13 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 		tFNombreCl  = new JLabel(miCliente.getNombre());
 		tFApellidosCl = new JLabel(miCliente.getApellidos());
 		textArea = new JTextArea(miReparacion.getPiezas());
+		//Esto es para que si no entra en una liena salte a la siguiente (letras)
+		textArea.setLineWrap(true);
+		//Esto es por si es una palabra la que no entra que baje la palabra al la siguiente línea
+		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
-		btnIniciarRepa = new JButton("Iniciar reparaci\u00F3n");
+		scrollPane= new  JScrollPane(textArea);
+		btnIniciarRepa = new JButton("Iniciar reparación");
 		tFPresupuesto = new JLabel(miReparacion.getPresupuesto()+"");
 		tFEstado = new JLabel(miReparacion.getEstado());
 		//Hay que modificar esto
@@ -136,6 +148,7 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnFinalizarRep.addActionListener(this);
+		btnIniciarRepa.addActionListener(this);
 		
 		if(miReparacion.getEstado().equals("Pendiente")) {
 			btnFinalizarRep.setEnabled(false);
@@ -167,6 +180,7 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
 		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
 		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
+		scrollPane.setBackground(new java.awt.Color(244, 162, 97));
 		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
 		btnFinalizarRep.setBackground(new Color(82, 21, 255));
 		textArea.setBackground(new java.awt.Color( 244, 162, 97));
@@ -211,6 +225,7 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 		tFNombreCl.setBounds(213, 113, 207, 27);
 		tFApellidosCl.setBounds(213, 152, 202, 27);
 		textArea.setBounds(569, 279, 179, 92);
+		scrollPane.setBounds(569, 279, 179, 92);
 		btnIniciarRepa.setBounds(270, 399, 240, 75);
 		btnVolver.setBounds(10, 399, 238, 75);
 		btnFinalizarRep.setBounds(536, 399, 240, 75);
@@ -296,12 +311,12 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 		
 		panelContenido.add(btnVolver);
 		panelContenido.add(btnFinalizarRep);
-		panelContenido.add(textArea);
+		panelContenido.add(scrollPane);
 		panelContenido.add(btnIniciarRepa);
 		panelContenido.add(lblPiezas);
 		panelContenido.add(lblCombustible);
-		panelContenido.add(tFCombustible);
-					
+		panelContenido.add(tFCombustible);		
+		
 		this.setVisible(true);
 	}
 	/**
@@ -310,29 +325,44 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 	@SuppressWarnings("unused")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		VentasBuscarPropuesta ventanaBuscarPropuesta;
-		VentasGenerico ventanaVentasGenerico;
+		MecanicoGenerico ventanaMecanicoG;
 		String txtBtn = e.getActionCommand();
+		boolean actualizacionOk = false;
 		
 		switch (txtBtn) {
 		case "Volver":
 			this.setVisible(false);
 			this.dispose();
-			if(ventanaTrabajoAsignado==null) {
-							
-				ventanaBuscarPropuesta = new VentasBuscarPropuesta(miUser);
-			}else {
-				ventanaTrabajoAsignado.setVisible(true);
-			}
+			ventanaTrabajoAsignado.setVisible(true);
+			
 			break;
 
-		case "Vender":
-			this.setVisible(false);
-			this.dispose();
-			ventanaVentasGenerico = new VentasGenerico(miUser);
-			//miVehiculoDao.venderVehiculo(miUsuarioPropuesta.getIdUsuario(),1,miVehiculo.getMatricula());
-			JOptionPane.showMessageDialog(this, "Venta realizada con éxito");
+		case "Iniciar reparación":
+			actualizacionOk = miReparacionDao.actualizarEstado("En curso", miVehiculo.getMatricula());
+			if(actualizacionOk){
+				this.setVisible(false);
+				this.dispose();
+				ventanaMecanicoG = new MecanicoGenerico(miUser);
+				JOptionPane.showMessageDialog(this, "La reparación ya está en curso");
+			}else {
+				JOptionPane.showMessageDialog(this, "No se ha podido actualizar el estado de la reparación");
+			}
 			
+			break;
+			
+		case "Finalizar reparación":
+			actualizacionOk = miReparacionDao.actualizarEstado("Finalizada", miVehiculo.getMatricula());
+			if(actualizacionOk) {
+				
+				this.setVisible(false);
+				this.dispose();
+				ventanaMecanicoG = new MecanicoGenerico(miUser);
+				JOptionPane.showMessageDialog(this, "Reparación finalizada, a se ha enviado un sms al cliente para recoger su coche");
+			}else {
+				JOptionPane.showMessageDialog(this, "No se ha podido actualizar el estado de la reparación");
+			}
+			
+			break;
 
 		}
 		

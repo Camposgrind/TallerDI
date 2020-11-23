@@ -334,7 +334,7 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 			this.setVisible(false);
 			this.dispose();
 			ventanaVentasGenerico = new VentasGenerico(miUser);
-			miVehiculoDao.venderVehiculo(miUsuarioPropuesta.getIdUsuario(),1,miVehiculo.getMatricula());
+			miVehiculoDao.venderVehiculo(miCliente.getIdCliente(),1,miVehiculo.getMatricula());
 			JOptionPane.showMessageDialog(this, "Venta realizada con éxito");
 			
 

@@ -423,7 +423,7 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 		}
 		return resultado;
 	}
-private String getMD5(String input) {
+	private String getMD5(String input) {
 		
 		try {
 			 MessageDigest md = MessageDigest.getInstance("MD5");

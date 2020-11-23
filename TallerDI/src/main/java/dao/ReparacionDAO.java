@@ -15,7 +15,6 @@ public class ReparacionDAO extends AbstractDAO{
 	//ESTADO
 	protected Reparacion miReparacion;
 	protected ResultSet rs;
-	protected PreparedStatement preparedStmt;
 	
 	/**
 	 * Constructor
@@ -23,7 +22,6 @@ public class ReparacionDAO extends AbstractDAO{
 	public ReparacionDAO() {
 		super();
 		rs = null;
-		preparedStmt = null;
 		
 	}
 	
@@ -36,6 +34,8 @@ public class ReparacionDAO extends AbstractDAO{
 	 * @return
 	 */
 	public boolean addReparacion(String miMatricula) {
+		PreparedStatement preparedStmt;
+		
 		Calendar calendario = Calendar.getInstance();
 		String day = Integer.toString(calendario.get(Calendar.DATE));
 		String month = Integer.toString(calendario.get(Calendar.MONTH)+1);
@@ -72,9 +72,10 @@ public class ReparacionDAO extends AbstractDAO{
 	
 	public ArrayList<Reparacion> buscarReparacionesEmpleado(int idUsuario) {
 		ArrayList<Reparacion> listaReparaciones = null;
+		PreparedStatement preparedStmt;
 		
 		 try {
-			 String query = "SELECT * FROM repara where idUsuario like ?";
+			 String query = "SELECT * FROM repara where idUsuario like ? and Estado != 'Finalizada'";
 			
 			 preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					 ResultSet.CONCUR_UPDATABLE);
@@ -97,6 +98,39 @@ public class ReparacionDAO extends AbstractDAO{
 		
 		
 		return listaReparaciones;
+	}
+	public boolean actualizarEstado(String estado,String matriculaWhere) {
+		boolean resultado = false;
+		String fecha="";
+		
+		if(estado.equals("Finalizada")) {
+			
+			Calendar calendario = Calendar.getInstance();
+			String day = Integer.toString(calendario.get(Calendar.DATE));
+			String month = Integer.toString(calendario.get(Calendar.MONTH)+1);
+			String year = Integer.toString(calendario.get(Calendar.YEAR));
+			fecha = ", Fecha_Salida = '"+year+"-"+month+"-"+day+"'";
+		}
+		PreparedStatement preparedStmt;
+		
+		try {
+
+			
+			preparedStmt = super.con.prepareStatement("update repara "
+					+ "set Estado = ? "+fecha+" where matricula='"+matriculaWhere+"'");
+			
+			preparedStmt.setString(1,estado);
+
+			preparedStmt.executeUpdate();
+			
+			resultado = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		
+		return resultado;
 	}
 	
 

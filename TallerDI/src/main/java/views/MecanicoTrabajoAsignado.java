@@ -41,12 +41,11 @@ public class MecanicoTrabajoAsignado extends JFrame implements MouseListener,Act
 
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes,lblFecha;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
 	protected JButton btnVolver,btnRegistrar;
 	protected VehiculoDAO miVehiculoDao;
 	protected ReparacionDAO miReparacionDao;
 	protected ArrayList<Reparacion> listaReparaciones;
-	private JTextField textField;
 	private JTable table;
 	protected String info[][];
 	/**
@@ -90,8 +89,6 @@ public class MecanicoTrabajoAsignado extends JFrame implements MouseListener,Act
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Trabajo asignado");
-		lblFecha = new JLabel("Fecha:");
-		textField = new JTextField();
 		btnVolver = new JButton("Volver");
 		btnRegistrar = new JButton("Ampliar");
 		lblCerrarSesion.addMouseListener(this);
@@ -124,9 +121,6 @@ public class MecanicoTrabajoAsignado extends JFrame implements MouseListener,Act
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		lblFecha.setBounds(10, 52, 142, 30);
-		textField.setBounds(85, 54, 268, 27);
-		textField.setColumns(10);
 		btnVolver.setBounds(10, 407, 375, 77);
 		btnRegistrar.setBounds(409, 407, 375, 77);
 		
@@ -138,8 +132,6 @@ public class MecanicoTrabajoAsignado extends JFrame implements MouseListener,Act
 		lblCerrarSesion.setForeground(Color.BLACK);
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblFecha.setFont(new Font("Dialog", Font.PLAIN, 19));
-		textField.setFont(new Font("Dialog", Font.PLAIN, 19));
 		lblAltaClientes.setForeground(Color.BLACK);
 		
 		btnVolver.setFont(new Font("Dialog", Font.PLAIN, 25));
@@ -165,9 +157,7 @@ public class MecanicoTrabajoAsignado extends JFrame implements MouseListener,Act
 		//Añadimos el panel informativo, labels, textfield y botones 
 		panelContenido.add(panelInfo);
 		panelInfo.add(lblAltaClientes);
-		
-		panelContenido.add(lblFecha);
-		panelContenido.add(textField);		
+			
 		panelContenido.add(btnVolver);
 		panelContenido.add(btnRegistrar);
 		
