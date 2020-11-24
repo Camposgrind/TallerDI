@@ -195,7 +195,7 @@ public class VentasListadoPropuestas extends JFrame implements MouseListener, Ac
 		panelInfo = new JPanel();
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		lblCerrarSesion = new JLabel("Cerrar sesion");
+		lblCerrarSesion = new JLabel("Cerrar sesión");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblInfoVentana = new JLabel("Listado propuestas");

@@ -195,7 +195,7 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 		panelInfo = new JPanel();
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		lblCerrarSesion = new JLabel("Cerrar sesion");
+		lblCerrarSesion = new JLabel("Cerrar sesión");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Ficha veh\u00EDculo");

@@ -174,7 +174,7 @@ public class VentasBuscarPropuesta extends JFrame implements MouseListener,Actio
 		panelInfo = new JPanel();
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		lblCerrarSesion = new JLabel("Cerrar sesion");
+		lblCerrarSesion = new JLabel("Cerrar sesión");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblBuscarPropuesta = new JLabel("Buscar propuesta");

@@ -66,6 +66,23 @@ public class UsuarioDAO extends AbstractDAO{
 		return miUsuario;
 	}
 	
+	public int buscarUsuarioByUsuario(String usuario) {
+		int miIdUsuario = 0;
+		try {
+			st = super.con.createStatement();
+			rs = st.executeQuery("SELECT idUsuario FROM USUARIO WHERE usuario='"+usuario+"'");
+			//ponemos el rs.next porque el puntero del sql se coloca antes de
+			//la primera fila de la tabla, por lo tanto si tiene un valor el 
+			//resulset devolverá true 
+			if(rs.next()) {
+				miIdUsuario = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return miIdUsuario;
+	}
+	
 	public boolean addUsuario(String miNombreUsu,String miPass,String miNombre,String misApellidos,
 			String miTlfn,String miSueldo,String miRol,int mecaJefe,int espCoches,int espMotos,
 			int espCicloM,String miIdConcesionario) {

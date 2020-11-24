@@ -102,29 +102,37 @@ public class ReparacionDAO extends AbstractDAO{
 	}
 	
 	
-	public Reparacion modificarReparacion(String miMatricula, String miUsuario, String miTarea, String miPiezas, String miTiempo, String miPresupuesto) {
+	public boolean modificarReparacion(String miMatricula, int miUsuario, String miTarea, String miPiezas, String miTiempo, String miPresupuesto) {
+		
+		boolean miReparacion = false;
+		
 		PreparedStatement preparedStmt;
 		
 		try {
-			preparedStmt = super.con.prepareStatement("update repara "
-					+ "set  = ?, Apellidos = ?, Telefono = ? , DNI = ? where idCliente = ?");
+			preparedStmt = super.con.prepareStatement("update repara set idUsuario=?,Presupuesto=?,Tarea=?,Piezas=?,Tiempo=?,Estado=\"Pendiente\" where Matricula=?");
 			
-//			preparedStmt.setString(1, miNombre);
-//			preparedStmt.setString(2, miApellido);
-//			preparedStmt.setString(3, miTlfn);
-//			preparedStmt.setString(4, miDni);			
-//			//Aquí le decimos que nos de el id cliente que tiene para ponerlo en el where
-//			preparedStmt.setInt(5, miCliente.getIdCliente());
-//			preparedStmt.executeUpdate();
+			preparedStmt.setInt(1, miUsuario);
+			preparedStmt.setInt(2, Integer.valueOf(miPresupuesto));
+			preparedStmt.setString(3, miTarea);
+			preparedStmt.setString(4, miPiezas);
+			preparedStmt.setString(5, miTiempo);
+			
+			//Aquí le decimos que nos de la matrícula que tiene para ponerlo en el where
+			preparedStmt.setString(6, miMatricula);
+			preparedStmt.executeUpdate();
+			
+			miReparacion = true;
 //			
 //			//seteamos el estado del cliente en memoria para luego mostrarlo en el vista de la ficha 
 //			miReparacion.setNombre(miNombre);
 //			miReparacion.setApellidos(miApellido);
 //			miReparacion.setTelefono(miTlfn);
 //			miReparacion.setDni(miDni);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
+		
 		
 		return miReparacion;
 	}

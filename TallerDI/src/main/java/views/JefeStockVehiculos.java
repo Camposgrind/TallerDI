@@ -161,7 +161,7 @@ public class JefeStockVehiculos extends JFrame implements MouseListener, ActionL
 		panelInfo = new JPanel();
 		lblDepartamento = new JLabel("JEFE");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		lblCerrarSesion = new JLabel("Cerrar sesion");
+		lblCerrarSesion = new JLabel("Cerrar sesión");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblInfoVentana = new JLabel("Vehículos en stock");

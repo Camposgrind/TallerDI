@@ -127,7 +127,7 @@ public class VehiculoDAO extends AbstractDAO{
 		
 		try {
 			
-			String query = "select * from vehiculo where vendido=true";
+			String query = "select vehiculo.* from vehiculo,repara where vehiculo.matricula = repara.matricula and vendido=true and Estado is null";
 			preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);			
 			rs = preparedStmt.executeQuery();
 			

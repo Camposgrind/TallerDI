@@ -13,10 +13,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import dao.ReparacionDAO;
 import dao.UsuarioDAO;
 import dao.VehiculoDAO;
 import models.Usuario;
@@ -41,6 +43,7 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 	protected JLabel lblMecanico;
 	protected VehiculoDAO miVehiculoDao;
 	protected UsuarioDAO miUsuarioDao;
+	protected ReparacionDAO miReparacionDAO;
 	protected JComboBox<String> comboMecanico;
 	protected JComboBox<String> comboVehiculo;
 	private JTextField tfTiempo;
@@ -63,6 +66,7 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
+		miReparacionDAO = new ReparacionDAO();
 	}
 
 	
@@ -163,7 +167,9 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		VentasFichaCliente ventanaFicha;
 		VentasListadoClientes ventanaListaClientes;
 		VentasFichaVehiculo ventanaFichaVehiculo;
-		String idConcesionario;
+		Boolean miReparacionModificada = false;
+		int miIdUsuarioObtenida;
+		
 		
 		switch (txtBtn) {
 		
@@ -174,16 +180,30 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 			break;
 			
 		case "Asignar":
+				
+			miIdUsuarioObtenida = miUsuarioDao.buscarUsuarioByUsuario(comboMecanico.getSelectedItem().toString());
 			
-//			miReparacion = miReparacion.modificarReparacion(tFNombre.getText(), tFApellidos.getText(),
-//					tFTelefono.getText(),tFDni.getText(),miCliente);			
+			miReparacionModificada = miReparacionDAO.modificarReparacion(
+					comboVehiculo.getSelectedItem().toString(),
+					miIdUsuarioObtenida,
+					tfTarea.getText(),
+					textArea.getText(),
+					tfTiempo.getText(),
+					tfPresupuesto.getText());
 			
-			lblAddOk.setVisible(true);
-			textArea.setText("");
-			tfTarea.setText("");
-			tfTiempo.setText("");
-			tfPresupuesto.setText("");
-			comboMecanico.setSelectedItem("");
+			if(miReparacionModificada) {			
+				//lblAddOk.setVisible(true);
+				textArea.setText("");
+				tfTarea.setText("");
+				tfTiempo.setText("");
+				tfPresupuesto.setText("");
+				comboMecanico.setSelectedItem("");
+				comboVehiculo.setSelectedItem("");
+				JOptionPane.showMessageDialog(this, "Trabajo asignado correctamente.");
+			} else {
+				//Ventana de error
+				JOptionPane.showMessageDialog(this, "Error en el registro. Por favor, inténtelo de nuevo más tarde.");
+			}
 			break;
 		}
 	}
