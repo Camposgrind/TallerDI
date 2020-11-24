@@ -49,7 +49,7 @@ public class JefeStockVehiculos extends JFrame implements MouseListener, ActionL
 		
 		this.miUser = miUser;
 		miVehiculoDao = new VehiculoDAO();
-		listaVehiculos = miVehiculoDao.buscarVehiculo("", "", "", "", "", "", "", "", "", "", false);
+		listaVehiculos = miVehiculoDao.buscarVehiculo("", "", "", "", "", "", "", "", "", "", true);
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
 	}

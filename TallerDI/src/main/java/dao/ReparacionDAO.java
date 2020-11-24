@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import models.Cliente;
 import models.Reparacion;
 
 public class ReparacionDAO extends AbstractDAO{
