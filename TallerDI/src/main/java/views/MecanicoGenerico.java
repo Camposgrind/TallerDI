@@ -48,9 +48,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
-		ImageIcon imgLogoTaller,imgUsu;
-		
+				
 		//iniciamos y damos las propiedades al frame 
 		this.setBounds(100,100,810,610);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,80 +58,18 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		getContentPane().setLayout(null);
 		
 		//Iniciamos todos los componentes 
-		panelDepartamento = new JPanel();
-		panelBotones = new JPanel();
-		panelBotones.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelUsuario = new JPanel();
-		lblUsuario = new JLabel(miUser.getNomUsuario());
-		imgUsu = new ImageIcon("user-icon.png");
-		lblCerrarSesion = new JLabel("Cerrar sesion");
-		lblFotoUsu = new JLabel(imgUsu);
-		btnAltaVeh = new JButton("Alta de veh\u00EDculos");
-		btnHistorialTaller = new JButton("Consultar historial");
-		btnVerVehiculosTaller = new JButton("Veh\u00EDculos en taller");
-		btnAsignarTrabajo = new JButton("Asignar trabajo");
-		btnTrabajoAsignado = new JButton("Trabajo asignado");
-		imgLogoTaller = new ImageIcon("logoTaller.png");
-		lblFotoSur = new JLabel(imgLogoTaller);
-		lblCerrarSesion.addMouseListener(this);
-		btnAltaVeh.addActionListener(this);
-		btnHistorialTaller.addActionListener(this);
-		btnVerVehiculosTaller.addActionListener(this);
-		btnAsignarTrabajo.addActionListener(this);
-		btnTrabajoAsignado.addActionListener(this);
-		panelUsuario.setLayout(null);
-		panelBotones.setLayout(null);
-		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblFotoUsu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblFotoSur.setHorizontalAlignment(SwingConstants.CENTER);
+		this.iniciarComponentes();
+		
+		this.ponerLayoutsComponentes();
 		
 		//Damos color a los paneles, botones y lineas 
-		panelDepartamento.setBackground(new java.awt.Color(233, 196, 106));
-		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		panelUsuario.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
-		panelBotones.setBackground(new java.awt.Color(233, 196, 106));
-		jefe = miUser.isMecanicoJefe();
-		if(jefe == true) {
-			btnAltaVeh.setBackground(new java.awt.Color(38, 70, 83));
-			btnAsignarTrabajo.setBackground(new java.awt.Color(38, 70, 83));
-		} else if (jefe == false) {
-			btnAltaVeh.setBackground(Color.GRAY);
-			btnAsignarTrabajo.setBackground(Color.GRAY);
-		}
-		btnHistorialTaller.setBackground(new java.awt.Color(38, 70, 83));
-		btnVerVehiculosTaller.setBackground(new java.awt.Color(38, 70, 83));
-		btnTrabajoAsignado.setBackground(new java.awt.Color(38, 70, 83));
+		this.darColorComponentes();
 		
 		//Damos el tamaño a los componentes que están en absoluto
-		panelUsuario.setBounds(393, 0, 401, 76);
-		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelBotones.setBounds(0, 74, 794, 496);
-		lblUsuario.setBounds(183, 11, 123, 24);
-		lblCerrarSesion.setBounds(183, 46, 123, 14);
-		lblFotoUsu.setBounds(327, 9, 46, 51);
-		btnAltaVeh.setBounds(32, 27, 270, 75);
-		btnHistorialTaller.setBounds(490, 113, 270, 79);
-		btnVerVehiculosTaller.setBounds(490, 27, 270, 75);
-		btnTrabajoAsignado.setBounds(490, 203, 270, 79);
-		btnAsignarTrabajo.setBounds(32, 112, 270, 80);
-		lblFotoSur.setBounds(10, 323, 774, 162);
-		lblUsuario.setForeground(Color.BLACK);
-		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(Color.BLACK);
-		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		btnAltaVeh.setForeground(Color.BLACK);
-		btnAltaVeh.setForeground(Color.WHITE);
-		btnHistorialTaller.setForeground(Color.WHITE);
-		btnVerVehiculosTaller.setForeground(Color.WHITE);
-		btnAsignarTrabajo.setForeground(Color.WHITE);
-		btnAltaVeh.setFont(new Font("Dialog", Font.PLAIN, 25));
-		btnHistorialTaller.setFont(new Font("Dialog", Font.PLAIN, 25));
-		btnVerVehiculosTaller.setFont(new Font("Dialog", Font.PLAIN, 25));
-		btnAsignarTrabajo.setFont(new Font("Dialog", Font.PLAIN, 25));
-		btnTrabajoAsignado.setFont(new Font("Dialog", Font.PLAIN, 25));
-		btnTrabajoAsignado.setForeground(Color.WHITE);
+		this.colocarComponentes();		
+		
+		this.addPropiedadesLetras();
+		
 		//Añadimos los componentes al panel principal los paneles	
 		getContentPane().add(panelDepartamento);
 		getContentPane().add(panelUsuario);
@@ -257,6 +193,114 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 	public void mouseExited(MouseEvent e) {
 		
 	}
+	/**
+	 * Método interno para iniciar los componentes
+	 */
+	private void iniciarComponentes() {
+
+		ImageIcon imgLogoTaller,imgUsu;
+		
+		panelDepartamento = new JPanel();
+		panelBotones = new JPanel();
+		panelBotones.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelUsuario = new JPanel();
+		lblUsuario = new JLabel(miUser.getNomUsuario());
+		imgUsu = new ImageIcon("user-icon.png");
+		lblCerrarSesion = new JLabel("Cerrar sesión");
+		lblFotoUsu = new JLabel(imgUsu);
+		btnAltaVeh = new JButton("Alta de veh\u00EDculos");
+		btnHistorialTaller = new JButton("Consultar historial");
+		btnVerVehiculosTaller = new JButton("Veh\u00EDculos en taller");
+		btnAsignarTrabajo = new JButton("Asignar trabajo");
+		btnTrabajoAsignado = new JButton("Trabajo asignado");
+		imgLogoTaller = new ImageIcon("logoTaller.png");
+		lblFotoSur = new JLabel(imgLogoTaller);
+		lblCerrarSesion.addMouseListener(this);
+		btnAltaVeh.addActionListener(this);
+		btnHistorialTaller.addActionListener(this);
+		btnVerVehiculosTaller.addActionListener(this);
+		btnAsignarTrabajo.addActionListener(this);
+		btnTrabajoAsignado.addActionListener(this);
+	}
+	/**
+	 * Metodo para poner a los paneles y label los layout que necesitan
+	 */
+	private void ponerLayoutsComponentes() {
+		
+		panelUsuario.setLayout(null);
+		panelBotones.setLayout(null);
+		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblFotoUsu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblFotoSur.setHorizontalAlignment(SwingConstants.CENTER);
+	}
+	/**
+	 * Método interno para dar color a los componenetes (botones, lineas, labels, panels...)
+	 */
+	private void darColorComponentes() {
+		
+		panelDepartamento.setBackground(new java.awt.Color(233, 196, 106));
+		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
+		panelBotones.setBackground(new java.awt.Color(233, 196, 106));
+		jefe = miUser.isMecanicoJefe();
+		if(jefe == true) {
+			btnAltaVeh.setBackground(new java.awt.Color(38, 70, 83));
+			btnAsignarTrabajo.setBackground(new java.awt.Color(38, 70, 83));
+		} else if (jefe == false) {
+			btnAltaVeh.setBackground(Color.GRAY);
+			btnAsignarTrabajo.setBackground(Color.GRAY);
+		}
+		btnHistorialTaller.setBackground(new java.awt.Color(38, 70, 83));
+		btnVerVehiculosTaller.setBackground(new java.awt.Color(38, 70, 83));
+		btnTrabajoAsignado.setBackground(new java.awt.Color(38, 70, 83));
+	}
+	/**
+	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
+	 */
+	private void colocarComponentes() {
+		
+		panelUsuario.setBounds(393, 0, 401, 76);
+		panelDepartamento.setBounds(0, 0, 393, 76);
+		panelBotones.setBounds(0, 74, 794, 496);
+		lblUsuario.setBounds(183, 11, 123, 24);
+		lblCerrarSesion.setBounds(183, 46, 123, 14);
+		lblFotoUsu.setBounds(327, 9, 46, 51);
+		btnAltaVeh.setBounds(32, 27, 270, 75);
+		btnHistorialTaller.setBounds(490, 113, 270, 79);
+		btnVerVehiculosTaller.setBounds(490, 27, 270, 75);
+		btnTrabajoAsignado.setBounds(490, 203, 270, 79);
+		btnAsignarTrabajo.setBounds(32, 112, 270, 80);
+		lblFotoSur.setBounds(10, 323, 774, 162);
+	}
+	/**
+	 * Método para darle la fuentes a las letras de los componentes
+	 */
+	private void addPropiedadesLetras() {
+		
+		lblUsuario.setForeground(Color.BLACK);
+		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
+		lblCerrarSesion.setForeground(Color.BLACK);
+		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		btnAltaVeh.setForeground(Color.BLACK);
+		btnAltaVeh.setForeground(Color.WHITE);
+		btnHistorialTaller.setForeground(Color.WHITE);
+		btnVerVehiculosTaller.setForeground(Color.WHITE);
+		btnAsignarTrabajo.setForeground(Color.WHITE);
+		btnAltaVeh.setFont(new Font("Dialog", Font.PLAIN, 25));
+		btnHistorialTaller.setFont(new Font("Dialog", Font.PLAIN, 25));
+		btnVerVehiculosTaller.setFont(new Font("Dialog", Font.PLAIN, 25));
+		btnAsignarTrabajo.setFont(new Font("Dialog", Font.PLAIN, 25));
+		btnTrabajoAsignado.setFont(new Font("Dialog", Font.PLAIN, 25));
+		btnTrabajoAsignado.setForeground(Color.WHITE);
+	}
+	/**
+	 * Método para añadir todos los componentes al panel principal 
+	 */
+	private void addComponentes() {
+		
+	} 
 	
 	
 }

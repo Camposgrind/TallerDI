@@ -166,7 +166,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		imgUsu = new ImageIcon("user-icon.png");
-		lblCerrarSesion = new JLabel("Cerrar sesion");
+		lblCerrarSesion = new JLabel("Cerrar sesión");
 		lblFotoUsu = new JLabel(imgUsu);
 		btnAltaCl = new JButton("Alta de clientes");
 		btnBuscarVehiculos = new JButton("Buscar vehículos");

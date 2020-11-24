@@ -23,7 +23,7 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelBotones;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur;
-	protected JButton btnAltaUsuario,btnResumenVentas,btnVehiculosSinVender,btnVentasEmpleado;
+	protected JButton btnAltaUsuario,btnResumenVentas,btnVehiculosSinVender;
 	
 	/**
 	 * Create the application.
@@ -90,11 +90,6 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 			this.dispose();
 			ventanaStock = new JefeStockVehiculos(miUser);
 			break;
-		case "Ventas por empleado":
-
-			
-			break;
-
 		}		
 	}
 	/**
@@ -149,14 +144,13 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 		btnAltaUsuario = new JButton("Alta de empleado");
 		btnResumenVentas = new JButton("Resumen de ventas");
 		btnVehiculosSinVender = new JButton("Stock vehículos");
-		btnVentasEmpleado = new JButton("Ventas por empleado");
 		imgJefe = new ImageIcon("logoJefePro.png");
 		lblFotoSur = new JLabel(imgJefe);
 		lblCerrarSesion.addMouseListener(this);
 		btnAltaUsuario.addActionListener(this);
 		btnResumenVentas.addActionListener(this);
 		btnVehiculosSinVender.addActionListener(this);
-		btnVentasEmpleado.addActionListener(this);
+		
 
 	}
 	/**
@@ -187,7 +181,6 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 		btnAltaUsuario.setBackground(new java.awt.Color(38, 70, 83));
 		btnResumenVentas.setBackground(new java.awt.Color(38, 70, 83));
 		btnVehiculosSinVender.setBackground(new java.awt.Color(38, 70, 83));
-		btnVentasEmpleado.setBackground(new java.awt.Color(38, 70, 83));
 	}
 	/**
 	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
@@ -201,9 +194,8 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
 		btnAltaUsuario.setBounds(94, 61, 226, 52);
-		btnResumenVentas.setBounds(452, 221, 226, 52);
-		btnVehiculosSinVender.setBounds(94, 221, 226, 52);
-		btnVentasEmpleado.setBounds(452, 61, 226, 52);
+		btnResumenVentas.setBounds(445, 61, 226, 52);
+		btnVehiculosSinVender.setBounds(282, 220, 226, 52);
 		lblFotoSur.setBounds(249, 294, 276, 162);
 	}
 	/**
@@ -221,11 +213,9 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 		btnAltaUsuario.setForeground(Color.WHITE);
 		btnResumenVentas.setForeground(Color.WHITE);
 		btnVehiculosSinVender.setForeground(Color.WHITE);
-		btnVentasEmpleado.setForeground(Color.WHITE);
 		btnAltaUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		btnResumenVentas.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 		btnVehiculosSinVender.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
-		btnVentasEmpleado.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
 	}
 	/**
 	 * Método para añadir todos los componentes al panel principal 
@@ -244,7 +234,6 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 		panelBotones.add(btnAltaUsuario);
 		panelBotones.add(btnResumenVentas);
 		panelBotones.add(btnVehiculosSinVender);
-		panelBotones.add(btnVentasEmpleado);
 		panelBotones.add(lblFotoSur);
 	} 
 

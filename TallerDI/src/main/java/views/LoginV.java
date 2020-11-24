@@ -74,6 +74,7 @@ public class LoginV extends JFrame implements ActionListener{
 		lblLogin.setVisible(false);
 		lblLogin.setFont(new Font("Dialog", Font.BOLD, 15));
 		btnNewButton = new JButton("Iniciar sesión");
+		
 		btnNewButton.setBounds(285, 449, 229, 45);
 		getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(this);
@@ -104,7 +105,9 @@ public class LoginV extends JFrame implements ActionListener{
 		getContentPane().add(panel);
 		panel.add(new JLabel(img));
 		panel.setBackground(new java.awt.Color(233, 196, 106));
-	
+		//Este método es para que puedas darle al intro y avance
+		//Solo vale para cuando hay un botón en la pantalla
+		this.getRootPane().setDefaultButton(btnNewButton);
 		this.setVisible(true);
 	}
 	/**

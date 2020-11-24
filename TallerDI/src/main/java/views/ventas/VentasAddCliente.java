@@ -154,7 +154,7 @@ public class VentasAddCliente extends JFrame implements MouseListener,ActionList
 		panelInfo = new JPanel();
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		lblCerrarSesion = new JLabel("Cerrar sesion");
+		lblCerrarSesion = new JLabel("Cerrar sesión");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Alta clientes");

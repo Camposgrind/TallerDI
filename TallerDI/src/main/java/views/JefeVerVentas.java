@@ -168,7 +168,7 @@ public class JefeVerVentas extends JFrame implements MouseListener, ActionListen
 		panelInfo = new JPanel();
 		lblDepartamento = new JLabel("JEFE");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		lblCerrarSesion = new JLabel("Cerrar sesion");
+		lblCerrarSesion = new JLabel("Cerrar sesión");
 		imgUsu = new ImageIcon("user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblVentasT = new JLabel("Total Ventas:");
