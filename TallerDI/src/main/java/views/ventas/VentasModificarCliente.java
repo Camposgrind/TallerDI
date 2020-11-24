@@ -86,6 +86,8 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 					
 		this.setVisible(true);
 	}
+	
+	
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
@@ -117,6 +119,9 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 		}
 		
 	}	
+	
+	
+	
 	/**
 	 * Método para que cuando se pulse el ratón en el label que lo tenga agenciado
 	 * en este caso el de cerrar sesión, se cierre la sesión

@@ -125,6 +125,8 @@ public class ClienteDAO extends AbstractDAO{
 		
 		return miCliente;
 	}
+	
+	
 	/**
 	 * Método para buscar un cliente según la id que le pasemos
 	 * @param miIdCliente

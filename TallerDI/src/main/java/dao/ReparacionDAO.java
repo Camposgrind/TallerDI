@@ -4,10 +4,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import models.Cliente;
 import models.Reparacion;
 
 public class ReparacionDAO extends AbstractDAO{
@@ -15,6 +15,7 @@ public class ReparacionDAO extends AbstractDAO{
 	//ESTADO
 	protected Reparacion miReparacion;
 	protected ResultSet rs;
+	protected Statement st;
 	
 	/**
 	 * Constructor
@@ -99,6 +100,37 @@ public class ReparacionDAO extends AbstractDAO{
 		
 		return listaReparaciones;
 	}
+	
+	
+	public Reparacion modificarReparacion(String miMatricula, String miUsuario, String miTarea, String miPiezas, String miTiempo, String miPresupuesto) {
+		PreparedStatement preparedStmt;
+		
+		try {
+			preparedStmt = super.con.prepareStatement("update repara "
+					+ "set  = ?, Apellidos = ?, Telefono = ? , DNI = ? where idCliente = ?");
+			
+//			preparedStmt.setString(1, miNombre);
+//			preparedStmt.setString(2, miApellido);
+//			preparedStmt.setString(3, miTlfn);
+//			preparedStmt.setString(4, miDni);			
+//			//Aquí le decimos que nos de el id cliente que tiene para ponerlo en el where
+//			preparedStmt.setInt(5, miCliente.getIdCliente());
+//			preparedStmt.executeUpdate();
+//			
+//			//seteamos el estado del cliente en memoria para luego mostrarlo en el vista de la ficha 
+//			miReparacion.setNombre(miNombre);
+//			miReparacion.setApellidos(miApellido);
+//			miReparacion.setTelefono(miTlfn);
+//			miReparacion.setDni(miDni);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		return miReparacion;
+	}
+	
+	
+	
 	/**
 	 * Método que actualiza en la BBDD el estado de la reparación
 	 * @param estado
