@@ -183,5 +183,38 @@ public class UsuarioDAO extends AbstractDAO{
 		return listaMecanicos;
 				
 	}
+	/**
+	 * Método para buscar los usuarios de la sección de ventas
+	 * @param fechaDesde
+	 * @param fechaHasta
+	 * @return
+	 */
+	public ArrayList<Usuario> buscarUsuarioVentas(String fechaDesde,String fechaHasta){
+		ArrayList<Usuario> listaUsuVentas = new ArrayList<Usuario>();
+		Usuario usuVentas;
+		PreparedStatement preparedStmt;
+		String query = "Select * from usuario where Rol = 'Ventas'";
+		
+		if(fechaDesde!=null&&fechaHasta!=null) {
+			
+		}
+		
+		try {
+			preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			rs = preparedStmt.executeQuery();
+			
+			while (rs.next()) {
+				miUsuario = new Usuario();
+				this.setText();
+				listaUsuVentas.add(miUsuario);				
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return listaUsuVentas;
+	}
 	
 }

@@ -69,6 +69,8 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JefeAddUsuario ventanaAddUser;
+		JefeVerVentas ventanaVentasTotales;
+		JefeStockVehiculos ventanaStock;
 		
 		String txtBtn = e.getActionCommand();
 		
@@ -81,17 +83,15 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 		case "Resumen de ventas":
 			this.setVisible(false);
 			this.dispose();
-			//ventanaBuscarVehiculo = new VentasBuscarVehiculo(miUser,null);
+			ventanaVentasTotales = new JefeVerVentas(miUser);
 			break;
 		case "Stock vehículos":
 			this.setVisible(false);
 			this.dispose();
-			//ventanaBuscarCliente = new VentasBuscarCliente(miUser,null);
+			ventanaStock = new JefeStockVehiculos(miUser);
 			break;
 		case "Ventas por empleado":
-			this.setVisible(false);
-			this.dispose();
-			//ventanaRealizarPropuesta = new VentasPropuestaVenta(miUser,null,null);
+
 			
 			break;
 
