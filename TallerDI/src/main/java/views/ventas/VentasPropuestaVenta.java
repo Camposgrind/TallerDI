@@ -47,6 +47,7 @@ public class VentasPropuestaVenta extends JFrame implements MouseListener,Action
 	 * Create the application.
 	 */
 	public VentasPropuestaVenta(Usuario miUsuario,Vehiculo miVehiculo,Cliente miCliente) {
+		setTitle("piCARso - Ventas");
 		miPropuesta = new PropuestaDAO();
 		this.miCliente = miCliente;
 		this.miVehiculo = miVehiculo;
@@ -209,7 +210,7 @@ public class VentasPropuestaVenta extends JFrame implements MouseListener,Action
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Propuesta de venta");
 		lblNombre = new JLabel("Nombre: ");
@@ -265,17 +266,17 @@ public class VentasPropuestaVenta extends JFrame implements MouseListener,Action
 	 */
 	private void darColorComponentes() {
 		
-		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
-		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
-		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
-		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
-		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
-		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnBuscar.setBackground(new java.awt.Color(0,92,48));
-		btnBuscarCliente.setBackground(new Color(82, 21, 255));
-		btnBuscarVehiculo.setBackground(new Color(82, 21, 255));
+		panelDepartamento.setBackground(new java.awt.Color(233, 196, 106));
+		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
+		panelContenido.setBackground(new java.awt.Color(233, 196, 106));
+		panelInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelInfo.setBackground(new java.awt.Color(233, 196, 106));
+		btnVolver.setBackground(new java.awt.Color(231, 111, 81));
+		btnBuscar.setBackground(new java.awt.Color(38, 70, 83));
+		btnBuscarCliente.setBackground(new Color(42, 157, 143));
+		btnBuscarVehiculo.setBackground(new Color(42, 157, 143));
 		
 	}
 	/**
@@ -283,53 +284,53 @@ public class VentasPropuestaVenta extends JFrame implements MouseListener,Action
 	 */
 	private void colocarComponentes() {
 		
-		panelUsuario.setBounds(393, 0, 393, 76);
+		panelUsuario.setBounds(393, 0, 391, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelContenido.setBounds(-2, 76, 786, 485);
-		panelInfo.setBounds(281, 0, 228, 41);
+		panelContenido.setBounds(0, 75, 784, 496);
+		panelInfo.setBounds(0, 0, 784, 41);
 		
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		lblNombre.setBounds(34, 98, 106, 30);
-		lblApellidos.setBounds(34, 148, 99, 30);
-		lblTelefono.setBounds(34, 198, 99, 30);
-		lblDni.setBounds(34, 248, 106, 30);
-		tFNombre.setBounds(127, 100, 222, 27);
-		tFApellidos.setBounds(127, 150, 222, 27);
-		tFTelefono.setBounds(127, 200, 222, 27);
-		tFDni.setBounds(127, 250, 222, 27);	
-		lblMatricula.setBounds(412, 50, 119, 30);
-		lblMarca.setBounds(412, 90, 119, 30);
-		lblModelo.setBounds(412, 130, 119, 30);
-		lblColor.setBounds(412, 170, 142, 30);
-		lblCombustible.setBounds(412, 210, 131, 30);
-		lblPrecio.setBounds(412, 250, 119, 30);
-		tFMatricula.setBounds(554, 50, 202, 27);
-		tFMarca.setBounds(554, 90, 202, 27);
-		tFModelo.setBounds(554, 130, 202, 27);
-		tFColor.setBounds(554, 170, 202, 27);
-		tFCombustible.setBounds(554, 210, 202, 27);
-		tFPrecio.setBounds(554, 250, 202, 27);
+		lblNombre.setBounds(27, 107, 106, 30);
+		lblApellidos.setBounds(27, 148, 99, 30);
+		lblTelefono.setBounds(27, 186, 99, 30);
+		lblDni.setBounds(27, 224, 106, 30);
+		tFNombre.setBounds(127, 110, 202, 27);
+		tFApellidos.setBounds(127, 150, 202, 27);
+		tFTelefono.setBounds(127, 188, 202, 27);
+		tFDni.setBounds(127, 226, 202, 27);	
+		lblMatricula.setBounds(425, 90, 119, 30);
+		lblMarca.setBounds(425, 128, 119, 30);
+		lblModelo.setBounds(425, 169, 119, 30);
+		lblColor.setBounds(425, 210, 142, 30);
+		lblCombustible.setBounds(425, 250, 131, 30);
+		lblPrecio.setBounds(243, 317, 119, 30);
+		tFMatricula.setBounds(554, 92, 202, 27);
+		tFMarca.setBounds(554, 132, 202, 27);
+		tFModelo.setBounds(554, 172, 202, 27);
+		tFColor.setBounds(554, 212, 202, 27);
+		tFCombustible.setBounds(554, 251, 202, 27);
+		tFPrecio.setBounds(318, 319, 202, 27);
 				
-		btnVolver.setBounds(153, 391, 117, 35);
-		btnBuscar.setBounds(516, 391, 117, 35);
-		btnBuscarCliente.setBounds(127, 320, 177, 35);
-		btnBuscarVehiculo.setBounds(487, 320, 177, 35);
+		btnVolver.setBounds(41, 391, 150, 50);
+		btnBuscar.setBounds(606, 391, 150, 50);
+		btnBuscarCliente.setBounds(228, 391, 150, 50);
+		btnBuscarVehiculo.setBounds(416, 391, 150, 50);
 	}
 	/**
 	 * Método para darle la fuentes a las letras de los componentes
 	 */
 	private void addPropiedadesLetras() {
 		
-		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
+		lblDepartamento.setForeground(Color.BLACK);
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
+		lblUsuario.setForeground(Color.BLACK);
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
+		lblCerrarSesion.setForeground(Color.BLACK);
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblAltaClientes.setForeground(new java.awt.Color(38, 70, 83));
+		lblAltaClientes.setForeground(Color.BLACK);
 		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));

@@ -138,13 +138,13 @@ public class JefeGenerico extends JFrame implements ActionListener, MouseListene
 		panelUsuario = new JPanel();
 		lblDepartamento = new JLabel("JEFE");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblCerrarSesion = new JLabel("Cerrar sesión");
 		lblFotoUsu = new JLabel(imgUsu);
 		btnAltaUsuario = new JButton("Alta de empleado");
 		btnResumenVentas = new JButton("Resumen de ventas");
 		btnVehiculosSinVender = new JButton("Stock vehículos");
-		imgJefe = new ImageIcon("logoJefePro.png");
+		imgJefe = new ImageIcon("assets/logoJefePro.png");
 		lblFotoSur = new JLabel(imgJefe);
 		lblCerrarSesion.addMouseListener(this);
 		btnAltaUsuario.addActionListener(this);

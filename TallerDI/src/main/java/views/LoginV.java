@@ -65,7 +65,7 @@ public class LoginV extends JFrame implements ActionListener{
 		this.setTitle("PICARSO - INICIAR SESI\u00D3N");
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		img = new ImageIcon("logoLogin.png");
+		img = new ImageIcon("assets/logoLogin.png");
 		getContentPane().setLayout(null);
 		lblLogin = new JLabel("Usuario o contraseña incorrecta");
 		lblLogin.setForeground(Color.RED);

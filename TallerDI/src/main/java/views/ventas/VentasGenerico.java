@@ -33,6 +33,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	 * Create the application.
 	 */
 	public VentasGenerico(Usuario miUsuario) {
+		setTitle("piCARso - Ventas");
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
@@ -165,7 +166,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		panelUsuario = new JPanel();
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblCerrarSesion = new JLabel("Cerrar sesión");
 		lblFotoUsu = new JLabel(imgUsu);
 		btnAltaCl = new JButton("Alta de clientes");
@@ -174,7 +175,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnPropuestaDeVenta = new JButton("Propuesta de venta");
 		btnBuscarPropuesta = new JButton("Buscar propuesta de venta");
 		btnAltaCoche = new JButton("Alta vehículo");
-		imgLogoVentas = new ImageIcon("iconoVentas.png");
+		imgLogoVentas = new ImageIcon("assets/iconoVentas.png");
 		lblFotoSur = new JLabel(imgLogoVentas);
 		lblCerrarSesion.addMouseListener(this);
 		btnAltaCl.addActionListener(this);
@@ -203,11 +204,11 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	 */
 	private void darColorComponentes() {
 		
-		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
+		panelDepartamento.setBackground(new java.awt.Color(233, 196, 106));
 		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panelUsuario.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
-		panelBotones.setBackground(new java.awt.Color( 244, 162, 97));
+		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
+		panelBotones.setBackground(new java.awt.Color(233, 196, 106));
 		btnAltaCl.setBackground(new java.awt.Color(38, 70, 83));
 		btnBuscarVehiculos.setBackground(new java.awt.Color(38, 70, 83));
 		btnBuscarClientes.setBackground(new java.awt.Color(38, 70, 83));
@@ -220,18 +221,18 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	 */
 	private void colocarComponentes() {
 		
-		panelUsuario.setBounds(393, 0, 393, 76);
+		panelUsuario.setBounds(393, 0, 391, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelBotones.setBounds(-2, 76, 786, 485);
+		panelBotones.setBounds(0, 76, 784, 484);
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		btnAltaCl.setBounds(94, 61, 208, 41);
-		btnBuscarVehiculos.setBounds(490, 151, 208, 41);
-		btnBuscarClientes.setBounds(490, 61, 208, 41);
-		btnPropuestaDeVenta.setBounds(94, 242, 208, 41);
-		btnAltaCoche.setBounds(94, 151, 208, 41);
-		btnBuscarPropuesta.setBounds(490, 242, 208, 41);
+		btnAltaCl.setBounds(56, 61, 250, 50);
+		btnBuscarVehiculos.setBounds(473, 138, 250, 50);
+		btnBuscarClientes.setBounds(473, 61, 250, 50);
+		btnPropuestaDeVenta.setBounds(56, 219, 250, 50);
+		btnAltaCoche.setBounds(56, 138, 250, 50);
+		btnBuscarPropuesta.setBounds(473, 219, 250, 50);
 		lblFotoSur.setBounds(256, 294, 276, 162);
 	}
 	/**
@@ -239,11 +240,11 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	 */
 	private void addPropiedadesLetras() {
 		
-		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
+		lblDepartamento.setForeground(Color.BLACK);
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
+		lblUsuario.setForeground(Color.BLACK);
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
+		lblCerrarSesion.setForeground(Color.BLACK);
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		btnAltaCl.setForeground(Color.WHITE);
 		btnAltaCl.setForeground(Color.WHITE);
@@ -251,12 +252,12 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnBuscarClientes.setForeground(Color.WHITE);
 		btnPropuestaDeVenta.setForeground(Color.WHITE);
 		btnBuscarPropuesta.setForeground(Color.WHITE);
-		btnAltaCl.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		btnBuscarVehiculos.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		btnBuscarClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		btnPropuestaDeVenta.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		btnBuscarPropuesta.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
-		btnAltaCoche.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
+		btnAltaCl.setFont(new Font("Dialog", Font.PLAIN, 17));
+		btnBuscarVehiculos.setFont(new Font("Dialog", Font.PLAIN, 17));
+		btnBuscarClientes.setFont(new Font("Dialog", Font.PLAIN, 17));
+		btnPropuestaDeVenta.setFont(new Font("Dialog", Font.PLAIN, 17));
+		btnBuscarPropuesta.setFont(new Font("Dialog", Font.PLAIN, 17));
+		btnAltaCoche.setFont(new Font("Dialog", Font.PLAIN, 17));
 		btnAltaCoche.setForeground(Color.WHITE);
 	}
 	/**

@@ -45,6 +45,7 @@ public class VentasBuscarPropuesta extends JFrame implements MouseListener,Actio
 	 * Create the application.
 	 */
 	public VentasBuscarPropuesta(Usuario miUsuario) {
+		setTitle("piCARso - Ventas");
 		miPropuestaDao = new PropuestaDAO();
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
@@ -175,7 +176,7 @@ public class VentasBuscarPropuesta extends JFrame implements MouseListener,Actio
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblBuscarPropuesta = new JLabel("Buscar propuesta");
 		lblNombre = new JLabel("Nombre: ");
@@ -226,25 +227,25 @@ public class VentasBuscarPropuesta extends JFrame implements MouseListener,Actio
 	 */
 	private void darColorComponentes() {
 		
-		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
-		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
-		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
-		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
-		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
-		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnBuscar.setBackground(new java.awt.Color(0,92,48));
+		panelDepartamento.setBackground(new java.awt.Color(233, 196, 106));
+		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
+		panelContenido.setBackground(new java.awt.Color(233, 196, 106));
+		panelInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelInfo.setBackground(new java.awt.Color(233, 196, 106));
+		btnVolver.setBackground(new java.awt.Color(231, 111, 81));
+		btnBuscar.setBackground(new java.awt.Color(38, 70, 83));
 	}
 	/**
 	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
 	 */
 	private void colocarComponentes() {
 		
-		panelUsuario.setBounds(393, 0, 393, 76);
+		panelUsuario.setBounds(393, 0, 391, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelContenido.setBounds(-2, 76, 786, 485);
-		panelInfo.setBounds(281, 0, 228, 41);
+		panelContenido.setBounds(0, 76, 784, 484);
+		panelInfo.setBounds(0, 0, 784, 41);
 		
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
@@ -269,22 +270,22 @@ public class VentasBuscarPropuesta extends JFrame implements MouseListener,Actio
 		tFPrecio.setBounds(554, 275, 202, 27);
 		tFFecha.setBounds(554, 315, 202, 27);
 				
-		btnVolver.setBounds(153, 391, 117, 35);
-		btnBuscar.setBounds(516, 391, 117, 35);
+		btnVolver.setBounds(141, 391, 150, 50);
+		btnBuscar.setBounds(497, 391, 150, 50);
 	}
 	/**
 	 * Método para darle la fuentes a las letras de los componentes
 	 */
 	private void addPropiedadesLetras() {
 		
-		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
+		lblDepartamento.setForeground(Color.BLACK);
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
+		lblUsuario.setForeground(Color.BLACK);
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
+		lblCerrarSesion.setForeground(Color.BLACK);
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		lblBuscarPropuesta.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblBuscarPropuesta.setForeground(new java.awt.Color(38, 70, 83));
+		lblBuscarPropuesta.setForeground(Color.BLACK);
 		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		tFNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));

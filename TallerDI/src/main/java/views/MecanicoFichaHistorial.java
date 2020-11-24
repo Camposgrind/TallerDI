@@ -92,7 +92,7 @@ public class MecanicoFichaHistorial extends JFrame implements MouseListener,Acti
 		lblDepartamento.setBounds(10, 11, 374, 54);
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Consultar historial de reparaciones");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");

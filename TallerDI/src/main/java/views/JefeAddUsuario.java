@@ -236,7 +236,7 @@ public class JefeAddUsuario extends JFrame implements MouseListener,ActionListen
 		lblDepartamento = new JLabel("JEFE");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaUsu = new JLabel("Alta usuario");
 		lblNombreUsu = new JLabel("Usuario:");

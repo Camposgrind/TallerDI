@@ -45,6 +45,7 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 	 * Create the application.
 	 */
 	public VentasModificarCliente(Usuario miUsuario,Cliente miCliente,VentasPropuestaVenta miVentanaPropuesta) {
+		setTitle("piCARso - Ventas");
 		miClienteDao = new ClienteDAO();
 		ventanaPropuesta = miVentanaPropuesta;
 		miUser = miUsuario;
@@ -170,7 +171,7 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Modificar Cliente");
 		lblNombre = new JLabel("Nombre: ");
@@ -212,15 +213,15 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 	 */
 	private void darColorComponentes() {
 		
-		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
-		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
-		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
-		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
-		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
-		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnModificar.setBackground(new java.awt.Color(0,92,48));
+		panelDepartamento.setBackground(new java.awt.Color(233, 196, 106));
+		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
+		panelContenido.setBackground(new java.awt.Color(233, 196, 106));
+		panelInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelInfo.setBackground(new java.awt.Color(233, 196, 106));
+		btnVolver.setBackground(new java.awt.Color(231, 111, 81));
+		btnModificar.setBackground(new java.awt.Color(42, 157, 143));
 		lblModificacionOK.setBackground(new java.awt.Color(0,92,48));
 	}
 	/**
@@ -228,10 +229,10 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 	 */
 	private void colocarComponentes() {
 		
-		panelUsuario.setBounds(393, 0, 393, 76);
+		panelUsuario.setBounds(393, 0, 391, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelContenido.setBounds(-2, 76, 786, 485);
-		panelInfo.setBounds(281, 0, 228, 41);
+		panelContenido.setBounds(0, 76, 784, 484);
+		panelInfo.setBounds(0, 0, 784, 41);
 		
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
@@ -244,8 +245,8 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 		tFApellidos.setBounds(376, 165, 222, 27);
 		tFTelefono.setBounds(376, 234, 222, 27);
 		tFDni.setBounds(376, 295, 222, 27);
-		btnVolver.setBounds(153, 391, 117, 35);
-		btnModificar.setBounds(516, 391, 117, 35);
+		btnVolver.setBounds(153, 391, 150, 50);
+		btnModificar.setBounds(483, 391, 150, 50);
 		lblModificacionOK.setBounds(258, 40, 276, 41);
 	}
 	/**
@@ -253,14 +254,14 @@ public class VentasModificarCliente extends JFrame implements MouseListener,Acti
 	 */
 	private void addPropiedadesLetras() {
 		
-		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
+		lblDepartamento.setForeground(Color.BLACK);
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
+		lblUsuario.setForeground(Color.BLACK);
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
+		lblCerrarSesion.setForeground(Color.BLACK);
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblAltaClientes.setForeground(new java.awt.Color(38, 70, 83));
+		lblAltaClientes.setForeground(Color.BLACK);
 		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));

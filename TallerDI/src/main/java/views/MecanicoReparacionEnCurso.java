@@ -85,7 +85,7 @@ public class MecanicoReparacionEnCurso extends JFrame implements MouseListener,A
 		lblDepartamento.setBounds(10, 11, 374, 54);
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Trabajo asignado");
 		btnVolver = new JButton("Volver");

@@ -221,7 +221,7 @@ public class MecanicoAltaVehiculo extends JFrame implements MouseListener,Action
 		lblDepartamento.setBounds(10, 11, 374, 54);
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaVehiculo = new JLabel("Alta vehículo");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");

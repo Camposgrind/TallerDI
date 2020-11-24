@@ -50,6 +50,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	 */
 	public  VentasFichaCliente(Usuario miUsuario,Cliente miCliente, VentasListadoClientes ventasListadoClientes,
 			VentasPropuestaVenta miVentanaPropuesta) {
+		setTitle("piCARso - Ventas");
 		this.ventasListadoClientes = ventasListadoClientes;
 		ventanaPropuestas = miVentanaPropuesta;
 		this.miCliente = miCliente;
@@ -185,7 +186,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblFichaClientes = new JLabel("Ficha cliente");
 		lblNombre = new JLabel("Nombre: ");
@@ -198,7 +199,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		infoDni = new JLabel(miCliente.getDni());		
 		btnVolver = new JButton("Volver");
 		btnModificar = new JButton("Modificar");
-		btnPropuestaVenta = new JButton("Propuesta de venta");
+		btnPropuestaVenta = new JButton("Prop. de venta");
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnModificar.addActionListener(this);
@@ -226,26 +227,26 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 	 */
 	private void darColorComponentes() {
 		
-		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
-		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
-		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
-		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
-		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
-		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnModificar.setBackground(new java.awt.Color(0,92,48));
-		btnPropuestaVenta.setBackground(new Color(82, 21, 255));
+		panelDepartamento.setBackground(new java.awt.Color(233, 196, 106));
+		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
+		panelContenido.setBackground(new java.awt.Color(233, 196, 106));
+		panelInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelInfo.setBackground(new java.awt.Color(233, 196, 106));
+		btnVolver.setBackground(new java.awt.Color(231, 111, 81));
+		btnModificar.setBackground(new java.awt.Color(42, 157, 143));
+		btnPropuestaVenta.setBackground(new Color(38, 70, 83));
 	}
 	/**
 	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
 	 */
 	private void colocarComponentes() {
 		
-		panelUsuario.setBounds(393, 0, 393, 76);
+		panelUsuario.setBounds(393, 0, 391, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelContenido.setBounds(-2, 76, 786, 485);
-		panelInfo.setBounds(281, 0, 228, 41);
+		panelContenido.setBounds(0, 76, 784, 484);
+		panelInfo.setBounds(0, 0, 784, 41);
 		
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
@@ -258,23 +259,23 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 		infoApellidos.setBounds(376, 165, 222, 27);
 		infoTelefono.setBounds(376, 234, 222, 27);
 		infoDni.setBounds(376, 295, 222, 27);
-		btnVolver.setBounds(93, 391, 117, 35);
-		btnModificar.setBounds(295, 391, 117, 35);
-		btnPropuestaVenta.setBounds(492, 391, 202, 35);
+		btnVolver.setBounds(60, 391, 150, 50);
+		btnModificar.setBounds(319, 391, 150, 50);
+		btnPropuestaVenta.setBounds(565, 391, 150, 50);
 	}
 	/**
 	 * Método para darle la fuentes a las letras de los componentes
 	 */
 	private void addPropiedadesLetras() {
 		
-		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
+		lblDepartamento.setForeground(Color.BLACK);
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
+		lblUsuario.setForeground(Color.BLACK);
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
+		lblCerrarSesion.setForeground(Color.BLACK);
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		lblFichaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblFichaClientes.setForeground(new java.awt.Color(38, 70, 83));
+		lblFichaClientes.setForeground(Color.BLACK);
 		lblNombre.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblApellidos.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblTelefono.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));

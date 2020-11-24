@@ -56,6 +56,7 @@ public class VentasModificarVehiculo extends JFrame implements MouseListener,Act
 	 * Create the application.
 	 */
 	public VentasModificarVehiculo(Usuario miUsuario,Vehiculo miVehiculo,VentasPropuestaVenta miVentanaPropuesta) {
+		setTitle("piCARso - Ventas");
 		ventanaPropuesta = miVentanaPropuesta;
 		miVehiculoDao = new VehiculoDAO();
 		miConcesionarioDao = new ConcesionarioDAO();
@@ -183,7 +184,7 @@ public class VentasModificarVehiculo extends JFrame implements MouseListener,Act
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("user-icon.png");
+		imgUsu = new ImageIcon("assets/user-icon.png");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Modificar Vehículo");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");
@@ -235,15 +236,15 @@ public class VentasModificarVehiculo extends JFrame implements MouseListener,Act
 	 */
 	private void darColorComponentes() {
 		
-		panelDepartamento.setBackground(new java.awt.Color( 244, 162, 97));
-		panelDepartamento.setBorder(BorderFactory.createLineBorder(new java.awt.Color(38, 70, 83)));
-		panelUsuario.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelUsuario.setBackground(new java.awt.Color( 244, 162, 97));
-		panelContenido.setBackground(new java.awt.Color( 244, 162, 97));
-		panelInfo.setBorder(BorderFactory.createLineBorder(new java.awt.Color( 38, 70, 83)));
-		panelInfo.setBackground(new java.awt.Color( 244, 162, 97));
-		btnVolver.setBackground(new java.awt.Color(119, 14, 38));
-		btnBuscar.setBackground(new java.awt.Color(0,92,48));
+		panelDepartamento.setBackground(new java.awt.Color(233, 196, 106));
+		panelDepartamento.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelUsuario.setBackground(new java.awt.Color(233, 196, 106));
+		panelContenido.setBackground(new java.awt.Color(233, 196, 106));
+		panelInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelInfo.setBackground(new java.awt.Color(233, 196, 106));
+		btnVolver.setBackground(new java.awt.Color(231, 111, 81));
+		btnBuscar.setBackground(new java.awt.Color(38, 70, 83));
 		lblAddOk.setBackground(new java.awt.Color(0,92,48));
 	}
 	/**
@@ -251,10 +252,10 @@ public class VentasModificarVehiculo extends JFrame implements MouseListener,Act
 	 */
 	private void colocarComponentes() {
 		
-		panelUsuario.setBounds(393, 0, 393, 76);
+		panelUsuario.setBounds(393, 0, 391, 76);
 		panelDepartamento.setBounds(0, 0, 393, 76);
-		panelContenido.setBounds(0, 76, 786, 485);
-		panelInfo.setBounds(281, 0, 228, 41);
+		panelContenido.setBounds(0, 76, 784, 484);
+		panelInfo.setBounds(0, 0, 784, 41);
 		
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
@@ -279,8 +280,8 @@ public class VentasModificarVehiculo extends JFrame implements MouseListener,Act
 		tFkm.setBounds(554, 111, 194, 27);
 		lblkm.setBounds(412, 109, 142, 30);
 		lblCombustible.setBounds(412, 191, 131, 30);
-		btnVolver.setBounds(153, 420, 117, 35);
-		btnBuscar.setBounds(515, 420, 117, 35);
+		btnVolver.setBounds(135, 395, 150, 50);
+		btnBuscar.setBounds(498, 395, 150, 50);
 		lblAddOk.setBounds(258, 40, 276, 41);
 	}
 	/**
@@ -288,14 +289,14 @@ public class VentasModificarVehiculo extends JFrame implements MouseListener,Act
 	 */
 	private void addPropiedadesLetras() {
 		
-		lblDepartamento.setForeground(new java.awt.Color(38, 70, 83));
+		lblDepartamento.setForeground(Color.BLACK);
 		lblDepartamento.setFont(new Font("DejaVu Sans", Font.PLAIN, 20));
-		lblUsuario.setForeground(new java.awt.Color(38, 70, 83));
+		lblUsuario.setForeground(Color.BLACK);
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
-		lblCerrarSesion.setForeground(new java.awt.Color(38, 70, 83));
+		lblCerrarSesion.setForeground(Color.BLACK);
 		lblCerrarSesion.setFont(new Font("DejaVu Sans", Font.PLAIN, 11));
 		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
-		lblAltaClientes.setForeground(new java.awt.Color(38, 70, 83));
+		lblAltaClientes.setForeground(Color.BLACK);
 		lblMatricula.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblMarca.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
 		lblModelo.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
