@@ -40,9 +40,9 @@ public class ClienteDAO extends AbstractDAO{
 					+ "(nombre,apellidos,telefono,dni) values(?,?,?,?)");
 			
 			preparedStmt.setString(1,miNombre);
-			preparedStmt.setString(2, miApellido);
-			preparedStmt.setString(3, miTlfn);
-			preparedStmt.setString(4, miDni);
+			preparedStmt.setString(2,miApellido);
+			preparedStmt.setString(3,miTlfn);
+			preparedStmt.setString(4,miDni);
 			preparedStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -57,6 +57,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		this.setBackground(new java.awt.Color(233, 196, 106));
 		getContentPane().setLayout(null);
 		
+		
 		//Iniciamos todos los componentes 
 		this.iniciarComponentes();
 		
@@ -221,7 +222,18 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnVerVehiculosTaller.addActionListener(this);
 		btnAsignarTrabajo.addActionListener(this);
 		btnTrabajoAsignado.addActionListener(this);
+		
+		//Borramos los cuadros cuando se focaliza en un botón
+		btnAltaVeh.setFocusPainted(false);
+		btnHistorialTaller.setFocusPainted(false);
+		btnVerVehiculosTaller.setFocusPainted(false);
+		btnAsignarTrabajo.setFocusPainted(false);
+		btnTrabajoAsignado.setFocusPainted(false);
+
 	}
+	
+	
+	
 	/**
 	 * Metodo para poner a los paneles y label los layout que necesitan
 	 */

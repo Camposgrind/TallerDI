@@ -280,6 +280,7 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		lblCerrarSesion.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblVehiculo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAddOk.setHorizontalAlignment(SwingConstants.CENTER);
+		
 	}
 	
 	

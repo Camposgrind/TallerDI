@@ -80,6 +80,7 @@ public class MecanicoAltaVehiculo extends JFrame implements MouseListener,Action
 		this.setResizable(false);
 		this.setBackground(new java.awt.Color( 244, 162, 97));
 		getContentPane().setLayout(null);
+		this.requestFocus();
 
 		//Iniciamos todos los componentes 
 		this.iniciarComponentes();
@@ -96,7 +97,6 @@ public class MecanicoAltaVehiculo extends JFrame implements MouseListener,Action
 		//Damos el tamaño, fuente y color a las letras 
 		this.addPropiedadesLetras();
 
-		
 		//Añadimos los componentes al panel principal los paneles	
 		this.addComponentes();
 
@@ -114,8 +114,6 @@ public class MecanicoAltaVehiculo extends JFrame implements MouseListener,Action
 		String txtBtn = e.getActionCommand();
 		boolean addReparacionOk = false;
 
-		
-		
 		switch (txtBtn) {
 		case "Volver":
 			this.setVisible(false);
@@ -124,7 +122,6 @@ public class MecanicoAltaVehiculo extends JFrame implements MouseListener,Action
 			break;
 			
 		case "Registrar":
-
 			if(miVehiculo==null) {
 				miClienteDao.addCliente(tFNombre.getText(), tFApellidos.getText(),
 						tFTelefono.getText(), tFDni.getText());
@@ -264,6 +261,11 @@ public class MecanicoAltaVehiculo extends JFrame implements MouseListener,Action
 		btnVolver.addActionListener(this);
 		btnRegistrar.addActionListener(this);
 		btnBuscarMatricula.addActionListener(this);
+		
+		//Eliminamos el focus en los botones
+		btnVolver.setFocusPainted(false);
+		btnRegistrar.setFocusPainted(false);
+		btnBuscarMatricula.setFocusPainted(false);
 	}
 	/**
 	 * Metodo para poner a los paneles y label los layout que necesitan

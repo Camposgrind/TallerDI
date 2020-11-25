@@ -275,8 +275,6 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		table.setFont(new Font("DejaVu Sans", Font.PLAIN, 12));
 		table.setBounds(0, 0, 510, 209);
 		
-		
-		
 		//Iniciamos un scrollpane para que meta la tabla dentro 
 		JScrollPane scrollPane= new JScrollPane(table);
 		scrollPane.setBackground(new java.awt.Color(244, 162, 97));

@@ -184,7 +184,17 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnPropuestaDeVenta.addActionListener(this);
 		btnBuscarPropuesta.addActionListener(this);
 		btnAltaCoche.addActionListener(this);
+		
+		//Borramos los cuadros cuando se focaliza en un botón
+		btnAltaCl.setFocusPainted(false);
+		btnBuscarVehiculos.setFocusPainted(false);
+		btnBuscarClientes.setFocusPainted(false);
+		btnPropuestaDeVenta.setFocusPainted(false);
+		btnBuscarPropuesta.setFocusPainted(false);
+		btnAltaCoche.setFocusPainted(false);
 	}
+	
+	
 	/**
 	 * Metodo para poner a los paneles y label los layout que necesitan
 	 */
