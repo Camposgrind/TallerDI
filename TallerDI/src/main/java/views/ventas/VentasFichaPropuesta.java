@@ -140,7 +140,8 @@ public class VentasFichaPropuesta extends JFrame implements MouseListener,Action
 			ventanaVentasGenerico = new VentasGenerico(miUser);
 			//Sumamon las comisión que tenia el usuario a el precio que se había estimado la venta
 			comisionActualizada = miUser.getComisionVentas() + miPropuesta.getPresupuesto();
-			miVehiculoDao.venderVehiculo(miCliente.getIdCliente(),1,miVehiculo.getMatricula(),comisionActualizada);
+			miUsuarioDao.actualizaComision(miUser.getIdUsuario(),comisionActualizada);
+			miVehiculoDao.venderVehiculo(miCliente.getIdCliente(),1,miVehiculo.getMatricula());
 			
 			JOptionPane.showMessageDialog(this, "Venta realizada con éxito");
 			

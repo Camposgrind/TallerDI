@@ -183,7 +183,7 @@ public class VehiculoDAO extends AbstractDAO{
 			
 			
 			preparedStmt = super.con.prepareStatement("insert into vehiculo (Matricula, Marca, Modelo, Tipo,"
-					+ " Precio, Kilometros, Color, Combustible, FechaEntrada, idConcesionario) values (?,?,?,?,?,?,?,?,?,?)");
+					+ " Precio, Kilometros, Color, Combustible, FechaEntrada, idConcesionario,vendido) values (?,?,?,?,?,?,?,?,?,?,0)");
 			
 			preparedStmt.setString(1,miMatricula);
 			preparedStmt.setString(2, miMarca);
@@ -336,16 +336,15 @@ public class VehiculoDAO extends AbstractDAO{
 	 * @param matriculaWhere
 	 * @param miComision el precio de la propuesta + la comisión que ya tenía el usuario de ventas
 	 */
-	public void venderVehiculo(int idUsuario, int vendido,String matriculaWhere, int miComision) {
+	public void venderVehiculo(int idUsuario, int vendido,String matriculaWhere) {
 		PreparedStatement preparedStmt;
 		
 		try {
 			preparedStmt = super.con.prepareStatement("update vehiculo "
-					+ "set idCliente = ?,Vendido = ?, Ventas=? where matricula='"+matriculaWhere+"'");
+					+ "set idCliente = ?,Vendido = ? where matricula='"+matriculaWhere+"'");
 			
 			preparedStmt.setInt(1,idUsuario);
 			preparedStmt.setInt(2, vendido);
-			preparedStmt.setInt(2, miComision);
 			
 
 			//Aquí lo mismo habría que poner un where pero creo que se puede tocar algo en el SQL para que no haga falta 

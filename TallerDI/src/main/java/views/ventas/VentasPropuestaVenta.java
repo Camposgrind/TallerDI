@@ -121,8 +121,19 @@ public class VentasPropuestaVenta extends JFrame implements MouseListener,Action
 					miVehiculo.getMatricula(), tFPrecio.getText());
 			if(todoOk) {
 				JOptionPane.showMessageDialog(this, "Propuesta realizada con éxito");
+				tFNombre.setText("");
+				tFApellidos.setText("");
+				tFTelefono.setText("");
+				tFDni.setText("");
+				tFMatricula.setText("");
+				tFMarca.setText("");
+				tFModelo.setText("");
+				tFColor.setText("");
+				tFCombustible.setText("");
+				tFPrecio.setText("");
 			}else {
 				JOptionPane.showMessageDialog(this, "Ha fallado la proposición");
+				
 			}
 			break;
 			
