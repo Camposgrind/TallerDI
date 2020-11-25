@@ -249,7 +249,7 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 		//Hay que modificar esto
 		btnVolver = new JButton("Volver");
 		//btnModificar = new JButton("Vender");
-		btnFinalizarRep = new JButton("Finalizar reparaci\u00F3n");
+		btnFinalizarRep = new JButton("Finalizar reparación");
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnFinalizarRep.addActionListener(this);

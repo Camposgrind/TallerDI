@@ -52,7 +52,7 @@ public class VehiculoDAO extends AbstractDAO{
 			//Iniciamos el precio para añadir a la consulta vacio 
 			String precio="";
 			//iniciamos la fecha para añadirlo a la consulta 
-			String fecha = "'%"+miFecha+"%'" ;
+			String fecha = "" ;
 			String km = "";
 			String idCon = "";
 			String vender = "";
@@ -60,7 +60,7 @@ public class VehiculoDAO extends AbstractDAO{
 			
 		//si la fecha no está vacia le añadimos la fecha que nos ha traido el textfield	
 		if(!miFecha.equals("")){
-		    fecha = "%" + Date.valueOf(miFecha) + "%";
+		    fecha = " and YEAR(fechaEntrada) = "+miFecha;
 		}
 		if(!misKm.equals("")) {
 			km = " and precio like ?";
@@ -79,7 +79,7 @@ public class VehiculoDAO extends AbstractDAO{
 		try {
 			 String query = "select *"
 			 		+ " FROM vehiculo where matricula like ? and marca like ? and modelo like ? and tipo like ?"
-			 		+ " and color like ? and combustible like ?"+vender+" and fechaEntrada like " + fecha + km + precio + idCon;
+			 		+ " and color like ? and combustible like ? "+vender + fecha + km + precio + idCon;
 			 
 			 preparedStmt = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					 ResultSet.CONCUR_UPDATABLE);
