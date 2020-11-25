@@ -169,7 +169,7 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		JButton btnBuscarMatricula = new JButton("Buscar");
 		btnBuscarMatricula.setForeground(Color.WHITE);
 		btnBuscarMatricula.setFont(new Font("Dialog", Font.PLAIN, 19));
-		btnBuscarMatricula.setBackground(new Color(231, 111, 81));
+		btnBuscarMatricula.setBackground(new java.awt.Color(38, 70, 83));
 		btnBuscarMatricula.setBounds(153, 90, 182, 27);
 		panelContenido.add(btnBuscarMatricula);
 		
@@ -188,7 +188,7 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		JButton btnBuscarDni = new JButton("Buscar");
 		btnBuscarDni.setForeground(Color.WHITE);
 		btnBuscarDni.setFont(new Font("Dialog", Font.PLAIN, 19));
-		btnBuscarDni.setBackground(new Color(231, 111, 81));
+		btnBuscarDni.setBackground(new java.awt.Color(38, 70, 83));
 		btnBuscarDni.setBounds(528, 90, 182, 27);
 		panelContenido.add(btnBuscarDni);
 		

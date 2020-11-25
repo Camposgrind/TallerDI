@@ -28,12 +28,12 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
-	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
+	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes,lblFotoVehiculo;
 	protected JButton btnVolver,btnModificar,btnPropuesta;
 	protected JLabel lblMatricula;
 	protected JLabel lblMarca;
 	protected JLabel lblModelo;
-	protected JLabel lblTipo,lblAddOk;
+	protected JLabel lblTipo;
 	protected JLabel lblFechaEntrada;
 	protected JLabel lblPrecio,lblColor,lblConcesionario;
 	protected JLabel tFMatricula;
@@ -184,6 +184,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 	 */
 	private void iniciarComponentes() {
 		ImageIcon imgUsu;
+		ImageIcon imgVehiculo;
 		ArrayList<String> listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(miVehiculo.getIdConcesionario());
 		String concesionario= listaConcesionarios.get(0);
 
@@ -215,19 +216,24 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		tFkm = new JLabel(miVehiculo.getKilometros()+"");
 		tFCombustible = new JLabel(miVehiculo.getCombustible());
 		
-		tFPrecio = new JLabel(miVehiculo.getPrecio()+"");
+		imgVehiculo = new ImageIcon("assets/FotosVehiculo/FotoVehiculo"+miVehiculo.getMatricula()+".jpg");
+		lblFotoVehiculo = new JLabel(imgVehiculo);
+
+		
+		tFPrecio = new JLabel(miVehiculo.getPrecio()+" €");
 		tFColor = new JLabel(miVehiculo.getColor());
 		tFConcesionario = new JLabel(concesionario);
 		btnVolver = new JButton("Volver");
 		btnModificar = new JButton("Modificar");
 		btnPropuesta = new JButton("Prop. de venta");
-		lblAddOk = new JLabel("VEHÍCULO NO ENCONTRADO");
-		lblAddOk.setVisible(false);
+
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
 		btnModificar.addActionListener(this);
 		btnPropuesta.addActionListener(this);
 	}
+	
+	
 	/**
 	 * Metodo para poner a los paneles y label los layout que necesitan
 	 */
@@ -244,7 +250,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		lblMarca.setHorizontalAlignment(SwingConstants.LEFT);
 		lblModelo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTipo.setHorizontalAlignment(SwingConstants.LEFT);
-		lblAddOk.setHorizontalAlignment(SwingConstants.CENTER);
+
 	}
 	/**
 	 * Método interno para dar color a los componenetes (botones, lineas, labels, panels...)
@@ -261,7 +267,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		btnVolver.setBackground(new java.awt.Color(231, 111, 81));
 		btnModificar.setBackground(new java.awt.Color(42, 157, 143));
 		btnPropuesta.setBackground(new Color(38, 70, 83));
-		lblAddOk.setBackground(new java.awt.Color(0,92,48));
+
 	}
 	/**
 	 * Método para darle las propiedades a los componentes(alto, ancho) y su posicion en la pantalla
@@ -277,30 +283,31 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
 		
-		lblMatricula.setBounds(54, 109, 119, 30);
-		lblMarca.setBounds(54, 150, 119, 30);
-		lblModelo.setBounds(54, 191, 119, 30);
-		lblTipo.setBounds(54, 232, 119, 30);
-		lblPrecio.setBounds(54, 303, 119, 30); 
-		lblColor.setBounds(425, 150, 142, 30); 
-		lblFechaEntrada.setBounds(425, 232, 142, 30);
-		lblConcesionario.setBounds(425, 303, 142, 30); 	
-		tFMatricula.setBounds(183, 111, 207, 27);
-		tFMarca.setBounds(183, 152, 207, 27);
-		tFModelo.setBounds(183, 194, 202, 27);
-		tFTipo.setBounds(183, 234, 202, 27);
-		lblkm.setBounds(425, 109, 142, 30);
-		tFkm.setBounds(577, 112, 179, 27);
-		tFCombustible.setBounds(577, 194, 179, 27);
-		lblCombustible.setBounds(425, 191, 131, 30);
-		tFPrecio.setBounds(183, 305, 222, 27);
-		tFColor.setBounds(577, 152, 179, 27);
-		tfFechaEntrada.setBounds(577, 234, 179, 27);
-		tFConcesionario.setBounds(569, 305, 207, 27);
-		btnVolver.setBounds(75, 409, 150, 50);
-		btnModificar.setBounds(316, 409, 150, 50);
-		btnPropuesta.setBounds(551, 409, 150, 50);
-		lblAddOk.setBounds(258, 40, 276, 41);
+		lblMatricula.setBounds(380, 52, 119, 30);
+		lblMarca.setBounds(380, 88, 119, 30);
+		lblModelo.setBounds(380, 129, 119, 30);
+		lblTipo.setBounds(380, 170, 119, 30);
+		lblPrecio.setBounds(42, 368, 119, 30); 
+		lblColor.setBounds(380, 249, 142, 30); 
+		lblFechaEntrada.setBounds(380, 327, 142, 30);
+		lblConcesionario.setBounds(380, 368, 142, 30); 	
+		tFMatricula.setBounds(532, 54, 207, 27);
+		tFMarca.setBounds(532, 90, 207, 27);
+		tFModelo.setBounds(532, 131, 202, 27);
+		tFTipo.setBounds(532, 172, 202, 27);
+		lblkm.setBounds(380, 211, 142, 30);
+		tFkm.setBounds(532, 213, 179, 27);
+		tFCombustible.setBounds(532, 289, 179, 27);
+		lblCombustible.setBounds(380, 286, 131, 30);
+		tFPrecio.setBounds(126, 370, 222, 27);
+		tFColor.setBounds(532, 251, 179, 27);
+		tfFechaEntrada.setBounds(532, 329, 179, 27);
+		tFConcesionario.setBounds(532, 370, 207, 27);
+		btnVolver.setBounds(84, 409, 150, 50);
+		btnModificar.setBounds(320, 409, 150, 50);
+		btnPropuesta.setBounds(558, 409, 150, 50);
+
+		lblFotoVehiculo.setBounds(20, 50, 300, 300);
 	}
 	/**
 	 * Método para darle la fuentes a las letras de los componentes
@@ -342,8 +349,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		btnModificar.setForeground(Color.WHITE);
 		btnPropuesta.setForeground(Color.WHITE);
 		btnPropuesta.setFont(new Font("DejaVu Sans", Font.PLAIN, 17));
-		lblAddOk.setForeground(Color.BLACK);
-		lblAddOk.setFont(new Font("DejaVu Sans", Font.PLAIN, 15));
+
 	}
 	/**
 	 * Método para añadir todos los componentes al panel principal 
@@ -385,7 +391,9 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		panelContenido.add(btnVolver);
 		panelContenido.add(btnModificar);
 		panelContenido.add(btnPropuesta);
-		panelContenido.add(lblAddOk);
+
+		
+		panelContenido.add(lblFotoVehiculo);
 		
 	} 
 }

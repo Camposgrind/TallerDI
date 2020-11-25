@@ -213,7 +213,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnVerVehiculosTaller = new JButton("Veh\u00EDculos en taller");
 		btnAsignarTrabajo = new JButton("Asignar trabajo");
 		btnTrabajoAsignado = new JButton("Trabajo asignado");
-		imgLogoTaller = new ImageIcon("logoTaller.png");
+		imgLogoTaller = new ImageIcon("assets/logoTaller.png");
 		lblFotoSur = new JLabel(imgLogoTaller);
 		lblCerrarSesion.addMouseListener(this);
 		btnAltaVeh.addActionListener(this);
