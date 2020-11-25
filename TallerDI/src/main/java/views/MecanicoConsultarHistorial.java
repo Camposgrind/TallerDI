@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,18 +8,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import dao.ConcesionarioDAO;
+import dao.ReparacionDAO;
 import dao.VehiculoDAO;
+import models.Reparacion;
 import models.Usuario;
 import models.Vehiculo;
 import views.ventas.VentasFichaCliente;
@@ -34,14 +35,18 @@ import javax.swing.JList;
 public class MecanicoConsultarHistorial extends JFrame implements MouseListener,ActionListener{
 
 	protected Usuario miUser;
-	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
+	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo,panelTemporal;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
-	protected JButton btnVolver,btnAmpliar;
+	protected JButton btnVolver;
 	protected JLabel lblMatricula;
-	protected JTextField tFMatricula;
 	protected VehiculoDAO miVehiculoDao;
 	protected ConcesionarioDAO miConcesionarioDao;
-	private JTextField textField;
+	private JTextField tfMatricula;
+	private JTable table;
+	protected String info[][];
+	protected ReparacionDAO miReparacionDAO;
+	
+	
 	/**
 	 * Create the application.
 	 */
@@ -83,12 +88,9 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Consultar historial de reparaciones");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");
-		tFMatricula = new JTextField();
 		btnVolver = new JButton("Volver");
-		btnAmpliar = new JButton("Ampliar");
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
-		btnAmpliar.addActionListener(this);
 		panelUsuario.setLayout(null);
 		panelContenido.setLayout(null);
 		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -106,7 +108,6 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		panelInfo.setBorder(new LineBorder(null));
 		panelInfo.setBackground(new java.awt.Color(233, 196, 106));
 		btnVolver.setBackground(new java.awt.Color(231, 111, 81));
-		btnAmpliar.setBackground(new java.awt.Color(42, 157, 143));
 		
 		//Damos el tamaño a los componentes que están en absoluto
 		panelUsuario.setBounds(394, 0, 400, 76);
@@ -118,10 +119,8 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
 		
-		lblMatricula.setBounds(21, 52, 119, 30);
-		tFMatricula.setBounds(143, 52, 202, 27);
+		lblMatricula.setBounds(155, 72, 119, 41);
 		btnVolver.setBounds(10, 407, 375, 77);
-		btnAmpliar.setBounds(409, 407, 375, 77);
 		
 		//Damos el tamaño, fuente y color a las letras 
 		lblDepartamento.setForeground(Color.BLACK);
@@ -133,13 +132,9 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		lblAltaClientes.setFont(new Font("DejaVu Sans", Font.PLAIN, 18));
 		lblAltaClientes.setForeground(Color.BLACK);
 		lblMatricula.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFMatricula.setFont(new Font("DejaVu Sans", Font.PLAIN, 19));
-		tFMatricula.setColumns(10);
 		
 		btnVolver.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnVolver.setForeground(Color.WHITE);
-		btnAmpliar.setFont(new Font("Dialog", Font.PLAIN, 25));
-		btnAmpliar.setForeground(Color.WHITE);
 		
 		//Añadimos los componentes al panel principal los paneles	
 		getContentPane().add(panelDepartamento);
@@ -154,52 +149,42 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		//Añadimos el panel informativo, labels, textfield y botones 
 		panelContenido.add(panelInfo);
 		panelInfo.add(lblAltaClientes);	
-		
 		panelContenido.add(lblMatricula);
 		
-		panelContenido.add(tFMatricula);
+
 		
 		panelContenido.add(btnVolver);
-		panelContenido.add(btnAmpliar);
 		listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(0);
 		for (int i = 0; i < listaConcesionarios.size(); i++) {
 			//comboConcesionarios.addItem(listaConcesionarios.get(i));
 		}
 		
-		JButton btnBuscarMatricula = new JButton("Buscar");
+		
+		JButton btnBuscarMatricula = new JButton("Buscar Matr\u00EDcula");
 		btnBuscarMatricula.setForeground(Color.WHITE);
 		btnBuscarMatricula.setFont(new Font("Dialog", Font.PLAIN, 19));
 		btnBuscarMatricula.setBackground(new java.awt.Color(38, 70, 83));
-		btnBuscarMatricula.setBounds(153, 90, 182, 27);
+		btnBuscarMatricula.setBounds(409, 407, 375, 77);
 		panelContenido.add(btnBuscarMatricula);
+		btnBuscarMatricula.addActionListener(this);
+
+		tfMatricula = new JTextField();
+		tfMatricula.setFont(new Font("Dialog", Font.PLAIN, 19));
+		tfMatricula.setColumns(10);
+		tfMatricula.setBounds(257, 72, 375, 41);
+		panelContenido.add(tfMatricula);
 		
-		JLabel lblDni = new JLabel("DNI: ");
-		lblDni.setHorizontalAlignment(SwingConstants.LEFT);
-		lblDni.setFont(new Font("Dialog", Font.PLAIN, 19));
-		lblDni.setBounds(409, 52, 119, 30);
-		panelContenido.add(lblDni);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Dialog", Font.PLAIN, 19));
-		textField.setColumns(10);
-		textField.setBounds(518, 54, 202, 27);
-		panelContenido.add(textField);
-		
-		JButton btnBuscarDni = new JButton("Buscar");
-		btnBuscarDni.setForeground(Color.WHITE);
-		btnBuscarDni.setFont(new Font("Dialog", Font.PLAIN, 19));
-		btnBuscarDni.setBackground(new java.awt.Color(38, 70, 83));
-		btnBuscarDni.setBounds(528, 90, 182, 27);
-		panelContenido.add(btnBuscarDni);
-		
-		JList list = new JList();
-		list.setBorder(new LineBorder(new Color(0, 0, 0)));
-		list.setBounds(10, 128, 774, 268);
-		panelContenido.add(list);
+		panelTemporal = new JPanel();
+		panelTemporal.setVisible(true);
+		panelTemporal.setBounds(10, 136, 774, 260);
+		panelContenido.add(panelTemporal);
 		
 					
 		this.setVisible(true);
 	}
+	
+	
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
@@ -209,10 +194,8 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		MecanicoGenerico ventanaMecanicoG;
 		ArrayList<Vehiculo> miListaVehiculos;
 		String txtBtn = e.getActionCommand();
-		VentasFichaCliente ventanaFicha;
-		VentasListadoClientes ventanaListaClientes;
-		VentasFichaVehiculo ventanaFichaVehiculo;
 		String idConcesionario;
+		ReparacionDAO miReparacionDAO;
 		
 		switch (txtBtn) {
 		case "Volver":
@@ -221,28 +204,10 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 			ventanaMecanicoG = new MecanicoGenerico(miUser);			
 			break;
 			
-		case "Registrar":
-			
-//			idConcesionario = miConcesionarioDao.buscarIDConcesionario(comboConcesionarios.getSelectedItem().toString())+"";
-//			miVehiculoDao.addVehiculo(
-//					tFMatricula.getText(), tFMarca.getText(), tFModelo.getText(),
-//					comboBox.getSelectedItem().toString(),tFPrecio.getText(),tFKm.getText(),tFColor.getText(),comboCombustible.getSelectedItem().toString(), 
-//					tfFechaEntrada.getText(),idConcesionario);
-//			
-//			lblAddOk.setVisible(true);
-//			tFMatricula.setText("");
-//			tFMarca.setText("");
-//			tFModelo.setText("");
-//			tfFechaEntrada.setText("");
-//			tFPrecio.setText("");
-//			tFColor.setText("");
-//			tFKm.setText("");
-//			comboCombustible.setSelectedItem("");
-//			comboBox.setSelectedItem("");
-//			comboConcesionarios.setSelectedItem("");
-//			break;
-
-
+		case "Buscar Matrícula":
+			panelTemporal.setVisible(false);
+			this.rellenarTabla();
+			break;
 		}
 		
 	}
@@ -254,35 +219,74 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		LoginV loginCerrarSesion;
-		
 		this.setVisible(false);
 		this.dispose();
 		miUser = null;
 		loginCerrarSesion = new LoginV();
-
     }
+	
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-
-		
 	}
 
+	
 	@Override
-	public void mouseReleased(MouseEvent e) {
-
-		
+	public void mouseReleased(MouseEvent e) {	
 	}
 
+	
 	@Override
-	public void mouseEntered(MouseEvent e) {
-
-		
+	public void mouseEntered(MouseEvent e) {	
 	}
 
+	
 	@Override
-	public void mouseExited(MouseEvent e) {
-
-		
+	public void mouseExited(MouseEvent e) {	
 	}
+	
+	
+	private void rellenarTabla() {
+		
+		miReparacionDAO = new ReparacionDAO();
+		
+		ArrayList<Reparacion> listaReparaciones = miReparacionDAO.consultarHistorialPorMatricula(tfMatricula.getText());
+		
+		//Para la tabla 
+		//este array bidimensional sera para determinar como es de grande
+		//la tabla (filas, columnas)
+		info = new String[listaReparaciones.size()][4];
+		
+		//en esta array ponemos los nombre de las columnas
+		String[] nombresColumnas = { "Matricula", "Fecha de Entrada", "Fecha de Salida", "Reparación" };
+		//hacemos un buvle para que la lista nos de los datos del cliente poniendo 
+		// "" para que si es un int lo convierta en string 
+		for (int i = 0; i < info.length; i++) {
+			info[i][0] = listaReparaciones.get(i).getMatricula() + "";
+			info[i][1] = listaReparaciones.get(i).getFechaEntrada() + "";
+			info[i][2] = listaReparaciones.get(i).getFechaSalida() + "";
+			info[i][3] = listaReparaciones.get(i).getTrabajo() + "";
+		}
+		
+		//le decimos que la tabla tendra la array bi dimensional de info y las columnas de parametro
+		table = new JTable(info, nombresColumnas);
+		table.setCellSelectionEnabled(true);
+		
+		table.setFont(new Font("DejaVu Sans", Font.PLAIN, 12));
+		table.setBounds(0, 0, 510, 209);
+		
+		
+		
+		//Iniciamos un scrollpane para que meta la tabla dentro 
+		JScrollPane scrollPane= new JScrollPane(table);
+		scrollPane.setBackground(new java.awt.Color(244, 162, 97));
+		scrollPane.setBounds(10, 136, 774, 260);
+		
+		//le añadimos un mouse listener para que cuando pinchemos nos salga la ficha
+		//del cliente que tocamos 
+		table.addMouseListener(this);
+
+		panelContenido.add(scrollPane);
+	}
+	
 }

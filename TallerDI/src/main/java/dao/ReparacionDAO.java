@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.mysql.cj.protocol.Resultset;
+
+import models.Propuesta;
 import models.Reparacion;
 
 public class ReparacionDAO extends AbstractDAO{
@@ -135,6 +138,39 @@ public class ReparacionDAO extends AbstractDAO{
 		
 		
 		return miReparacion;
+	}
+	
+	
+
+	/**
+	 * Método que obtiene la matrícula de un vehículo y devuelve el historial de reparaciones
+	 * @return 
+	 */
+	public ArrayList<Reparacion> consultarHistorialPorMatricula(String matriculaHistorial) {
+		
+		PreparedStatement stm;
+		ResultSet rs;
+		
+		Reparacion miReparacion;
+		ArrayList<Reparacion> listaReparaciones = new ArrayList<Reparacion>();
+		
+		String query = "SELECT * FROM repara WHERE matricula = ? and Estado = 'Finalizada'";
+		
+		try {
+			stm = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			stm.setString(1, matriculaHistorial);
+	        
+			rs = stm.executeQuery();
+	        
+			while(rs.next()){
+				miReparacion = new Reparacion(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getDate(4),rs.getDate(5),
+											  rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10));
+				listaReparaciones.add(miReparacion);
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaReparaciones;
 	}
 	
 	

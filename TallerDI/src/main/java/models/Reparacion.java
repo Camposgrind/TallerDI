@@ -33,10 +33,10 @@ public class Reparacion {
 		this.idReparacion = idReparacion;
 		this.idUsuario = idUsuario;
 		this.matricula = matricula;
+		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.presupuesto = presupuesto;
 		this.piezas = piezas;
-		this.fechaEntrada = fechaEntrada;
 		this.tiempoEstimado = tiempoEstimado;
 		this.trabajo = trabajo;
 		this.estado = estado;
