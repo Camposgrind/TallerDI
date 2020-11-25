@@ -133,9 +133,6 @@ public class MecanicoAltaVehiculo extends JFrame implements MouseListener,Action
 				miVehiculoDao.addVehiculoReparacion(tFMatricula.getText(), tFMarca.getText(),tFModelo.getText(),
 						 tFKm.getText(),tFTipo.getText(), tFCombustible.getText(), miCliente.getIdCliente());
 				
-/*				miVehiculo =  miVehiculoDao.buscarVehiculo(tFMatricula.getText(), tFMarca.getText(),
-						tFModelo.getText(), tFTipo.getText(), "", "", "", tFCombustible.getText(), "",
-								"", false).get(0);*/
 			}
 			
 			addReparacionOk = miReparacionDao.addReparacion(tFMatricula.getText());

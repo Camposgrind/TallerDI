@@ -352,7 +352,7 @@ public class VehiculoDAO extends AbstractDAO{
 			preparedStmt.executeUpdate();
 			
 		} catch (SQLException e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	
