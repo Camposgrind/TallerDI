@@ -3,8 +3,6 @@ package views;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigInteger;
@@ -18,7 +16,6 @@ import dao.UsuarioDAO;
 import models.Usuario;
 import views.ventas.VentasGenerico;
 
-import java.awt.FlowLayout;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -65,6 +62,7 @@ public class LoginV extends JFrame implements ActionListener{
 		this.setTitle("PICARSO - INICIAR SESI\u00D3N");
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		img = new ImageIcon("assets/logoLogin.png");
 		getContentPane().setLayout(null);
 		lblLogin = new JLabel("Usuario o contraseña incorrecta");

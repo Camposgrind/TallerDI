@@ -38,7 +38,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 	 * Create the application.
 	 */
 	public MecanicoGenerico(Usuario miUsuario) {
-		setTitle("PICARSO - Taller");
+		setTitle("piCARso - Taller");
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
@@ -205,7 +205,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		panelBotones.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelUsuario = new JPanel();
 		lblUsuario = new JLabel(miUser.getNomUsuario());
-		imgUsu = new ImageIcon("assets/user-icon.png");
+		imgUsu = new ImageIcon("assets/FotosUsuario/FotoUsuario"+miUser.getIdUsuario()+".jpg");
 		lblCerrarSesion = new JLabel("Cerrar sesión");
 		lblFotoUsu = new JLabel(imgUsu);
 		btnAltaVeh = new JButton("Alta de veh\u00EDculos");
