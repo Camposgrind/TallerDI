@@ -124,7 +124,7 @@ public class VentasFichaCliente extends JFrame implements MouseListener,ActionLi
 			//Aquí habría que meter una ventana de buscar cliente pero con los texfield ya puestos con la info 
 			break;
 			
-		case "Propuesta de venta":
+		case "Prop. de venta":
 			this.setVisible(false);
 			this.dispose();
 			if(ventanaPropuestas!=null) {

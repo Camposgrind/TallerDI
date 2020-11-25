@@ -134,7 +134,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 			ventanaModificarVehiculo = new VentasModificarVehiculo(miUser,miVehiculo,ventanaPropuesta);
 			break;
 			
-		case "Propuesta de venta":
+		case "Prop. de venta":
 			this.setVisible(false);
 			this.dispose();
 			

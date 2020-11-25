@@ -233,5 +233,29 @@ public class UsuarioDAO extends AbstractDAO{
 
 		return listaUsuVentas;
 	}
+	/**
+	 * Método para updatear las ventas del usuario
+	 * @param idUsuario
+	 * @param comisionActualizada
+	 */
+	public void actualizaComision(int idUsuario,int comisionActualizada) {
+		PreparedStatement preparedStmt;
+		
+		try {
+			preparedStmt = super.con.prepareStatement("update usuario "
+					+ "set Ventas = ? where idUsuario='"+idUsuario+"'");
+			
+			preparedStmt.setInt(1,comisionActualizada);
+			
+
+			//Aquí lo mismo habría que poner un where pero creo que se puede tocar algo en el SQL para que no haga falta 
+
+			preparedStmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }
