@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import models.Cliente;
 import models.Usuario;
@@ -172,12 +173,17 @@ public class VehiculoDAO extends AbstractDAO{
 			String miPrecio,String misKm,String miColor,String miCombustible,String miFecha,String miIdConcesionario) {
 		
 		PreparedStatement preparedStmt;
+		Calendar calendario = Calendar.getInstance();
+		String day = Integer.toString(calendario.get(Calendar.DATE));
+		String month = Integer.toString(calendario.get(Calendar.MONTH)+1);
+		String year = Integer.toString(calendario.get(Calendar.YEAR));
+		String fecha = year+"-"+month+"-"+day;
 		
 		try {
 			
 			
 			preparedStmt = super.con.prepareStatement("insert into vehiculo (Matricula, Marca, Modelo, Tipo,"
-					+ " Precio, Kilometros, Color, Combustible, FechaEntrada, idConcesionario) values (?,?,?,?,?,?,?,?,'2020-11-06',?)");
+					+ " Precio, Kilometros, Color, Combustible, FechaEntrada, idConcesionario) values (?,?,?,?,?,?,?,?,?,?)");
 			
 			preparedStmt.setString(1,miMatricula);
 			preparedStmt.setString(2, miMarca);
@@ -187,7 +193,8 @@ public class VehiculoDAO extends AbstractDAO{
 			preparedStmt.setString(6, misKm);
 			preparedStmt.setString(7, miColor);
 			preparedStmt.setString(8, miCombustible);
-			preparedStmt.setString(9, miIdConcesionario);
+			preparedStmt.setDate(9, Date.valueOf(fecha));
+			preparedStmt.setString(10, miIdConcesionario);
 			
 			preparedStmt.executeUpdate();
 			
@@ -196,6 +203,42 @@ public class VehiculoDAO extends AbstractDAO{
 		}
 
 	}
+	public void addVehiculoReparacion(String miMatricula,String miMarca,String miModelo,String misKm, String miTipo,
+			String miCombustible,int miIdCliente) {
+		
+		PreparedStatement preparedStmt;
+		Calendar calendario = Calendar.getInstance();
+		String day = Integer.toString(calendario.get(Calendar.DATE));
+		String month = Integer.toString(calendario.get(Calendar.MONTH)+1);
+		String year = Integer.toString(calendario.get(Calendar.YEAR));
+		String fecha = year+"-"+month+"-"+day;
+		
+		try {
+			
+			
+			preparedStmt = super.con.prepareStatement("insert into vehiculo (Matricula, Marca, Modelo, Tipo,"
+					+ " Kilometros,Combustible,FechaEntrada, idConcesionario,idCliente,vendido) values (?,?,?,?,?,?,?,1,?,1)");
+			
+			preparedStmt.setString(1,miMatricula);
+			preparedStmt.setString(2, miMarca);
+			preparedStmt.setString(3, miModelo);
+			preparedStmt.setString(4, miTipo);
+			preparedStmt.setInt(5, Integer.valueOf(misKm));
+			preparedStmt.setString(6, miCombustible);
+			preparedStmt.setDate(7, Date.valueOf(fecha));
+			preparedStmt.setInt(8, miIdCliente);
+			
+			preparedStmt.executeUpdate();
+
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+		
+		
+	
+	}
+	
 	/**
 	 * Metodo para modificar el vehiculo
 	 * @param miMatricula

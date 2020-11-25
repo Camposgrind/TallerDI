@@ -125,6 +125,19 @@ public class MecanicoAltaVehiculo extends JFrame implements MouseListener,Action
 			
 		case "Registrar":
 
+			if(miVehiculo==null) {
+				miClienteDao.addCliente(tFNombre.getText(), tFApellidos.getText(),
+						tFTelefono.getText(), tFDni.getText());
+				miCliente = miClienteDao.buscarCliente(tFNombre.getText(), tFApellidos.getText(),
+						tFTelefono.getText(), tFDni.getText()).get(0);
+				miVehiculoDao.addVehiculoReparacion(tFMatricula.getText(), tFMarca.getText(),tFModelo.getText(),
+						 tFKm.getText(),tFTipo.getText(), tFCombustible.getText(), miCliente.getIdCliente());
+				
+/*				miVehiculo =  miVehiculoDao.buscarVehiculo(tFMatricula.getText(), tFMarca.getText(),
+						tFModelo.getText(), tFTipo.getText(), "", "", "", tFCombustible.getText(), "",
+								"", false).get(0);*/
+			}
+			
 			addReparacionOk = miReparacionDao.addReparacion(tFMatricula.getText());
 			if(addReparacionOk) {
 				this.setVisible(false);
