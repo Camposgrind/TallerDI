@@ -161,12 +161,8 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		MecanicoGenerico ventanaMecanicoG;
-		ArrayList<Vehiculo> miListaVehiculos;
-		Object chupamela = e.getSource();
 		String txtBtn = e.getActionCommand();
-		VentasFichaCliente ventanaFicha;
-		VentasListadoClientes ventanaListaClientes;
-		VentasFichaVehiculo ventanaFichaVehiculo;
+		MecanicoAsignarTrabajo ventanaAsignarTrabajo;
 		Boolean miReparacionModificada = false;
 		int miIdUsuarioObtenida;
 		
@@ -193,12 +189,9 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 			
 			if(miReparacionModificada) {			
 				//lblAddOk.setVisible(true);
-				textArea.setText("");
-				tfTarea.setText("");
-				tfTiempo.setText("");
-				tfPresupuesto.setText("");
-				comboMecanico.setSelectedItem("");
-				comboVehiculo.setSelectedItem("");
+				this.setVisible(false);
+				this.dispose();
+				ventanaAsignarTrabajo = new MecanicoAsignarTrabajo(miUser);	
 				JOptionPane.showMessageDialog(this, "Trabajo asignado correctamente.");
 			} else {
 				//Ventana de error
