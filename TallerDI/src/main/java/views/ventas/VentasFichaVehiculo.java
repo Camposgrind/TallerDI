@@ -48,6 +48,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 	protected ConcesionarioDAO miConcesionarioDao;
 	protected VentasPropuestaVenta ventanaPropuesta;
 	
+	
 	/**
 	 * Create the application.
 	 */
@@ -65,6 +66,7 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		initialize();
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -95,9 +97,12 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		
 		//Añadimos los componentes al panel principal los paneles	
 		this.addComponentes();
-					
+			
+		//Hacemos visible la ventana
 		this.setVisible(true);
 	}
+	
+	
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
@@ -179,6 +184,8 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 	public void mouseExited(MouseEvent e) {
 		
 	}
+	
+	
 	/**
 	 * Método interno para iniciar los componentes
 	 */
@@ -210,7 +217,9 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		tFMarca = new JLabel(miVehiculo.getMarca());
 		tFModelo = new JLabel(miVehiculo.getModelo());
 		tFTipo = new JLabel(miVehiculo.getTipo());	
-		tfFechaEntrada = new JLabel(miVehiculo.getFechaEntrada().toString());
+		tfFechaEntrada = new JLabel(miVehiculo.getFechaEntrada().toString().substring(8,10)
+									+miVehiculo.getFechaEntrada().toString().substring(4,8)
+									+miVehiculo.getFechaEntrada().toString().substring(0,4));
 		lblkm = new JLabel("Kilómetros:");
 		lblCombustible = new JLabel("Combustible:");
 		tFkm = new JLabel(miVehiculo.getKilometros()+"");
@@ -218,7 +227,6 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		
 		imgVehiculo = new ImageIcon("assets/FotosVehiculo/FotoVehiculo"+miVehiculo.getMatricula()+".jpg");
 		lblFotoVehiculo = new JLabel(imgVehiculo);
-
 		
 		tFPrecio = new JLabel(miVehiculo.getPrecio()+" €");
 		tFColor = new JLabel(miVehiculo.getColor());
@@ -283,31 +291,30 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
 		
-		lblMatricula.setBounds(380, 52, 119, 30);
-		lblMarca.setBounds(380, 88, 119, 30);
-		lblModelo.setBounds(380, 129, 119, 30);
-		lblTipo.setBounds(380, 170, 119, 30);
-		lblPrecio.setBounds(42, 368, 119, 30); 
-		lblColor.setBounds(380, 249, 142, 30); 
-		lblFechaEntrada.setBounds(380, 327, 142, 30);
-		lblConcesionario.setBounds(380, 368, 142, 30); 	
-		tFMatricula.setBounds(532, 54, 207, 27);
-		tFMarca.setBounds(532, 90, 207, 27);
-		tFModelo.setBounds(532, 131, 202, 27);
-		tFTipo.setBounds(532, 172, 202, 27);
-		lblkm.setBounds(380, 211, 142, 30);
-		tFkm.setBounds(532, 213, 179, 27);
-		tFCombustible.setBounds(532, 289, 179, 27);
-		lblCombustible.setBounds(380, 286, 131, 30);
-		tFPrecio.setBounds(126, 370, 222, 27);
-		tFColor.setBounds(532, 251, 179, 27);
-		tfFechaEntrada.setBounds(532, 329, 179, 27);
-		tFConcesionario.setBounds(532, 370, 207, 27);
+		lblMatricula.setBounds(57, 52, 119, 30);
+		lblMarca.setBounds(57, 88, 119, 30);
+		lblModelo.setBounds(57, 129, 119, 30);
+		lblTipo.setBounds(57, 170, 119, 30);
+		lblPrecio.setBounds(545, 368, 119, 30); 
+		lblColor.setBounds(57, 249, 142, 30); 
+		lblFechaEntrada.setBounds(57, 327, 142, 30);
+		lblConcesionario.setBounds(57, 368, 142, 30); 	
+		tFMatricula.setBounds(201, 54, 207, 27);
+		tFMarca.setBounds(201, 93, 207, 27);
+		tFModelo.setBounds(201, 131, 202, 27);
+		tFTipo.setBounds(201, 172, 202, 27);
+		lblkm.setBounds(57, 211, 142, 30);
+		tFkm.setBounds(201, 213, 179, 27);
+		tFCombustible.setBounds(201, 289, 179, 27);
+		lblCombustible.setBounds(57, 287, 131, 30);
+		tFPrecio.setBounds(632, 370, 222, 27);
+		tFColor.setBounds(201, 251, 179, 27);
+		tfFechaEntrada.setBounds(201, 329, 179, 27);
+		tFConcesionario.setBounds(201, 370, 207, 27);
 		btnVolver.setBounds(84, 409, 150, 50);
 		btnModificar.setBounds(320, 409, 150, 50);
-		btnPropuesta.setBounds(558, 409, 150, 50);
-
-		lblFotoVehiculo.setBounds(20, 50, 300, 300);
+		btnPropuesta.setBounds(545, 409, 150, 50);
+		lblFotoVehiculo.setBounds(418, 57, 300, 300);
 	}
 	/**
 	 * Método para darle la fuentes a las letras de los componentes
@@ -391,8 +398,6 @@ public class VentasFichaVehiculo extends JFrame implements MouseListener,ActionL
 		panelContenido.add(btnVolver);
 		panelContenido.add(btnModificar);
 		panelContenido.add(btnPropuesta);
-
-		
 		panelContenido.add(lblFotoVehiculo);
 		
 	} 
