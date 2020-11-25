@@ -203,7 +203,7 @@ public class VentasBuscarVehiculo extends JFrame implements MouseListener,Action
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("assets/user-icon.png");
+		imgUsu = new ImageIcon("assets/FotosUsuario/FotoUsuario"+miUser.getIdUsuario()+".jpg");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Buscar vehículos");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");

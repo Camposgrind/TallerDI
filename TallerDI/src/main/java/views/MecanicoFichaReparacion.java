@@ -210,7 +210,7 @@ public class MecanicoFichaReparacion extends JFrame implements MouseListener,Act
 		lblDepartamento = new JLabel("MEC\u00C1NICO");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("assets/user-icon.png");
+		imgUsu = new ImageIcon("assets/FotosUsuario/FotoUsuario"+miUser.getIdUsuario()+".jpg");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblFichaReparacion = new JLabel("Ficha reparaci\u00F3n");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");

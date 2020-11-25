@@ -197,7 +197,7 @@ public class VentasAltaVehiculo extends JFrame implements MouseListener,ActionLi
 		lblDepartamento = new JLabel("DEPARTAMENTO DE VENTAS");
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("assets/user-icon.png");
+		imgUsu = new ImageIcon("assets/FotosUsuario/FotoUsuario"+miUser.getIdUsuario()+".jpg");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Alta vehículo");
 		lblMatricula = new JLabel("Matr\u00EDcula: ");

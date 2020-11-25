@@ -267,7 +267,7 @@ public class MecanicoAsignarTrabajo extends JFrame implements MouseListener,Acti
 		lblDepartamento.setBounds(10, 11, 374, 54);
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesion");
-		imgUsu = new ImageIcon("assets/user-icon.png");
+		imgUsu = new ImageIcon("assets/FotosUsuario/FotoUsuario"+miUser.getIdUsuario()+".jpg");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Asignar trabajo a los mec\u00E1nicos");
 		lblVehiculo = new JLabel("Vehiculo:");

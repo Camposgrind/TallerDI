@@ -173,7 +173,7 @@ public class MecanicoTrabajoAsignado extends JFrame implements MouseListener,Act
 		lblFotoSur = new JLabel((Icon) null);
 		lblUsuario = new JLabel(miUser.getNomUsuario());
 		lblCerrarSesion = new JLabel("Cerrar sesión");
-		imgUsu = new ImageIcon("assets/user-icon.png");
+		imgUsu = new ImageIcon("assets/FotosUsuario/FotoUsuario"+miUser.getIdUsuario()+".jpg");
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Trabajo asignado");
 		btnVolver = new JButton("Volver");
