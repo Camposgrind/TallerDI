@@ -33,6 +33,11 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 	private JLabel lblFotoSurPeque;
 	protected JTextPane textPanelOpcion;
 	boolean jefe = false;
+	private JLabel lblicono1;
+	private JLabel lblicono3;
+	private JLabel lblicono2;
+	private JLabel lblicono4;
+	private JLabel lblicono5;
 	
 	/**
 	 * Create the application.
@@ -108,6 +113,14 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		textPanelOpcion.setBounds(32, 203, 270, 79);
 		textPanelOpcion.setVisible(false);
 		panelBotones.add(textPanelOpcion);
+		
+
+		panelBotones.add(lblicono1);
+		panelBotones.add(lblicono3);
+		panelBotones.add(lblicono2);
+		panelBotones.add(lblicono4);
+		panelBotones.add(lblicono5);
+
 					
 		this.setVisible(true);
 	}
@@ -199,7 +212,7 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 	 */
 	private void iniciarComponentes() {
 
-		ImageIcon imgLogoTaller,imgUsu;
+		ImageIcon imgLogoTaller,imgUsu,icono1,icono2,icono3,icono4,icono5;
 		
 		panelDepartamento = new JPanel();
 		panelBotones = new JPanel();
@@ -222,6 +235,18 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnVerVehiculosTaller.addActionListener(this);
 		btnAsignarTrabajo.addActionListener(this);
 		btnTrabajoAsignado.addActionListener(this);
+		
+		icono1 = new ImageIcon("assets/MecanicoAltaVehiculo.png");
+		icono2 = new ImageIcon("assets/MecanicoBuscarVehiculo.png");
+		icono3 = new ImageIcon("assets/MecanicoAsignarTrabajo.png");
+		icono4 = new ImageIcon("assets/MecanicoConsultarHistorial.png");
+		icono5 = new ImageIcon("assets/MecanicoConsultarTrabajo.png");
+		
+		lblicono1 = new JLabel(icono1);
+		lblicono2 = new JLabel(icono2);
+		lblicono3 = new JLabel(icono3);
+		lblicono4 = new JLabel(icono4);
+		lblicono5 = new JLabel(icono5);
 		
 		//Borramos los cuadros cuando se focaliza en un botón
 		btnAltaVeh.setFocusPainted(false);
@@ -285,6 +310,11 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnTrabajoAsignado.setBounds(490, 203, 270, 79);
 		btnAsignarTrabajo.setBounds(32, 112, 270, 80);
 		lblFotoSur.setBounds(10, 323, 774, 162);
+		lblicono1.setBounds(312, 27, 75, 75);
+		lblicono3.setBounds(312, 113, 75, 75);
+		lblicono2.setBounds(405, 27, 75, 75);
+		lblicono4.setBounds(405, 113, 75, 75);
+		lblicono5.setBounds(405, 203, 75, 75);
 	}
 	/**
 	 * Método para darle la fuentes a las letras de los componentes

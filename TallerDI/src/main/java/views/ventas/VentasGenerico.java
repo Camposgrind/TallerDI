@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.Icon;
 
 @SuppressWarnings("serial")
 public class VentasGenerico extends JFrame implements ActionListener, MouseListener{
@@ -28,6 +29,12 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	protected JPanel panelDepartamento,panelUsuario,panelBotones;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblFotoSur;
 	protected JButton btnAltaCl,btnBuscarVehiculos,btnBuscarClientes,btnPropuestaDeVenta,btnBuscarPropuesta,btnAltaCoche;
+	JLabel lblIcono1; 
+	private JLabel lblIcono3;
+	private JLabel lblIcono5;
+	private JLabel lblIcono2;
+	private JLabel lblIcono4;
+	private JLabel lblIcono6;
 	
 	/**
 	 * Create the application.
@@ -160,7 +167,7 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 	private void iniciarComponentes() {
 
 		//Iniciamos todos los componentes 
-		ImageIcon imgLogoVentas,imgUsu;
+		ImageIcon imgLogoVentas,imgUsu,icono1,icono2,icono3,icono4,icono5,icono6;
 		panelDepartamento = new JPanel();
 		panelBotones = new JPanel();
 		panelUsuario = new JPanel();
@@ -177,6 +184,21 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnAltaCoche = new JButton("Alta vehículo");
 		imgLogoVentas = new ImageIcon("assets/iconoVentas.png");
 		lblFotoSur = new JLabel(imgLogoVentas);
+		
+		icono1 = new ImageIcon("assets/VentasAltaCliente.png");
+		icono2 = new ImageIcon("assets/VentasBuscarCliente.png");
+		icono3 = new ImageIcon("assets/VentasAltaVehiculo.png");
+		icono4 = new ImageIcon("assets/VentasBuscarVehiculo.png");
+		icono5 = new ImageIcon("assets/VentasAltaVenta.png");
+		icono6 = new ImageIcon("assets/VentasBuscarVenta.png");
+		
+		lblIcono1 = new JLabel(icono1);
+		lblIcono2 = new JLabel(icono2);
+		lblIcono3 = new JLabel(icono3);
+		lblIcono4 = new JLabel(icono4);
+		lblIcono5 = new JLabel(icono5);
+		lblIcono6 = new JLabel(icono6);
+		
 		lblCerrarSesion.addMouseListener(this);
 		btnAltaCl.addActionListener(this);
 		btnBuscarVehiculos.addActionListener(this);
@@ -244,6 +266,12 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		btnAltaCoche.setBounds(56, 138, 250, 50);
 		btnBuscarPropuesta.setBounds(473, 219, 250, 50);
 		lblFotoSur.setBounds(256, 294, 276, 162);
+		lblIcono1.setBounds(315, 61, 50, 50);
+		lblIcono3.setBounds(315, 138, 50, 50);
+		lblIcono5.setBounds(315, 219, 50, 50);
+		lblIcono2.setBounds(413, 61, 50, 50);
+		lblIcono4.setBounds(413, 138, 50, 50);
+		lblIcono6.setBounds(413, 219, 50, 50);
 	}
 	/**
 	 * Método para darle la fuentes a las letras de los componentes
@@ -290,6 +318,14 @@ public class VentasGenerico extends JFrame implements ActionListener, MouseListe
 		panelBotones.add(btnBuscarPropuesta);
 		panelBotones.add(btnAltaCoche);
 		panelBotones.add(lblFotoSur);
+		
+		
+		panelBotones.add(lblIcono1);
+		panelBotones.add(lblIcono3);
+		panelBotones.add(lblIcono5);
+		panelBotones.add(lblIcono2);
+		panelBotones.add(lblIcono4);
+		panelBotones.add(lblIcono6);
+		
 	} 
-
 }
