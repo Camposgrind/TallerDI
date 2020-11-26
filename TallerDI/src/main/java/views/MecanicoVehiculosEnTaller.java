@@ -13,10 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import dao.ConcesionarioDAO;
+import dao.ReparacionDAO;
 import dao.VehiculoDAO;
+import models.Reparacion;
 import models.Usuario;
 import models.Vehiculo;
 import views.ventas.VentasFichaCliente;
@@ -32,9 +36,14 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 	protected Usuario miUser;
 	protected JPanel panelDepartamento,panelUsuario,panelContenido,panelInfo;
 	protected JLabel lblDepartamento,lblUsuario,lblFotoUsu,lblCerrarSesion,lblAltaClientes;
-	protected JButton btnVolver,btnAmpliar;
+	protected JButton btnVolver;
 	protected VehiculoDAO miVehiculoDao;
 	protected ConcesionarioDAO miConcesionarioDao;
+	protected ReparacionDAO miReparacionDAO;
+	private JTable table;
+	protected String info[][];
+	
+	
 	/**
 	 * Create the application.
 	 */
@@ -45,6 +54,7 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 		miUser = miUsuario;
 		getContentPane().setForeground(Color.BLACK);
 		initialize();
+		this.rellenarTabla();
 	}
 
 	/**
@@ -76,10 +86,8 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 		lblFotoUsu = new JLabel(imgUsu);
 		lblAltaClientes = new JLabel("Consultar veh\u00EDculos en el taller");
 		btnVolver = new JButton("Volver");
-		btnAmpliar = new JButton("Iniciar reparaci\u00F3n");
 		lblCerrarSesion.addMouseListener(this);
 		btnVolver.addActionListener(this);
-		btnAmpliar.addActionListener(this);
 		panelUsuario.setLayout(null);
 		panelContenido.setLayout(null);
 		lblUsuario.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -96,7 +104,6 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 		panelInfo.setBorder(new LineBorder(null));
 		panelInfo.setBackground(new java.awt.Color(233, 196, 106));
 		btnVolver.setBackground(new java.awt.Color(231, 111, 81));
-		btnAmpliar.setBackground(new java.awt.Color(42, 157, 143));
 		
 		//Damos el tamaño a los componentes que están en absoluto
 		panelUsuario.setBounds(394, 0, 400, 76);
@@ -107,8 +114,7 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 		lblUsuario.setBounds(183, 11, 123, 24);
 		lblCerrarSesion.setBounds(183, 46, 123, 14);
 		lblFotoUsu.setBounds(327, 9, 46, 51);
-		btnVolver.setBounds(10, 407, 254, 77);
-		btnAmpliar.setBounds(274, 407, 250, 77);
+		btnVolver.setBounds(267, 407, 254, 77);
 		
 		//Damos el tamaño, fuente y color a las letras 
 		lblDepartamento.setForeground(Color.BLACK);
@@ -122,8 +128,6 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 		
 		btnVolver.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnVolver.setForeground(Color.WHITE);
-		btnAmpliar.setFont(new Font("Dialog", Font.PLAIN, 22));
-		btnAmpliar.setForeground(Color.WHITE);
 		
 		//Añadimos los componentes al panel principal los paneles	
 		getContentPane().add(panelDepartamento);
@@ -140,27 +144,16 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 		panelInfo.add(lblAltaClientes);
 		
 		panelContenido.add(btnVolver);
-		panelContenido.add(btnAmpliar);
 		listaConcesionarios = miConcesionarioDao.buscarNombreConcesionario(0);
 		for (int i = 0; i < listaConcesionarios.size(); i++) {
 			//comboConcesionarios.addItem(listaConcesionarios.get(i));
 		}
 		
-		JList list = new JList();
-		list.setBorder(new LineBorder(new Color(0, 0, 0)));
-		list.setBounds(10, 52, 774, 344);
-		panelContenido.add(list);
-		
-		JButton btnFinalizarReparacin = new JButton("Finalizar reparaci\u00F3n");
-		btnFinalizarReparacin.setForeground(Color.WHITE);
-		btnFinalizarReparacin.setFont(new Font("Dialog", Font.PLAIN, 22));
-		btnFinalizarReparacin.setBackground(new Color(42, 157, 143));
-		btnFinalizarReparacin.setBounds(534, 407, 250, 77);
-		panelContenido.add(btnFinalizarReparacin);
-		
 					
 		this.setVisible(true);
 	}
+	
+	
 	/**
 	 * Método para cuando se pulse algún botón
 	 */
@@ -182,33 +175,6 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 			this.dispose();
 			ventanaMecanicoG = new MecanicoGenerico(miUser);			
 			break;
-			
-		case "Iniciar reparación":
-			
-//			idConcesionario = miConcesionarioDao.buscarIDConcesionario(comboConcesionarios.getSelectedItem().toString())+"";
-//			miVehiculoDao.addVehiculo(
-//					tFMatricula.getText(), tFMarca.getText(), tFModelo.getText(),
-//					comboBox.getSelectedItem().toString(),tFPrecio.getText(),tFKm.getText(),tFColor.getText(),comboCombustible.getSelectedItem().toString(), 
-//					tfFechaEntrada.getText(),idConcesionario);
-//			
-//			lblAddOk.setVisible(true);
-//			tFMatricula.setText("");
-//			tFMarca.setText("");
-//			tFModelo.setText("");
-//			tfFechaEntrada.setText("");
-//			tFPrecio.setText("");
-//			tFColor.setText("");
-//			tFKm.setText("");
-//			comboCombustible.setSelectedItem("");
-//			comboBox.setSelectedItem("");
-//			comboConcesionarios.setSelectedItem("");
-//			break;
-			
-			this.setVisible(false);
-			this.dispose();
-			ventanaReparacion = new MecanicoReparacionEnCurso(miUser);			
-			break;
-
 
 		}
 		
@@ -252,4 +218,49 @@ public class MecanicoVehiculosEnTaller extends JFrame implements MouseListener,A
 
 		
 	}
+	
+	
+	private void rellenarTabla() {
+		
+		miReparacionDAO = new ReparacionDAO();
+		
+		ArrayList<Reparacion> listaReparaciones = miReparacionDAO.consultarVehiculosEnTaller();
+		
+		//Para la tabla 
+		//este array bidimensional sera para determinar como es de grande
+		//la tabla (filas, columnas)
+		info = new String[listaReparaciones.size()][6];
+		
+		//en esta array ponemos los nombre de las columnas
+		String[] nombresColumnas = { "Matricula", "Fecha de Entrada", "Tarea", "Piezas", "Tiempo Estimado", "Estado" };
+		//hacemos un buvle para que la lista nos de los datos del cliente poniendo 
+		// "" para que si es un int lo convierta en string 
+		for (int i = 0; i < info.length; i++) {
+			info[i][0] = listaReparaciones.get(i).getMatricula() + "";
+			info[i][1] = listaReparaciones.get(i).getFechaEntrada() + "";
+			info[i][2] = listaReparaciones.get(i).getTrabajo() + "";
+			info[i][3] = listaReparaciones.get(i).getPiezas() + "";
+			info[i][4] = listaReparaciones.get(i).getTiempoEstimado() + "";
+			info[i][5] = listaReparaciones.get(i).getEstado() + "";
+		}
+		
+		//le decimos que la tabla tendra la array bi dimensional de info y las columnas de parametro
+		table = new JTable(info, nombresColumnas);
+		table.setCellSelectionEnabled(true);
+		
+		table.setFont(new Font("DejaVu Sans", Font.PLAIN, 12));
+		table.setBounds(0, 0, 510, 209);
+		
+		//Iniciamos un scrollpane para que meta la tabla dentro 
+		JScrollPane scrollPane= new JScrollPane(table);
+		scrollPane.setBackground(new java.awt.Color(244, 162, 97));
+		scrollPane.setBounds(10, 52, 774, 344);
+		
+		//le añadimos un mouse listener para que cuando pinchemos nos salga la ficha
+		//del cliente que tocamos 
+		table.addMouseListener(this);
+
+		panelContenido.add(scrollPane);
+	}
+	
 }

@@ -174,6 +174,37 @@ public class ReparacionDAO extends AbstractDAO{
 	}
 	
 	
+	/**
+	 * Método que consulta y devuelve todos los vehículos que están en el taller con reparaciones no terminadas
+	 * @return 
+	 */
+	public ArrayList<Reparacion> consultarVehiculosEnTaller() {
+		
+		PreparedStatement stm;
+		ResultSet rs;
+		
+		Reparacion miReparacion;
+		ArrayList<Reparacion> listaReparaciones = new ArrayList<Reparacion>();
+		
+		String query = "SELECT * FROM repara WHERE estado NOT IN ('Finalizada') OR estado IS NULL";
+		
+		try {
+			stm = super.con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+	        
+			rs = stm.executeQuery();
+	        
+			while(rs.next()){
+				miReparacion = new Reparacion(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getDate(4),rs.getDate(5),
+											  rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10));
+				listaReparaciones.add(miReparacion);
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listaReparaciones;
+	}
+	
+	
 	
 	/**
 	 * Método que actualiza en la BBDD el estado de la reparación

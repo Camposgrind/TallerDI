@@ -282,7 +282,7 @@ public class MecanicoConsultarHistorial extends JFrame implements MouseListener,
 		
 		//le añadimos un mouse listener para que cuando pinchemos nos salga la ficha
 		//del cliente que tocamos 
-		table.addMouseListener(this);
+		//table.addMouseListener(this);
 
 		panelContenido.add(scrollPane);
 	}
