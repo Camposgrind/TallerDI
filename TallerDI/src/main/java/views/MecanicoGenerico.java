@@ -320,7 +320,6 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 	 * Método para darle la fuentes a las letras de los componentes
 	 */
 	private void addPropiedadesLetras() {
-		
 		lblUsuario.setForeground(Color.BLACK);
 		lblUsuario.setFont(new Font("DejaVu Sans", Font.PLAIN, 13));
 		lblCerrarSesion.setForeground(Color.BLACK);
@@ -337,12 +336,6 @@ public class MecanicoGenerico extends JFrame implements ActionListener, MouseLis
 		btnTrabajoAsignado.setFont(new Font("Dialog", Font.PLAIN, 25));
 		btnTrabajoAsignado.setForeground(Color.WHITE);
 	}
-	/**
-	 * Método para añadir todos los componentes al panel principal 
-	 */
-	private void addComponentes() {
-		
-	} 
 	
 	
 }
